@@ -6,36 +6,81 @@
 # from your_vector_store import insert_to_vector_db  # You'll implement this
 import fitz  # PyMuPDF
 
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
+from langchain_google_genai import ChatGoogleGenerativeAI
+
+from langchain_chroma import Chroma 
+
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.schema import Document
+import os
+
+from dotenv import load_dotenv
 
 import json
-import os
 
-from docx import Document
+from docx import Document as DocxDocument # to avoid conflict with document import from langchain
 
 import io
+
 from googleapiclient.http import MediaIoBaseDownload
-# from pdfminer.high_level import extract_text as extract_pdf_text
-from docx import Document
 
-# SETUP
-SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
-SERVICE_ACCOUNT_FILE = 'config/credentials.json'
 
+import os
 from google.oauth2.credentials import Credentials
+from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
-import os
+
+SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
+USER_CREDENTIALS_FILE = 'config/credentials.json'
+TOKEN_PATH = 'token.json'
 
 def authenticate_drive():
     creds = None
-    if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+
+    # 1. Load existing token if available
+    if os.path.exists(TOKEN_PATH):
+        creds = Credentials.from_authorized_user_file(TOKEN_PATH, SCOPES)
+
+    # 2. Refresh token if expired and refresh_token is available
+    if creds and creds.expired and creds.refresh_token:
+        creds.refresh(Request())
+
+    # 3. Do full browser login if no creds or can't refresh
     if not creds or not creds.valid:
-        flow = InstalledAppFlow.from_client_secrets_file('config/credentials.json', SCOPES)
+        flow = InstalledAppFlow.from_client_secrets_file(USER_CREDENTIALS_FILE, SCOPES)
         creds = flow.run_local_server(port=0)
-        with open('token.json', 'w') as token:
+
+        # Save token for future use
+        with open(TOKEN_PATH, 'w') as token:
             token.write(creds.to_json())
+
     return build('drive', 'v3', credentials=creds)
+
+
+# from google.oauth2.credentials import Credentials
+# from google_auth_oauthlib.flow import InstalledAppFlow
+# from googleapiclient.discovery import build
+
+# # SETUP
+# SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
+# SERVICE_ACCOUNT_FILE = 'config/credentials.json'
+
+
+# def authenticate_drive():
+#     creds = None
+#     if os.path.exists('token.json'):
+#         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+#     if not creds or not creds.valid:
+#         flow = InstalledAppFlow.from_client_secrets_file('config/credentials.json', SCOPES)
+#         creds = flow.run_local_server(port=0)
+#         with open('token.json', 'w') as token:
+#             token.write(creds.to_json())
+#     return build('drive', 'v3', credentials=creds)
 
 
 def list_files(service, mime_type_filter=None):
@@ -63,7 +108,7 @@ def extract_text_pdf(file_path):
 
 
 def extract_text_docx(file_path):
-    doc = Document(file_path)
+    doc = DocxDocument(file_path)
     return "\n".join([p.text for p in doc.paragraphs])
 
 def extract_text_txt(file_path):
@@ -104,34 +149,32 @@ def save_gd_processed_id(file_id):
         json.dump(list(processed_ids), file)
 
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 def split_text(text):
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
     return splitter.split_text(text)
-from langchain.schema import Document
-
 
 def create_documents(chunks, metadata):
     return [Document(page_content=chunk, metadata=metadata) for chunk in chunks]
 
 
-from langchain.embeddings import OpenAIEmbeddings
-from langchain_chroma import Chroma 
+load_dotenv()
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.schema import Document
-import os
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
-# Optional: Switch to HuggingFace for local
-from langchain.embeddings import HuggingFaceEmbeddings
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+if not GOOGLE_API_KEY:
+    raise ValueError("❌ GOOGLE_API_KEY not found. Make sure it's set in .env.")
+
+
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="models/embedding-001",
+    google_api_key=GOOGLE_API_KEY
+)
 
 CHROMA_DIR = "vector_store/chroma"
-# EMBEDDINGS = OpenAIEmbeddings()  # You can swap this later
 
 def chunk_and_store(text, metadata, embeddings):
-    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100)
     chunks = splitter.split_text(text)
     documents = [Document(page_content=chunk, metadata=metadata) for chunk in chunks]
 
@@ -140,8 +183,6 @@ def chunk_and_store(text, metadata, embeddings):
     else:
         db = Chroma(persist_directory=CHROMA_DIR, embedding_function=embeddings)
         db.add_documents(documents)
-    db.persist()
-
 
 
 def process_drive():
@@ -154,10 +195,14 @@ def process_drive():
         if file_id in processed_ids:
             print(f"⏩ Skipping already processed file : {file_name} {file_id}")
             continue
+        
 
         if file['name'].endswith('.pdf') or file['name'].endswith('.docx') or file['name'].endswith('.txt'):
+            
+            save_gd_processed_id(file_id)
             try:
                 text = extracted_text(file, service)
+                print("Content extracted!")
                 if not text.strip(): continue
                 metadata = {
                     "source": "google_drive",
@@ -165,33 +210,16 @@ def process_drive():
                     "project": "testing",
                     "file_id": file["id"]
                 }
-                # print(text, "  ", metadata)
-                save_gd_processed_id(file_id)
-                chunk_and_store(text, metadat, embeddings)
+                chunk_and_store(text, metadata, embeddings)
             except Exception as e:
                 print(f"[!] Failed on {file['name']}: {e}")
 
 
-from dotenv import load_dotenv
-import os
-
-# Load .env variables
-load_dotenv()
-
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-
-if not GOOGLE_API_KEY:
-    raise ValueError("❌ GOOGLE_API_KEY not found. Make sure it's set in .env.")
-
-from langchain_google_genai import ChatGoogleGenerativeAI
-
 llm = ChatGoogleGenerativeAI(model="models/gemini-2.0-flash", google_api_key=GOOGLE_API_KEY)
 
 
-
-
 if __name__ == "__main__":
-    # process_drive()
+    process_drive()
     
     from langchain.chains import RetrievalQA
     db = Chroma(persist_directory=CHROMA_DIR, embedding_function=embeddings)
@@ -201,18 +229,7 @@ if __name__ == "__main__":
         chain_type="stuff",  # simplest, can be replaced with map_reduce or refine
         retriever=db.as_retriever(search_kwargs={"k": 3})
     )
-    query = "What projects am I working on right now?"
+    query = "how many leaves am i allowed?"
     response = qa_chain.invoke({"query": query})
-    print(response)
-
-
-    # from langchain.vectorstores import Chroma
-
-    # db = Chroma(persist_directory=CHROMA_DIR, embedding_function=embeddings)
-    # results = db.similarity_search("what projects am i working on right now?", k=2)
-
-    # for doc in results:
-    #     print('DOC: ')
-    #     print(doc.page_content)
-    #     print(doc.metadata)
+    print(response["result"])
 
