@@ -1,15 +1,7 @@
-# ingestion/google_drive_ingestor.py
-
-# # from googleapiclient.discovery import build
-# from google.oauth2 import service_account
-# from langchain.text_splitter import RecursiveCharacterTextSplitter
-# from your_vector_store import insert_to_vector_db  # You'll implement this
 import fitz  # PyMuPDF
 
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
-
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 from langchain_chroma import Chroma 
@@ -17,6 +9,7 @@ from langchain_chroma import Chroma
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
 import os
+import io
 
 from dotenv import load_dotenv
 
@@ -24,16 +17,11 @@ import json
 
 from docx import Document as DocxDocument # to avoid conflict with document import from langchain
 
-import io
-
-from googleapiclient.http import MediaIoBaseDownload
-
-
-import os
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload
 
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
 USER_CREDENTIALS_FILE = 'config/credentials.json'
@@ -60,27 +48,6 @@ def authenticate_drive():
             token.write(creds.to_json())
 
     return build('drive', 'v3', credentials=creds)
-
-
-# from google.oauth2.credentials import Credentials
-# from google_auth_oauthlib.flow import InstalledAppFlow
-# from googleapiclient.discovery import build
-
-# # SETUP
-# SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
-# SERVICE_ACCOUNT_FILE = 'config/credentials.json'
-
-
-# def authenticate_drive():
-#     creds = None
-#     if os.path.exists('token.json'):
-#         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-#     if not creds or not creds.valid:
-#         flow = InstalledAppFlow.from_client_secrets_file('config/credentials.json', SCOPES)
-#         creds = flow.run_local_server(port=0)
-#         with open('token.json', 'w') as token:
-#             token.write(creds.to_json())
-#     return build('drive', 'v3', credentials=creds)
 
 
 def list_files(service, mime_type_filter=None):
@@ -219,17 +186,38 @@ llm = ChatGoogleGenerativeAI(model="models/gemini-2.0-flash", google_api_key=GOO
 
 
 if __name__ == "__main__":
-    process_drive()
+    # process_drive()
+
+    from langchain.retrievers import EnsembleRetriever
     
     from langchain.chains import RetrievalQA
-    db = Chroma(persist_directory=CHROMA_DIR, embedding_function=embeddings)
+
+    # Two separate Chroma DBs
+    db1 = Chroma(persist_directory="vector_store/chroma", embedding_function=embeddings)
+    db2 = Chroma(persist_directory="vector_store/emails", embedding_function=embeddings)
+
+    retriever1 = db1.as_retriever(search_kwargs={"k": 3})
+    retriever2 = db2.as_retriever(search_kwargs={"k": 3})
+
+    ensemble_retriever = EnsembleRetriever(
+        retrievers=[retriever1, retriever2],
+        weights=[0.7, 0.3]  # Equal weightage or customize based on trust
+    )
 
     qa_chain = RetrievalQA.from_chain_type(
         llm=llm,
-        chain_type="stuff",  # simplest, can be replaced with map_reduce or refine
-        retriever=db.as_retriever(search_kwargs={"k": 3})
+        retriever=ensemble_retriever,
+        chain_type="stuff"
     )
-    query = "how many leaves am i allowed?"
+    
+    # db = Chroma(persist_directory=CHROMA_DIR, embedding_function=embeddings)
+
+    # qa_chain = RetrievalQA.from_chain_type(
+    #     llm=llm,
+    #     chain_type="stuff",  # simplest, can be replaced with map_reduce or refine
+    #     retriever=db.as_retriever(search_kwargs={"k": 3})
+    # )
+    query = "tell me about benefits given to employees"
     response = qa_chain.invoke({"query": query})
     print(response["result"])
 

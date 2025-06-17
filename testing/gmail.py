@@ -12,16 +12,47 @@ import pickle
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate
 
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
 from dotenv import load_dotenv
 import os
 
-# Load .env variables
+
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+from langchain_chroma import Chroma 
+
+from langchain.schema import Document
+
+
+
 load_dotenv()
+
+
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 if not GOOGLE_API_KEY:
     raise ValueError("❌ GOOGLE_API_KEY not found. Make sure it's set in .env.")
+
+
+embeddings = GoogleGenerativeAIEmbeddings(
+        model="models/embedding-001",
+        google_api_key=GOOGLE_API_KEY
+    )
+
+CHROMA_DIR = "vector_store/emails"
+
+def chunk_and_store_emails(text, metadata, embeddings):
+    splitter = RecursiveCharacterTextSplitter(chunk_size=400, chunk_overlap=60)
+    chunks = splitter.split_text(text)
+    documents = [Document(page_content=chunk, metadata=metadata) for chunk in chunks]
+
+    if not os.path.exists(CHROMA_DIR):
+        db = Chroma.from_documents(documents, embeddings, persist_directory=CHROMA_DIR)
+    else:
+        db = Chroma(persist_directory=CHROMA_DIR, embedding_function=embeddings)
+        db.add_documents(documents)
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 
@@ -32,7 +63,7 @@ prompt = ChatPromptTemplate.from_messages([
      "You are an AI assistant that extracts useful information from raw emails."),
     ("human", 
      "Do not return text in markdown version. Given the following email, extract:\n"
-     "- Subject\n- Sender\n- Useful content\n- Any links in the body\n\n"
+     "- Subject\n- Sender\n- Useful content\n\n"
      "Email:\n{email_body}")
 ])
 
@@ -62,28 +93,6 @@ def authenticate_gmail():
             pickle.dump(creds, token)
 
     return build('gmail', 'v1', credentials=creds)
-
-def get_emails(service, max_results=10):
-    results = service.users().messages().list(userId='me', maxResults=max_results).execute()
-    messages = results.get('messages', [])
-
-    for msg in messages:
-        msg_data = service.users().messages().get(userId='me', id=msg['id'], format='full').execute()
-        payload = msg_data['payload']
-        headers = payload['headers']
-
-        subject = next((h['value'] for h in headers if h['name'] == 'Subject'), '')
-        sender = next((h['value'] for h in headers if h['name'] == 'From'), '')
-
-        print(f"\n📧 From: {sender}\n📝 Subject: {subject}")
-
-        if 'parts' in payload:
-            for part in payload['parts']:
-                if part['mimeType'] == 'text/plain':
-                    data = part['body']['data']
-                    text = base64.urlsafe_b64decode(data.encode('UTF-8')).decode('UTF-8')
-                    print(f"📨 Body:\n{text}\n")
-
 
 
 import json
@@ -142,7 +151,12 @@ def process_emails(service, max_results=5):
         print(response.content)
         print('\n\n')
         save_processed_id(msg_id)
+        metadata = {
+                    "subject": subject,
+                    "sender": sender
+                }
+        chunk_and_store_emails(response.content, metadata, embeddings)
 
 if __name__ == '__main__':
     service = authenticate_gmail()
-    process_emails(service, max_results=5)
+    process_emails(service, max_results=2)
