@@ -186,31 +186,31 @@ llm = ChatGoogleGenerativeAI(model="models/gemini-2.0-flash", google_api_key=GOO
 
 
 if __name__ == "__main__":
-    # process_drive()
+    process_drive()
 
-    from langchain.retrievers import EnsembleRetriever
+    # from langchain.retrievers import EnsembleRetriever
     
-    from langchain.chains import RetrievalQA
+    # from langchain.chains import RetrievalQA
 
-    # Two separate Chroma DBs
-    db1 = Chroma(persist_directory="vector_store/chroma", embedding_function=embeddings)
-    db2 = Chroma(persist_directory="vector_store/emails", embedding_function=embeddings)
+    # # Two separate Chroma DBs
+    # db1 = Chroma(persist_directory="vector_store/chroma", embedding_function=embeddings)
+    # db2 = Chroma(persist_directory="vector_store/emails", embedding_function=embeddings)
 
-    retriever1 = db1.as_retriever(search_kwargs={"k": 3})
-    retriever2 = db2.as_retriever(search_kwargs={"k": 3})
+    # retriever1 = db1.as_retriever(search_kwargs={"k": 3})
+    # retriever2 = db2.as_retriever(search_kwargs={"k": 3})
 
-    ensemble_retriever = EnsembleRetriever(
-        retrievers=[retriever1, retriever2],
-        weights=[0.7, 0.3]  # Equal weightage or customize based on trust
-    )
+    # ensemble_retriever = EnsembleRetriever(
+    #     retrievers=[retriever1, retriever2],
+    #     weights=[0.7, 0.3]  # Equal weightage or customize based on trust
+    # )
 
-    qa_chain = RetrievalQA.from_chain_type(
-        llm=llm,
-        retriever=ensemble_retriever,
-        chain_type="stuff"
-    )
+    # qa_chain = RetrievalQA.from_chain_type(
+    #     llm=llm,
+    #     retriever=ensemble_retriever,
+    #     chain_type="stuff"
+    # )
     
-    query = "tell me about benefits given to employees"
-    response = qa_chain.invoke({"query": query})
-    print(response["result"])
+    # query = "tell me about benefits given to employees"
+    # response = qa_chain.invoke({"query": query})
+    # print(response["result"])
 
