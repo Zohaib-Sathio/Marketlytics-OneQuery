@@ -210,13 +210,6 @@ if __name__ == "__main__":
         chain_type="stuff"
     )
     
-    # db = Chroma(persist_directory=CHROMA_DIR, embedding_function=embeddings)
-
-    # qa_chain = RetrievalQA.from_chain_type(
-    #     llm=llm,
-    #     chain_type="stuff",  # simplest, can be replaced with map_reduce or refine
-    #     retriever=db.as_retriever(search_kwargs={"k": 3})
-    # )
     query = "tell me about benefits given to employees"
     response = qa_chain.invoke({"query": query})
     print(response["result"])

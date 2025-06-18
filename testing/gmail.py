@@ -159,4 +159,4 @@ def process_emails(service, max_results=5):
 
 if __name__ == '__main__':
     service = authenticate_gmail()
-    process_emails(service, max_results=2)
+    process_emails(service, max_results=15)
