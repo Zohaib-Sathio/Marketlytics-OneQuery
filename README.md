@@ -13,7 +13,7 @@ This project is a **Retrieval-Augmented Generation (RAG)** system that allows us
 - ✅ **ChromaDB + LangChain** – Store embeddings and enable fast vector search.
 - ✅ **Multi-modal Input Sources** – Combine unstructured text from multiple sources into one RAG pipeline.
 - ✅ **LLM-Powered Answers** – Query over your documents using Large Language Models (LLMs) via LangChain.
-- ✅ **FastAPI + Streamlit Interface (Optional)** – Interact with the system via API or web UI.
+- ✅ **FastAPI + Streamlit Interface ** – Interact with the system via API or web UI.
 
 ---
 
@@ -39,16 +39,24 @@ flowchart TD
 ```
 📁 RAG-System
 │
-├── backend/
-│   ├── drive_ingestion.py
-│   ├── gmail_ingestion.py
+├── ingestion/
+│   ├── google_drive_ingestor.py
+│   ├── slack_summary_and_sync.py
 │   ├── slack_ingestion.py
 │   ├── vector_store.py
-│   ├── rag_engine.py
-│   └── api.py
+├── testing/
+│   ├── slack.py
+│   ├── slack_with_gemini.py
+│   ├── gmail.py
+│   ├── bot_test.py
+│   ├── gd.py
+├── vector_store/
+│   ├── chroma
+│   ├── emails
+│   ├── slack_vector_db
 │
 ├── frontend/
-│   ├── app.py  # Streamlit app (optional)
+│   ├── ui.py  # Streamlit app
 │
 ├── .env
 ├── requirements.txt
@@ -61,14 +69,12 @@ flowchart TD
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/yourusername/rag-multi-source.git
-   cd rag-multi-source
+   git clone https://github.com/Zohaib-Sathio/Marketlytics-OneQuery.git
+   cd marketlytics onequery
    ```
 
 2. **Create `.env` file** with the following keys:
    ```
-   GOOGLE_API_KEY=...
-   GMAIL_CLIENT_SECRET=...
    SLACK_BOT_TOKEN=...
    GEMINI_API_KEY=...
    ```
@@ -82,14 +88,9 @@ flowchart TD
    - Follow OAuth setup for Google Drive and Gmail.
    - Add the bot to Slack channels manually or via API.
 
-5. **Run the backend API**
+5. **Run the streamlit UI**
    ```bash
-   uvicorn backend.api:app --reload
-   ```
-
-6. *(Optional)* Run Streamlit UI:
-   ```bash
-   streamlit run frontend/app.py
+   streamlit run frontend/ui.py
    ```
 
 ---
@@ -102,22 +103,12 @@ flowchart TD
    - Slack: Pulls conversations from selected channels.
 
 2. **Chunking & Embeddings**:
-   - Uses LangChain text splitters and Google Embeddings (or OpenAI).
+   - Uses LangChain text splitters and Google Embeddings.
    - Stored in ChromaDB vector store.
 
 3. **RAG Retrieval**:
    - Query is embedded and matched against vector stores.
    - Top relevant chunks are passed to the LLM for response generation.
-
----
-
-## 📤 APIs
-
-- `POST /query`  
-  Send a user query and receive a response using data from integrated sources.
-
-- `POST /ingest`  
-  Ingest data from a selected source (drive, gmail, slack).
 
 ---
 
@@ -128,9 +119,9 @@ flowchart TD
 - ChromaDB
 - Google API (Drive, Gmail)
 - Slack SDK
-- FastAPI
-- Streamlit (optional)
-- Gemini / OpenAI LLMs
+- FastAPI (to be used)
+- Streamlit 
+- Gemini
 
 ---
 
