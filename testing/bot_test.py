@@ -4,8 +4,6 @@ import os
 
 client = WebClient(token=os.getenv("SLACK_BOT_TOKEN"))
 
-print('test commi')
-
 
 def fetch_all_bot_channels():
     all_channels = []
