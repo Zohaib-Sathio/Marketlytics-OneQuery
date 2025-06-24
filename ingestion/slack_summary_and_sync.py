@@ -67,6 +67,7 @@ def fetch_channel_messages(channel_name, channel_id, oldest_ts):
             # print(summary)
             # print("*"*25)
             metadata = {
+                "source" : "Slack",
                 "channel_id": channel_id,
                 "channel_name": channel_name,
                 "project": channel_name,

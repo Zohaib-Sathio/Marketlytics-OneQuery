@@ -1,0 +1,446 @@
+[
+  {
+    "ts": "1750767525.206829",
+    "text": "<@U07E444U7J4> updates here?\n\n1. *Non-branded Search Term Analysis*\n    a. _We have data but page need be added in Dashboard as per wirframe below <@U07E444U7J4>_\n2. *Non-branded Search Term Analysis Focused on Google Map Performance* - (_We have data but page need be added in Dashboard as per wirframe below <@U07E444U7J4>)_\n    ◦ *All Location Trend*\n    ◦ *All Location Monthly Performance*\n    ◦ *Single Location Trend (for each location)*\n    ◦ *Single Location Trend Monthly Performance (for each location)*\n3. *Google Business Profile Pages for each location*  (_We have data but page need be added in Dashboard as per wirframe below <@U07E444U7J4>)_\n4. *Google Analytics Performance with Filters and Estimations*\n    a. (_We have data but page need be added in Dashboard as per wirframe (Google Analytics Insights) below <@U07E444U7J4>)_\n"
+  },
+  {
+    "ts": "1750663245.592319",
+    "text": "<@U092K2X1XSM> has joined the channel"
+  },
+  {
+    "ts": "1750446865.428109",
+    "text": "<@U07E444U7J4> this is the recording I was referring to:\n<https://grain.com/share/recording/5173bba4-51a7-4861-88c5-d51eb22bdfa5/4zzoz1o2oTB1I5DLsd0aVPoHOFkUi9OKrAAHB5mK>\n\nThis has info on how you can separate branded and non-branded. Incase you still have questions, let me know and we can connect Monday"
+  },
+  {
+    "ts": "1750446510.933169",
+    "text": "<@U090YBSPNF8> has joined the channel"
+  },
+  {
+    "ts": "1750443123.821229",
+    "text": "<@U07E444U7J4> any update on #4?"
+  },
+  {
+    "ts": "1750335545.663859",
+    "text": "*Project Status according to SoW*\n\n*Approach*\n1. *Non-branded Search Term Analysis*\n    a. _We have data but page need be added in Dashboard as per wirframe below <@U07E444U7J4>_ \n2. *Non-branded Search Term Analysis Focused on Google Map Performance* - (_We have data but page need be added in Dashboard as per wirframe below <@U07E444U7J4>)_\n    ◦ *All Location Trend*\n    ◦ *All Location Monthly Performance*\n    ◦ *Single Location Trend (for each location)*\n    ◦ *Single Location Trend Monthly Performance (for each location)*\n3. *Google Business Profile Pages for each location*  (_We have data but page need be added in Dashboard as per wirframe below <@U07E444U7J4>)_\n4. *Google Analytics Performance with Filters and Estimations*\n    a. (_We have data but page need be added in Dashboard as per wirframe (Google Analytics Insights) below <@U07E444U7J4>)_\n5. *Custom Marketing Attribution Model - Done*\n*This task will include 2 steps:*\n• Data Collection Pipeline from Lead Docket to BigQuery - Done\n• Advanced Data Modelling for Attribution  - Done\n• Monthly Reporting Template changes - Not Done\nTo implement these tasks, we will be building automated engineering pipeline for GA4, GSC, GBP and CRM data - Done\n\n*Deliverables*\n• *Data Collection & Pipeline from Lead Docket API/Webhook to BQ -* Done\n• *Advanced Modelled Data in BQ* - Done\n• *Advance Dashboard as per provided Mockups*  - In Progress\n    ◦ _we have all the data <@U07E444U7J4> is working on it_\n\n*Wireframe to Follow:*\n• <https://docs.google.com/document/d/1Ic6exaVnku7ftFY5HHOIBt87HvZW3uHW/edit?pli=1&tab=t.0>\nI am also attaching screenshots of the missing pages <@U07E444U7J4>"
+  },
+  {
+    "ts": "1750332737.493439",
+    "text": "What columns does it have?"
+  },
+  {
+    "ts": "1750332661.117929",
+    "text": "Let's connect after strategy lead comms"
+  },
+  {
+    "ts": "1750332606.935409",
+    "text": "why is it not being used then?"
+  },
+  {
+    "ts": "1750332597.860869",
+    "text": "<@U07E444U7J4>\n\nAwais mentioning that Lead Docket is in BigQuery"
+  },
+  {
+    "ts": "1750305600.157879",
+    "text": "<!channel> let's do an internal meeting today"
+  },
+  {
+    "ts": "1750255333.472059",
+    "text": "Okay haris, then go ahead and share"
+  },
+  {
+    "ts": "1750246239.330769",
+    "text": "<!channel> ^ can someone give access"
+  },
+  {
+    "ts": "1750246229.476919",
+    "text": ""
+  },
+  {
+    "ts": "1750160095.271569",
+    "text": "<@U062ZUFKZ40>\nNow All pipeline works."
+  },
+  {
+    "ts": "1750146945.696739",
+    "text": "<@UUQ5TDAM6> looks like GBP data is not automated"
+  },
+  {
+    "ts": "1749037338.192299",
+    "text": "<@U062ZUFKZ40> here is the sample dashboard link: <https://lookerstudio.google.com/s/v-bJ8JmQq44>"
+  },
+  {
+    "ts": "1748955974.461349",
+    "text": "<@U062ZUFKZ40> I have created table: `lively-welder-457915-j0.ML_Views.MAL_Marketing_Attribution`\nWill be linking it up with Looker to create a basic view too\nQuery link remains same"
+  },
+  {
+    "ts": "1748940998.121859",
+    "text": "<@U07U3U693L6> can I also get First and Last Name for this please."
+  },
+  {
+    "ts": "1748939509.595869",
+    "text": "<@UUQ5TDAM6> <@U07E444U7J4> join internal"
+  },
+  {
+    "ts": "1748936332.614889",
+    "text": "1. There were missing for Juvo chat since it is joining with GA4 on email/phone. GA4 gets email/phone upon form submission and it is possible a client to chat but not submit form. Will check for call rails too. \n2. \"How did you hear about us\" is not a separate column on platform rather extracted from whole conversation. Will clean and create case statement for digital/non-digital. \n3. Ok\n4. Ok"
+  },
+  {
+    "ts": "1748855269.263219",
+    "text": "• <@U07E444U7J4> Can you check if any leads, chats or calls available on relevant platform but are not found on ga4, like is there any mismatch or missing data\n• They want segregation digital and non-digital marketing sources, do we have non-digital values in how did you hear column?\n• The query is creating a view, should have table.\n• The output table needs to be like as discussed, we cant share current table\nLead Name | First Click | Last Click | How did you hear about us | Qualified/ Non-Qualified"
+  },
+  {
+    "ts": "1748841699.268239",
+    "text": "<@U062ZUFKZ40>, attribution model summarized explanation for client :point_down::skin-tone-3:\n\n*Overview:*\n We’re combining data from three sources - GA4, Call Rails, and Juvo to create one unified list of leads.\n*How It Works:*\n• *Data Matching:*\n    ◦ Calls are matched with GA4 using a unique call ID and tracking phone number.\n    ◦ Chat sessions are connected using email and phone numbers, where form submissions include email and phone details in GA4.\n• *Lead Definition:*\n    ◦ A lead is defined as a client interaction, which can come from a call, a chat, or a form submission.\n    ◦ For each client, only the very first interaction (the earliest event) is taken as the lead.\n• *Additional Details:*\n    ◦ The code also captures the marketing source and medium from the first and last interactions.\n    ◦ It provides the lead qualification status along with any response to “How did you hear about us?”\nQuery Link: <https://console.cloud.google.com/bigquery?ws=!1m7!1m6!12m5!1m3!1slively-welder-457915-j0!2sus-central1!3sb79b0fd1-0827-4558-8d2a-1ca989f2e915!2e1> (Everything NOT commented is relevant. Please don't edit here, instead copy into a new tab if required)"
+  },
+  {
+    "ts": "1748599688.415849",
+    "text": "<@U062ZUFKZ40>\nlively-welder-457915-j0.search_console_data.michicanautolaw_search_console_data_byPage\n\nThis table has data byPage\n\n\nvalidation :\nMatch from UI\n\nSELECT\n  SUM(clicks) AS total_clicks,\n  SUM(impressions) AS total_impressions\nFROM\n  `lively-welder-457915-j0.search_console_data.michicanautolaw_search_console_data_byPage`\nWHERE\n  DATE(date) BETWEEN '2024-01-29' AND '2024-04-30'\n  AND page = \"<https://www.michiganautolaw.com/blog/2022/09/21/michigan-teen-driving-laws/>\""
+  },
+  {
+    "ts": "1748535114.482869",
+    "text": "Yes we already have sort of wire frame.\n\nBefore we share to client, the model needs to be checked for gaps."
+  },
+  {
+    "ts": "1748533514.448169",
+    "text": "Didn’t zack share a wireframe?"
+  },
+  {
+    "ts": "1748532285.818369",
+    "text": "<@U062ZUFKZ40> I had a discussion with <@U07E444U7J4>  and his work is almost done, I would recommend you to create a simple dashboard that we can show to the client. In Wilbur we shared the dashboard in the end and the client was like he didn't want this."
+  },
+  {
+    "ts": "1748523362.094109",
+    "text": "need page table"
+  },
+  {
+    "ts": "1748523358.310479",
+    "text": "yes, include the pages table as well"
+  },
+  {
+    "ts": "1748522870.921219",
+    "text": "<@U062ZUFKZ40>\nScope document Hussain bhai  share with  me in which the requirement are :\n\n• Query performance data based on predefined queries\nFields: query string, clicks, impressions, CTR, average position, date\n\nso i worked according to that"
+  },
+  {
+    "ts": "1748520240.594329",
+    "text": "see all these data tables will be needed"
+  },
+  {
+    "ts": "1748520207.724149",
+    "text": "I have received only one data set for gsc, that is query dimension. Need data table for page"
+  },
+  {
+    "ts": "1748520183.460429",
+    "text": "thanks"
+  },
+  {
+    "ts": "1748518693.691799",
+    "text": "value is match from UI and Big query.\n\nQuery :\nSELECT\n  SUM(clicks) AS total_clicks,\n  SUM(impressions) AS total_impressions,\n  SUM(position * impressions) / SUM(impressions) AS average_position\nFROM\n  `lively-welder-457915-j0.search_console_data.search_console_formatted`\nWHERE\n  parsed_date BETWEEN '2024-01-29' AND '2024-04-30'\n  AND query NOT LIKE '%michigan auto law%'\n\n\nThe issue in report with average position , please put this formula in report on  average position so it give same answer as UI.\n\n<@U062ZUFKZ40>"
+  },
+  {
+    "ts": "1748514121.572469",
+    "text": "<@UUQ5TDAM6> <@U06C1RJJG2E>\nI am seeing some discrepancy in avg position. <https://lookerstudio.google.com/u/0/reporting/4aeea55e-8a52-4392-86d3-1394f44648b3/page/p_23jucs3wsd/edit>\n<https://search.google.com/search-console/performance/search-analytics?resource_id=sc-domain%3Amichiganautolaw.com&amp;query=-michigan%20auto%20law&amp;start_date=20240401&amp;end_date=20240430&amp;compare_start_date=20250401&amp;compare_end_date=20250430&amp;metrics=CLICKS%2CPOSITION|https://search.google.com/search-console/performance/search-analytics?resource_id=sc-[…]20250401&amp;compare_end_date=20250430&amp;metrics=CLICKS%2CPOSITION>"
+  },
+  {
+    "ts": "1748344558.328709",
+    "text": "<@U06C1RJJG2E> <@UUQ5TDAM6> These have recording links. I need call transcript (string/text)"
+  },
+  {
+    "ts": "1748341531.110229",
+    "text": "<@U07E444U7J4> <@UUQ5TDAM6> <@U02DFPYBV2N> <@U07U3U693L6> can you track your work hours done so far as per below loom\n\n<https://www.loom.com/share/20bb95f6e6ee41c2bb210cf266165410?sid=1f759b97-275b-4ca2-9ae8-421bbb27a86a>"
+  },
+  {
+    "ts": "1748341221.660489",
+    "text": "Kudos to <@U06C1RJJG2E> I see he has tracked time according to what I mentioned above. Good job"
+  },
+  {
+    "ts": "1748340271.653259",
+    "text": "<@U062ZUFKZ40> kindly reshare what they need to do here. So that everyone’s clear"
+  },
+  {
+    "ts": "1748340236.318089",
+    "text": "Hi team,\n\nWe are experimenting task assignment and tracking within Clickup on this project. \n\nPlease follow Tayyaba’s guidelines and incase someone has any confusions of what’s required of them. Feel free to ask. \n\nThe goal is to utilize clickup to it’s maximum potential and make async comms smoother"
+  },
+  {
+    "ts": "1748333260.315419",
+    "text": "yes"
+  },
+  {
+    "ts": "1748272819.383869",
+    "text": "Are these transcripts?"
+  },
+  {
+    "ts": "1748268361.450439",
+    "text": "lively-welder-457915-j0.Call_rails.single_call_recordings\n\n<@UUQ5TDAM6>\n\nI have fetch recordings and put in above table"
+  },
+  {
+    "ts": "1748263021.052919",
+    "text": "<@UUQ5TDAM6> any update on call rails recording for how did you hear about us?"
+  },
+  {
+    "ts": "1748262998.923549",
+    "text": "<@U07E444U7J4> I hope this helps now"
+  },
+  {
+    "ts": "1748262990.264699",
+    "text": "thanks"
+  },
+  {
+    "ts": "1748262883.970939",
+    "text": "<@U062ZUFKZ40> done.\n\nGA4 Event name: *consultation_form_submit*\nEvents params:\n• email_hashed\n• phone_hashed"
+  },
+  {
+    "ts": "1748259976.516579",
+    "text": "<@U07U3U693L6> has joined the channel"
+  },
+  {
+    "ts": "1748259965.976299",
+    "text": "• GA4 pass form submit with hash PII\n<@U07U3U693L6> <@U02DFPYBV2N>\n\nneed this asap"
+  },
+  {
+    "ts": "1748002526.564209",
+    "text": "Yes lead docket has Juvo chat data"
+  },
+  {
+    "ts": "1747999251.593949",
+    "text": "So basically we dont have Juvo data separate, its integrated with lead docket data, we just need to stitch ha4, lead docket and call rails now"
+  },
+  {
+    "ts": "1747999140.033419",
+    "text": "<@U07E444U7J4> has joined the channel"
+  },
+  {
+    "ts": "1747999126.377359",
+    "text": "<@U07E444U7J4> Juvo chat data is in lead docket can you explore it?"
+  },
+  {
+    "ts": "1747925931.263349",
+    "text": "<@U062ZUFKZ40> can you confirm where is juvo implemented from client because I did not received any response from juvo. I have also used their chat."
+  },
+  {
+    "ts": "1747823442.352089",
+    "text": "<@UUQ5TDAM6>\nlively-welder-457915-j0.Call_rails.fetch_all_integeration_data\nFetch all integeration data dump to bigquery now"
+  },
+  {
+    "ts": "1747822915.614899",
+    "text": "<@U04DMQJ5FSM> has joined the channel"
+  },
+  {
+    "ts": "1747822643.675459",
+    "text": "<@U062ZUFKZ40> everything looks good waiting for Juvo data to be pulled into BQ.\ncall rails data also pulled into BQ along with other data sources."
+  },
+  {
+    "ts": "1747820567.680579",
+    "text": "<@UUQ5TDAM6> confirm me if the webhooks are fine and you dont need anything more from client"
+  },
+  {
+    "ts": "1747818626.076289",
+    "text": "yeah, but there should be another column appended along with that\n`uid` is hashed\n`email` is plain"
+  },
+  {
+    "ts": "1747818556.547229",
+    "text": "<@U02DFPYBV2N> emails are still hashed"
+  },
+  {
+    "ts": "1747818318.003539",
+    "text": "<@UUQ5TDAM6> we have published the Custom Image setup, can you please verify if the data is receiving as per your requirements?"
+  },
+  {
+    "ts": "1747759431.785489",
+    "text": "<@UUQ5TDAM6>\nlively-welder-457915-j0.Call_rails.All_calls_data\nlively-welder-457915-j0.Call_rails.all_form_submissions_data\nlively-welder-457915-j0.Call_rails.single_call_data_with_fields\nlively-welder-457915-j0.Call_rails.all_users_data\n\nFor All calls , all form submissions , single call data , all user data\ndump to big query"
+  },
+  {
+    "ts": "1747756623.324699",
+    "text": "<@UUQ5TDAM6> Zach have also update the access of callrail so you can access api"
+  },
+  {
+    "ts": "1747756597.274659",
+    "text": "<@UUQ5TDAM6> \nResponse from client\n\n· Is the data from Juvo and CallRail also available within Lead Docket? This will help us determine whether we need to integrate via API directly from Juvo and CallRail. All new Juvo leads are set up to come into the Lead Docket. For CallRail, it only tracks leads entered into the system. Therefore, if it's a call from an existing client or medical provider, etc. call, those calls/Data will not appear in LD. \n\n· Lastly, can you confirm whether Lead Docket lead IDs are also available in Juvo and CallRail for the corresponding leads? I think you're asking if we're sending the lead ID back to Juvo and CallRail. No, we're not."
+  },
+  {
+    "ts": "1747746665.754459",
+    "text": "<@UUQ5TDAM6> can you please share leaddocket access? OR check on your end if the hits are coming from GTM?"
+  },
+  {
+    "ts": "1747696457.260889",
+    "text": "<@U062ZUFKZ40> <@UUQ5TDAM6>\n\n• Automation of GA4 pipeline\n• Automation Of GSC pipeline\n• Automation of GBP pipeline for daily  matric and monthly matric \npipeline has been automotive successfully for above and I also check by trigger and see logs no issues come in  any pipeline in cloud run and run perfectly"
+  },
+  {
+    "ts": "1747684822.825649",
+    "text": "<@U02DFPYBV2N>\n<https://leaddocket-webhook-handler-370294323150.us-central1.run.app>\n\nmake sure to pass `source=GTM`"
+  },
+  {
+    "ts": "1747667377.734499",
+    "text": "<@UUQ5TDAM6> please provide the Cloud Run endpoint link."
+  },
+  {
+    "ts": "1747650539.835059",
+    "text": "shared."
+  },
+  {
+    "ts": "1747650321.501499",
+    "text": "<@U02DFPYBV2N> share Juvo access with <@UUQ5TDAM6> bhai on lastpass"
+  },
+  {
+    "ts": "1747638909.621459",
+    "text": "• <@UUQ5TDAM6> Check and confirm if call rails and juvo data have lead id available on platforms as well api\n• Check this <https://docs.google.com/spreadsheets/d/1WApFc21HtjZihtcBAyHcZ8AsbeI0HH7BtL5yHAGZTvw/edit?gid=347608171#gid=347608171|sheet> shared by Zach. though it doesn't look much helpful\n• I need data fetched from juvo and call rails asap by tuesday max\n• We will also be needing chat msgs from juvo and call scripts from call rails like Wilbur"
+  },
+  {
+    "ts": "1747392920.837639",
+    "text": "<@UUQ5TDAM6>\nI have confirmed and yes we need data from call rails and juvo. Get it done by monday or tuesday max"
+  },
+  {
+    "ts": "1747391246.658619",
+    "text": "yes, <@U02V24EQ6R4> share in lastpass with him"
+  },
+  {
+    "ts": "1747322381.297709",
+    "text": "for what purpose we need it"
+  },
+  {
+    "ts": "1747322018.354519",
+    "text": "or pswd lastpass?"
+  },
+  {
+    "ts": "1747321930.238889",
+    "text": "support@wiideman ke paas hoga wese"
+  },
+  {
+    "ts": "1747321861.424499",
+    "text": "<@U062ZUFKZ40> anlyticsml don't have access to the GTM container, kahin or hai to please share creds and 2fa"
+  },
+  {
+    "ts": "1747308196.949219",
+    "text": "<@UUQ5TDAM6> <@U062ZUFKZ40>\nDaily Metric and Monthly Metric Validation has done\n\nMonthly metric table :\nlively-welder-457915-j0.google_business_profile.monthly_metrics_data\n\nDaily Matric table :\nlively-welder-457915-j0.google_business_profile.daily_metrics_data"
+  },
+  {
+    "ts": "1747297663.484279",
+    "text": "Follow what Tayyaba is asking you to"
+  },
+  {
+    "ts": "1747297649.780869",
+    "text": "That’s okay."
+  },
+  {
+    "ts": "1747296544.953459",
+    "text": "If someone logs hours in a subtask, it won't appear in BigQuery because the ClickUp pipeline only inserts main tasks into BigQuery, not subtasks."
+  },
+  {
+    "ts": "1747241966.125629",
+    "text": "Data from GBP of Daily Metric and Monthly Metric has been fetched successfully"
+  },
+  {
+    "ts": "1747221469.838279",
+    "text": "its okay, just do as explained in loom"
+  },
+  {
+    "ts": "1747221385.868409",
+    "text": "<@U062ZUFKZ40>\n\nif i remember last time i had check for you and your subtask not come on dashboard.\nThe reason is in clickup pipeline we are taking task not subtask\nso if someone lock in subtask so his/her hour not come below table and dashboard.\nFor save side please check in\n\ntable :\nmarketlytics-dataware-house.clickup_dataset.final_report_details"
+  },
+  {
+    "ts": "1747195200.478089",
+    "text": "<@UUQ5TDAM6> <@U06C1RJJG2E> <@U02DFPYBV2N>\nWatch this loom and kindly follow this way to track your hours for this project consistently. We are testing this new way of time and clickup tracking for few projects. So kindly update and track your hours by day end today respectively as explained in loom as of today.\nFor now i have created subtask for you all, so you just need to track your hours and mark them kickoff or done accordingly\n<https://www.loom.com/share/20bb95f6e6ee41c2bb210cf266165410?sid=1f759b97-275b-4ca2-9ae8-421bbb27a86a>"
+  },
+  {
+    "ts": "1746803839.221159",
+    "text": "• ga4 data fetching  :\ntable name : lively-welder-457915-j0.ga4_dataset.michiganautolaw_ga4_reporting_api_data\n\n• gsc Data fetching :\ntable name : lively-welder-457915-j0.search_console_data.michicanautolaw_search_console_data\n\n• Validations of ga4 and gsc\n<@U062ZUFKZ40> <@UUQ5TDAM6>\n\nHas been completed successfully"
+  },
+  {
+    "ts": "1746790966.480809",
+    "text": "Internal call on Monday 2:30 to 3pm\n<@U02V24EQ6R4> <@UUQ5TDAM6> <@U02DFPYBV2N>"
+  },
+  {
+    "ts": "1746785023.067599",
+    "text": "<@UUQ5TDAM6> <@U06C1RJJG2E>"
+  },
+  {
+    "ts": "1746784948.507189",
+    "text": "join internal call"
+  },
+  {
+    "ts": "1746737066.691579",
+    "text": "<https://docs.google.com/document/d/1bmKRTG8qs-vcu_BJmJcnbXjtE19_06WgjaZuCdIO7_s/edit?usp=sharing>\nCreated this scope document for engagements and requirements <@U062ZUFKZ40> add other links and details to this document if needed\n<@U06C1RJJG2E> you have to use this as your main requirements doc to work on project.\n\n*Also Google Search Console is verified <@U06C1RJJG2E> you can start work on this*"
+  },
+  {
+    "ts": "1746688548.884049",
+    "text": "<@U062ZUFKZ40> \nga4 data fetching done\nlively-welder-457915-j0.ga4_dataset.michiganautolaw_ga4_reporting_api_data\n\nand for gsc acces not given by client so please asked client for access۔"
+  },
+  {
+    "ts": "1746616118.366839",
+    "text": "<@U062ZUFKZ40>\nhooks table\nlively-welder-457915-j0.api_extracted_dataset.hooks_data_raw"
+  },
+  {
+    "ts": "1746615219.065149",
+    "text": "also lets ask them question which are nit clear in deliverable doc"
+  },
+  {
+    "ts": "1746615198.860819",
+    "text": "share link to data table"
+  },
+  {
+    "ts": "1746615093.919539",
+    "text": "not sure"
+  },
+  {
+    "ts": "1746614781.139289",
+    "text": "do we need more hooks stepup?"
+  },
+  {
+    "ts": "1746607423.970969",
+    "text": "we are getting data from hooks"
+  },
+  {
+    "ts": "1746603524.261609",
+    "text": "<@UUQ5TDAM6> what is update on webhooks?"
+  },
+  {
+    "ts": "1746519322.267559",
+    "text": "Call done last night.\n• They have shared access - <@UUQ5TDAM6> need to verify\n• Webhooks Setup - <@UUQ5TDAM6> to verify\n• Got view and understanding of how data is coming on Lead Docket\n• Can we have GA4 and GSC data by tomorrow? by Mudassir? <@UUQ5TDAM6> "
+  },
+  {
+    "ts": "1746191962.248889",
+    "text": "Ok"
+  },
+  {
+    "ts": "1746191879.235809",
+    "text": "if there is any other access request then send on same email thread (without Eydi thread)"
+  },
+  {
+    "ts": "1746191845.494759",
+    "text": "yes through wiideman"
+  },
+  {
+    "ts": "1746191606.001689",
+    "text": "do we have access for GA4 and GSC?"
+  },
+  {
+    "ts": "1746190864.660229",
+    "text": "<@UUQ5TDAM6> Lets get rest of data sources until leaddocket is sorted.\nWe need\n• GBP - same as APFM (request API if needed), we will also need relevant GBP property accesses\n• GA4\n• GSC - same as done for wiideman other clients\n"
+  },
+  {
+    "ts": "1746190735.134919",
+    "text": "<@U06C1RJJG2E> has joined the channel"
+  },
+  {
+    "ts": "1745919957.133449",
+    "text": "<https://docs.google.com/document/d/1Ic6exaVnku7ftFY5HHOIBt87HvZW3uHW/edit|Expected Deliverable in the form of Looker Slides>"
+  },
+  {
+    "ts": "1745919615.121569",
+    "text": "<https://docs.google.com/document/d/1PS_zk30ZnQu__zSwoWcdjDkyXDN7km0GjGO3R1izrVw/edit?tab=t.0|Engagement Doc - MAL Reporting Enhancement Project>"
+  },
+  {
+    "ts": "1745909097.813139",
+    "text": "<@UUQ5TDAM6>\nI will be shortly sharing project details.\nWe have BQ access to be accepted. Do reply to existing thread if you need anything specific to Lead Docket"
+  },
+  {
+    "ts": "1745909045.869609",
+    "text": "We are starting a project for Michigan Auto Law Site"
+  },
+  {
+    "ts": "1745909003.642499",
+    "text": "<@UUQ5TDAM6> has joined the channel"
+  },
+  {
+    "ts": "1745876143.082639",
+    "text": "<@U062ZUFKZ40> has joined the channel"
+  }
+]

@@ -12,9 +12,9 @@ You are an assistant answering questions using the following information from do
 
 Use only the given context to answer. If unsure, say "I don't know."
                                                    
-At the end, include citations for the sources you have used from given context to generate the response.        
+At the end, include citations for the sources you have used from given context to generate the response. Also mention the source as well with them.       
 
-Note: Do not add unknown or N/A to the response.                                                                               
+Note: Do not add unknown or N/A to the citations.                                                                               
 
 Context:
 {context}
@@ -55,6 +55,7 @@ if query:
     ## Fix this to include gmail & slack meta as well.
     for doc in docs:
         meta = doc.metadata
+        slack_channel_project = meta.get("project", "unknown")
         file_name = meta.get("file_name", "unknown")
         chunk_index = meta.get("chunk_index", "N/A")
         source = meta.get("source", "unknown")
