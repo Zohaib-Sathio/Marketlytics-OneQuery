@@ -1,15 +1,12 @@
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
-from langchain_google_genai import ChatGoogleGenerativeAI
-import os
-from dotenv import load_dotenv
+from utils.gemini_llm import get_gemini_llm
 
-# Load Gemini API Key
-load_dotenv()
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+import os
+
 
 # Setup Gemini model
-llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", google_api_key=GOOGLE_API_KEY)
+llm = get_gemini_llm()
 
 # Slack client setup
 client = WebClient(token=os.getenv("SLACK_BOT_TOKEN"))

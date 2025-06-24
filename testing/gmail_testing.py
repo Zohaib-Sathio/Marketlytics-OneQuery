@@ -25,17 +25,9 @@ from langchain_chroma import Chroma
 from langchain.schema import Document
 
 
-<<<<<<< HEAD
 load_dotenv()
 
 
-=======
-
-load_dotenv()
-
-
-
->>>>>>> 4c05c94 (emails vector database added)
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 if not GOOGLE_API_KEY:
@@ -165,8 +157,4 @@ def process_emails(service, max_results=5):
 
 if __name__ == '__main__':
     service = authenticate_gmail()
-<<<<<<< HEAD
     process_emails(service, max_results=15)
-=======
-    process_emails(service, max_results=2)
->>>>>>> 4c05c94 (emails vector database added)
