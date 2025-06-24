@@ -1,28 +1,9 @@
 import streamlit as st
-from langchain_chroma import Chroma
-from langchain.retrievers import EnsembleRetriever
 from utils.gemini_llm import get_gemini_llm
-from utils.google_embeddings import get_embeddings
+from vector_dbs.dbs_retriever import db_retriever
 
 llm = get_gemini_llm()
-embeddings = get_embeddings()
-# Setup vector stores
-CHROMA_DIR_1 = "vector_store/google_drive"
-CHROMA_DIR_2 = "vector_store/emails"
-CHROMA_DIR_3 = "vector_store/slack_vector_db"
 
-db1 = Chroma(persist_directory=CHROMA_DIR_1, embedding_function=embeddings)
-db2 = Chroma(persist_directory=CHROMA_DIR_2, embedding_function=embeddings)
-db3 = Chroma(persist_directory=CHROMA_DIR_3, embedding_function=embeddings)
-
-retriever1 = db1.as_retriever(search_kwargs={"k": 3})
-retriever2 = db2.as_retriever(search_kwargs={"k": 3})
-retriever3 = db3.as_retriever(search_kwargs={"k": 3})
-
-ensemble_retriever = EnsembleRetriever(
-    retrievers=[retriever1, retriever2, retriever3],
-    weights=[0.4, 0.2, 0.4]
-)
 
 from langchain.prompts import PromptTemplate
 
@@ -64,11 +45,14 @@ if query:
         st.markdown(query)
 
     # 1. Retrieve documents
+    ensemble_retriever = db_retriever()
     docs = ensemble_retriever.get_relevant_documents(query)
 
     # 2. Format context and citations from metadata
     context = ""
     citations = ""
+
+    ## Fix this to include gmail & slack meta as well.
     for doc in docs:
         meta = doc.metadata
         file_name = meta.get("file_name", "unknown")
@@ -76,18 +60,10 @@ if query:
         source = meta.get("source", "unknown")
 
         context += f"[{file_name} | Chunk {chunk_index} | {source}]\n{doc.page_content}\n\n"
-        # citations += (
-        #     f"- 📎 [**{file_name}**](https://drive.google.com/file/d/{file_id}/view) (Chunk #{chunk_index}) from `{source}`\n"
-        #     if file_id else
-        #     f"- 📄 {file_name} (Chunk #{chunk_index}) from `{source}`\n"
-        # )
 
-    # 3. Inject context into prompt
     prompt = rag_prompt_template.format(context=context, question=query)
 
     # 4. Run LLM
-    # answer = llm.invoke(prompt)
-    # answer += "\n\n#### 📚 Sources:\n" + citations
     response = llm.invoke(prompt)
     answer = response.content.strip()
 
