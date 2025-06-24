@@ -7,7 +7,7 @@ from utils.google_embeddings import get_embeddings
 llm = get_gemini_llm()
 embeddings = get_embeddings()
 # Setup vector stores
-CHROMA_DIR_1 = "vector_store/chroma"
+CHROMA_DIR_1 = "vector_store/google_drive"
 CHROMA_DIR_2 = "vector_store/emails"
 CHROMA_DIR_3 = "vector_store/slack_vector_db"
 
