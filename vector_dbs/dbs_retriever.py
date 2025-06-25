@@ -17,10 +17,10 @@ def db_retriever():
 
     retriever1 = db1.as_retriever(search_kwargs={"k": 3})
     retriever2 = db2.as_retriever(search_kwargs={"k": 3})
-    retriever3 = db3.as_retriever(search_kwargs={"k": 3})
+    # retriever3 = db3.as_retriever(search_kwargs={"k": 3})
 
     ensemble_retriever = EnsembleRetriever(
-        retrievers=[retriever1, retriever2, retriever3],
-        weights=[0.4, 0.2, 0.4]
+        retrievers=[retriever1, retriever2],
+        weights=[0.5, 0.5]
     )
     return ensemble_retriever

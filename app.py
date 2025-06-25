@@ -44,6 +44,53 @@ if query:
     with st.chat_message("user"):
         st.markdown(query)
 
+    
+    import json
+
+    def load_project_catalog():
+        with open("slack_project_reports/project_catalog.json", "r") as f:
+            return json.load(f)
+
+    project_catalog = load_project_catalog()
+
+    def detect_project_from_query(llm, query, project_catalog):
+        project_names = [v["name"] for v in project_catalog.values()]
+        project_list = "\n".join(f"- {name}" for name in project_names)
+
+        prompt = f"""
+    You are an assistant that determines which project a user is referring to in their question.
+
+    Here is the user query:
+    "{query}"
+
+    Here are the available projects:
+    {project_list}
+
+    Return only the most relevant project name from the list. If none match, say "unknown".
+    """
+
+        response = llm.invoke(prompt)
+        project_name = response.content.strip().lower()
+
+        # Normalize and find matching key
+        for key, data in project_catalog.items():
+            if project_name == data["name"].lower():
+                return key
+        return "unknown"
+    
+    project_key = detect_project_from_query(llm, query, project_catalog)
+    print(f"product key: {project_key}")
+    project_data = project_catalog.get(project_key)
+    report_path = ''
+
+    if project_key != "unknown":
+        report_path = project_data["report_path"]
+
+    full_report = ''
+    if report_path:
+        with open(report_path, "r", encoding="utf-8") as f:
+            full_report = f.read()
+
     # 1. Retrieve documents
     ensemble_retriever = db_retriever()
     docs = ensemble_retriever.get_relevant_documents(query)
@@ -62,6 +109,10 @@ if query:
 
         context += f"[{file_name} | Chunk {chunk_index} | {source}]\n{doc.page_content}\n\n"
 
+    context += f" here is also Project Progess Report (if any): {full_report}"
+
+    print(context)
+    print(len(context))
     prompt = rag_prompt_template.format(context=context, question=query)
 
     # 4. Run LLM

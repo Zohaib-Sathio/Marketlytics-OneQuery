@@ -25,47 +25,60 @@ def fetch_all_messages(channel_id):
             response = client.conversations_history(
                 channel=channel_id,
                 cursor=cursor,
-                limit=10,
-                oldest=1750446865.428109
+                limit=20,
+                oldest=0
             )
             messages = response['messages']
-            
-            # Store only text and ts
             count += len(messages)
+
             for msg in messages:
                 all_messages.append({
                     "ts": msg.get("ts"),
-                    "text": msg.get("text", "")
+                    "text": msg.get("text", ""),
+                    "is_thread_parent": True
                 })
 
-            # Safely get next_cursor
-            metadata = response.get('response_metadata', {})
-            cursor = metadata.get('next_cursor', None)
+                # 🚨 Check for threaded replies
+                if msg.get("reply_count", 0) > 0 and "thread_ts" in msg:
+                    thread_ts = msg["ts"]
+                    try:
+                        thread_res = client.conversations_replies(
+                            channel=channel_id,
+                            ts=thread_ts,
+                            limit=100  # Fetch up to 100 replies per thread
+                        )
+                        replies = thread_res["messages"][1:]  # [0] is the parent message
+                        for reply in replies:
+                            all_messages.append({
+                                "ts": reply.get("ts"),
+                                "text": reply.get("text", ""),
+                                "is_thread_reply": True,
+                                "parent_ts": thread_ts
+                            })
+                    except SlackApiError as e:
+                        print(f"Error fetching thread replies: {e}")
 
+            cursor = response.get('response_metadata', {}).get('next_cursor')
             if not cursor:
                 break
 
         except SlackApiError as e:
             print(f"Error fetching messages: {e}")
             break
-        print(f"✅ Updated {count} messages.")
 
-        time.sleep(30)  # Prevent rate limiting
+        print(f"✅ Updated {count} messages so far.")
+        time.sleep(40)  # avoid rate-limiting
 
-    # Return in chronological order
-    return all_messages, list(sorted(all_messages, key=lambda x: float(x["ts"])))
+    return sorted(all_messages, key=lambda x: float(x["ts"]))
+
 
 import json
 
-def save_messages_to_json(messages, filename="tempreversed_slack_messages.json"):
+def save_messages_to_json(messages, filename="reversed_slack_messages.json"):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(messages, f, indent=2, ensure_ascii=False)
     print(f"{len(messages)} messages saved to {filename}")
 
-def save_messages_(messages, filename="temporiginal_slack_messages.json"):
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(messages, f, indent=2, ensure_ascii=False)
-    print(f"{len(messages)} messages saved to {filename}")
 
 # Run it
 # messages = fetch_all_messages(CHANNEL_ID)
@@ -74,8 +87,7 @@ def save_messages_(messages, filename="temporiginal_slack_messages.json"):
 # Sync one Slack channel
 def sync_channel(channel_name, channel_id):
     tracker = load_tracker()
-    messages, reversed_messages = fetch_all_messages(channel_id)
-    save_messages_(messages)
+    reversed_messages = fetch_all_messages(channel_id)
     save_messages_to_json(reversed_messages)
     # last_ts = get_last_ts(channel_id, tracker)
 
