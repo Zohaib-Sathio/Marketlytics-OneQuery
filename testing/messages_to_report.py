@@ -67,7 +67,7 @@ final_report = generate_project_report(messages)
 
 print(f"Total length of text: ", len(final_report))
 
-with open("final_project_report_2.txt", "w", encoding="utf-8") as f:
+with open("slack_project_reports/michigan-auto-law.txt", "w", encoding="utf-8") as f:
     f.write(final_report)
 
 

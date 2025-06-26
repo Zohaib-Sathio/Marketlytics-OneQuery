@@ -1,129 +1,102 @@
-*   **Project Kickoff:** Project initiated for the Michigan Auto Law Site.
-*   **BigQuery Access:** BigQuery access required. Team members to reply to the thread for Lead Docket specific needs.
-*   **Engagement Document:** Engagement document available at [https://docs.google.com/document/d/1PS_zk30ZnQu__zSwoWcdjDkyXDN7km0GjGO3R1izrVw/edit?tab=t.0|Engagement Doc - MAL Reporting Enhancement Project].
-*   **Deliverables:** Expected deliverables will be in the form of Looker Slides, accessible at [https://docs.google.com/document/d/1Ic6exaVnku7ftFY5HHOIBt87HvZW3uHW/edit|Expected Deliverable in the form of Looker Slides].
-*   **Data Sources:**
-    *   Prioritize obtaining remaining data sources while Lead Docket is being addressed.
-    *   Required data sources: GBP (same as APFM, request API if needed), GA4, and GSC (same as Wiideman and other clients).
-    *   Required GBP property accesses.
-    *   Need data from CallRail and Juvo by Tuesday (date unspecified).
-*   **GA4 and GSC Access:** Access available through Wiideman.
-*   **Access Requests:** Any further access requests should be sent on the same email thread, excluding the Eydi thread.
-*   **Access Verification:** Access shared; <@UUQ5TDAM6> to verify.
-*   **Webhooks Setup:** <@UUQ5TDAM6> to verify webhooks setup.
-*   **Lead Docket Data:** View and understanding of data flow into Lead Docket obtained.
-*   **Data Delivery:** Request for GA4 and GSC data by tomorrow from Mudassir (<@UUQ5TDAM6>).
-*   **Webhooks Update:** Data being received from webhooks.
-*   **Additional Webhooks:** Unclear if more webhooks setup is needed.
-*   **Data Table Link:** Link to data table requested.
-*   **Clarification on Deliverables:** Team to compile and ask questions regarding any unclear points in the deliverable document.
-*   **Hooks Table:** hooks table lively-welder-457915-j0.api\_extracted\_dataset.hooks\_data\_raw
-*   **GA4 Data:**
-    *   Fetching complete.
-    *   Table name: lively-welder-457915-j0.ga4\_dataset.michiganautolaw\_ga4\_reporting\_api\_data
-*   **GSC Access:** Client to be asked for access.
-*   **GSC Verification:** Google Search Console is verified; <@U06C1RJJG2E> can start work on this.
-*   **Scope Document:** Engagement and requirements document created; <@U06C1RJJG2E> to use as main requirements doc. Link: [https://docs.google.com/document/d/1bmKRTG8qs-vcu_BJmJcnbXjtE19_06WgjaZuCdIO7_s/edit?usp=sharing]
-*   **Internal Call:** Internal call scheduled for Monday 2:30 to 3pm.
-*   **GA4 and GSC Validation:** GA4 and GSC validation completed successfully.
-    *   GA4 Table Name: lively-welder-457915-j0.ga4\_dataset.michiganautolaw\_ga4\_reporting\_api\_data
-    *   GSC Table Name: lively-welder-457915-j0.search\_console\_data.michicanautolaw\_search\_console\_data
-*   **Time Tracking:** Team to watch Loom video and track hours consistently in ClickUp.
-*   **ClickUp Subtasks:** Hours logged in ClickUp subtasks will not appear in BigQuery. Use main tasks for time logging.
-*   **GBP Data:** Daily and Monthly Metric data fetched successfully.
-*   **GBP Validation:** Daily Metric and Monthly Metric Validation completed.
-    *   Monthly metric table: lively-welder-457915-j0.google\_business\_profile.monthly\_metrics\_data
-    *   Daily Matric table: lively-welder-457915-j0.google\_business\_profile.daily\_metrics\_data
-*   **GTM Container Access:** <@U062ZUFKZ40> needs access to the GTM container. Credentials and 2FA to be provided. Check support@wiideman or Lastpass for credentials.
-*   **CallRail and Juvo Data:**
-    *   <@UUQ5TDAM6> to check if CallRail and Juvo data have lead IDs available on platforms and APIs.
-    *   Data needed from Juvo and CallRail by Tuesday (date unspecified), including chat messages from Juvo and call scripts from CallRail.
-    *   Juvo access shared with <@UUQ5TDAM6> on Lastpass.
-*   **Cloud Run Endpoint:** <https://leaddocket-webhook-handler-370294323150.us-central1.run.app> with `source=GTM` parameter.
-*   **Pipeline Automation:** GA4, GSC, and GBP pipelines automated successfully.
-*   **Lead Docket Access:** <@UUQ5TDAM6> to check Lead Docket access and confirm if hits are coming from GTM.
-*   **Client Response on Juvo/CallRail Data:**
-    *   New Juvo leads are set up to come into Lead Docket.
-    *   CallRail only tracks leads entered into the system; calls from existing clients/medical providers will not appear in Lead Docket.
-    *   Lead Docket lead IDs are not sent back to Juvo and CallRail.
-*   **CallRail Access:** Zach updated CallRail access.
-*   **CallRail Data Dump to BigQuery:**
-    *   Tables:
-        *   lively-welder-457915-j0.Call\_rails.All\_calls\_data
-        *   lively-welder-457915-j0.Call\_rails.all\_form\_submissions\_data
-        *   lively-welder-457915-j0.Call\_rails.single\_call\_data\_with\_fields
-        *   lively-welder-457915-j0.Call\_rails.all\_users\_data
-*   **Custom Image Setup:** Custom Image setup published; <@UUQ5TDAM6> to verify data reception.
-    *   Email is plain text, UID is hashed.
-*   **Webhook Confirmation:** <@UUQ5TDAM6> confirmed webhooks are fine.
-*   **Data Status:** CallRail data pulled into BigQuery along with other data sources; waiting for Juvo data.
-*   **CallRail Integration Data:**
-    *   Table: lively-welder-457915-j0.Call\_rails.fetch\_all\_integeration\_data
-    *   Action: Dump to BigQuery.
-*   **Juvo Data:** Juvo chat data is integrated within Lead Docket data. Stitching required with GA4 and CallRail data.
-*   **GA4 Form Submission:** GA4 pass form submit with hash PII.
-    *   Event name: *consultation\_form\_submit*
-    *   Event params: email\_hashed, phone\_hashed
-*   **CallRail Recording Data:**
-    *   Table: lively-welder-457915-j0.Call\_rails.single\_call\_recordings
-    *   Contains call transcripts.
-*   **ClickUp Usage:** Experimenting with task assignment and tracking within ClickUp. Team to follow guidelines and track work hours as per Loom video: <https://www.loom.com/share/20bb95f6e6ee41c2bb210cf266165410?sid=1f759b97-275b-4ca2-9ae8-421bbb27a86a>
-*   **GSC Average Position Discrepancy:** Discrepancy observed in average position. Looker Studio report: <https://lookerstudio.google.com/u/0/reporting/4aeea55e-8a52-4392-86d3-1394f44648b3/page/p_23jucs3wsd/edit> and Google Search Console: <https://search.google.com/search-console/performance/search-analytics?resource_id=sc-domain%3Amichiganautolaw.com&amp;query=-michigan%20auto%20law&amp;start_date=20240401&amp;end_date=20240430&amp;compare_start_date=20250401&amp;compare_end_date=20250430&amp;metrics=CLICKS%2CPOSITION|https://search.google.com/search-console/performance/search-analytics?resource_id=sc-[…]20250401&amp;compare_end_date=20250430&amp;metrics=CLICKS%2CPOSITION>
-*   **GSC Average Position Calculation:** Average position in reports should be calculated as `SUM(position * impressions) / SUM(impressions)` to match the UI.
-*   **GSC Data by Page:**
-    *   Need GSC data table for page dimension.
-    *   Table name: lively-welder-457915-j0.search\_console\_data.michicanautolaw\_search_console\_data\_byPage
-    *   Validation: Match from UI
-    *   Query:
-        ```sql
-        SELECT
-          SUM(clicks) AS total_clicks,
-          SUM(impressions) AS total_impressions
-        FROM
-          `lively-welder-457915-j0.search_console_data.michicanautolaw_search_console_data_byPage`
-        WHERE
-          DATE(date) BETWEEN '2024-01-29' AND '2024-04-30'
-          AND page = "<https://www.michiganautolaw.com/blog/2022/09/21/michigan-teen-driving-laws/>"
-        ```
-*   **Dashboard Creation:** <@U062ZUFKZ40> to create a simple client dashboard. Model needs to be checked for gaps before sharing with client.
-*   **Attribution Model Summary:** Attribution model summarized explanation for client:
-    *   *Overview:* Combining data from GA4, CallRail, and Juvo to create a unified list of leads.
-    *   *How It Works:*
-        *   *Data Matching:* Calls are matched with GA4 using a unique call ID and tracking phone number. Chat sessions are connected using email and phone numbers, where form submissions include email and phone details in GA4.
-        *   *Lead Definition:* A lead is defined as a client interaction (call, chat, or form submission). Only the first interaction is considered the lead.
-        *   The code captures the marketing source and medium from the first and last interactions and provides the lead qualification status and responses to "How did you hear about us?".
-    *   Query Link: <https://console.cloud.google.com/bigquery?ws=!1m7!1m6!12m5!1m3!1slively-welder-457915-j0!2sus-central1!3sb79b0fd1-0827-4558-8d2a-1ca989f2e915!2e1>
-*   **Attribution Model Review:**
-    *   <@U07E444U7J4> to check for leads, chats, or calls available on the relevant platform but missing from GA4.
-    *   Determine if non-digital values exist in the "How did you hear about us" column for digital/non-digital segregation.
-    *   The query should create a table, not a view.
-    *   The output table should include columns for Lead Name, First Click, Last Click, How did you hear about us, and Qualified/Non-Qualified.
-*   **Juvo Chat Data:** Juvo chat data may be missing from GA4 due to the GA4 join being based on email/phone, which are only captured on form submissions.
-*   **"How did you hear about us" Data:** "How did you hear about us" data is extracted from the entire conversation. A case statement will be created to clean and categorize this data as digital/non-digital.
-*   **Internal Meeting:** <@UUQ5TDAM6> and <@U07E444U7J4> to join an internal meeting.
-*   **Lead Name Data:** Request to include First and Last Name in the data.
-*   **Form Name Fields:** The name field will be passed as a parameter that combines both first name and last name for forms with only a single name field.
-*   **Marketing Attribution Table:** <@U062ZUFKZ40> created table: `lively-welder-457915-j0.ML_Views.MAL_Marketing_Attribution`. Query link remains the same.
-*   **Sample Dashboard:** Sample dashboard link: <https://lookerstudio.google.com/s/v-bJ8JmQq44>
-*   **GBP Data Automation:**
-    *   GBP data automation was not working.
-    *   All pipelines are now confirmed to be functioning.
-*   **Webprogeeks Access:** Viewing access shared with <mailto:hello@webprogeeks.com|hello@webprogeeks.com>.
-*   **Internal Meeting:** An internal meeting is scheduled (date unspecified).
-*   **Lead Docket Data Usage:** Lead Docket data is in BigQuery and is being used for Juvo chat data. It contains chat conversations, timestamps, user name, email, phone, agent name, and source, but no revenue information.
-*   **Project Status (per SoW):**
-    *   *Approach:*
-        *   Non-branded Search Term Analysis: Data available; page to be added to dashboard by <@U07E444U7J4>.
-        *   Non-branded Search Term Analysis Focused on Google Map Performance: Data available; page to be added to dashboard by <@U07E444U7J4>. Includes: All Location Trend, All Location Monthly Performance, Single Location Trend (for each location), Single Location Trend Monthly Performance (for each location).
-        *   Google Business Profile Pages for each location: Data available; page to be added to dashboard by <@U07E444U7J4>.
-        *   Google Analytics Performance with Filters and Estimations: Data available; page to be added to dashboard by <@U07E444U7J4>.
-        *   Custom Marketing Attribution Model: Complete. Includes: Data Collection Pipeline from Lead Docket to BigQuery, Advanced Data Modelling for Attribution, and building automated engineering pipeline for GA4, GSC, GBP and CRM data. Monthly Reporting Template changes are not done.
-    *   *Deliverables:*
-        *   Data Collection & Pipeline from Lead Docket API/Webhook to BQ: Complete.
-        *   Advanced Modelled Data in BQ: Complete.
-        *   Advance Dashboard as per provided Mockups: In Progress; data available, <@U07E444U7J4> is working on it.
-    *   *Wireframe:* [https://docs.google.com/document/d/1Ic6exaVnku7ftFY5HHOIBt87HvZW3uHW/edit?pli=1&tab=t.0]
-*   **Branded/Non-Branded Separation:** <@U07E444U7J4> reviewed a recording on branded/non-branded separation.
-*   **Google Analytics Insights Page:** Google Analytics Insights page (2nd last) on Looker Studio is complete. Query: <https://console.cloud.google.com/bigquery?ws=!1m7!1m6!12m5!1m3!1slively-welder-457915-j0!2sus-central1!3sd24ba2d5-6271-4414-96dc-7fb0e5bdaae0!2e1>
-*   **GSC/GA4 Data Stitching Limitation:** GSC data does not have pages and query (keyword) in a single table, which limits linking with GA4 to exclude branded sessions.
-*   **GSC Historical Data:** Historical GSC data dumped to BigQuery at <https://console.cloud.google.com/bigquery?ws=!1m5!1m4!4m3!1slively-welder-457915-j0!2ssearch_console_data!3smichiganautolaw_search_console_data_byQuery_Page>. Automation to be implemented tomorrow.
+*   Project initiated for Michigan Auto Law Site.
+*   BQ access needs to be accepted. Team members should reply to the existing thread for Lead Docket-specific requests.
+*   Engagement Document and Expected Deliverable (Looker Slides) are available.
+*   Gathering data sources, prioritizing those besides Lead Docket initially.
+    *   Required data sources: GBP (API request if needed, relevant GBP property accesses), GA4, and GSC (following the Wiideman client model).
+*   GA4 and GSC access is available through Wiideman. All access requests should be sent on the same email thread (excluding the Eydi thread).
+*   Call Summary:
+    *   Access has been shared and needs verification.
+    *   Webhooks setup needs verification.
+    *   Data flow in Lead Docket has been reviewed and understood.
+    *   GA4 and GSC data requested.
+*   Data is being received from webhooks.
+*   Link to the hooks table: lively-welder-457915-j0.api_extracted_dataset.hooks_data_raw
+*   Unclear aspects in the deliverable document should be clarified.
+*   GA4 data fetching is complete.
+    *   Table name: lively-welder-457915-j0.ga4_dataset.michiganautolaw_ga4_reporting_api_data
+*   Google Search Console access has been verified.
+*   Engagement and requirement scope document created. This will be the main requirements document.
+*   Internal call scheduled for Monday 2:30 to 3pm.
+*   GA4 and GSC data validation completed successfully.
+    *   GSC table name: lively-welder-457915-j0.search_console_data.michicanautolaw_search_console_data
+*   New time tracking process being tested. Team members should track hours daily, marking tasks as kickoff or done.
+*   Logged hours in subtasks will not appear in BigQuery.
+*   Data from GBP of Daily Metric and Monthly Metric has been fetched successfully.
+*   Daily Metric and Monthly Metric Validation has been completed.
+    *   Monthly metric table: lively-welder-457915-j0.google_business_profile.monthly_metrics_data
+    *   Daily Metric table: lively-welder-457915-j0.google_business_profile.daily_metrics_data
+*   GTM container access is required. Credentials and 2FA information should be provided. Support may have access.
+*   Data is required from CallRail and Juvo by Tuesday.
+    *   Action: Verify if CallRail and Juvo data have lead IDs available on platforms and API.
+    *   Need chat messages from Juvo and call scripts from CallRail.
+*   Juvo access has been shared.
+*   Cloud Run endpoint link provided. Parameter `source=GTM` needs to be passed.
+*   GA4, GSC and GBP pipelines for daily and monthly metrics have been automated successfully.
+*   CallRail API access has been updated.
+*   CallRail data will be dumped to BigQuery.
+    *   Tables: All calls, all form submissions, single call data, all user data.
+*   Custom Image setup has been published.
+    *   Email is now a plain column.
+    *   If tracking multiple forms, a parameter named `event_type or event_name` can be passed.
+    *   `event_type` parameter will return values: multi-step or one-step.
+*   Webhooks are working.
+*   CallRail data also pulled into BQ along with other data sources.
+*   All integration data from CallRail has been dumped to BigQuery.
+    *   Table: lively-welder-457915-j0.Call_rails.fetch_all_integeration_data
+*   Juvo chat data is integrated with Lead Docket data. Lead Docket, GA4, and CallRail data need to be stitched.
+*   GA4 is passing form submit with hashed PII.
+    *   GA4 Event name: consultation_form_submit
+    *   Events params: email_hashed, phone_hashed
+*   CallRail recordings have been fetched and placed in the following table: lively-welder-457915-j0.Call_rails.single_call_recordings. These are transcripts.
+*   Task assignment and tracking are being experimented with in Clickup. Team members should track their work hours as per the provided Loom video.
+*   Call transcripts (string/text) are needed. Recording links are already available.
+*   Discrepancy identified in average position within the Looker Studio report.
+    *   The formula to calculate average position in the report should match the UI.
+*   GSC data table for pages is required, in addition to the existing query dimension data.
+*   A simple dashboard is recommended for client presentation. Model needs to be checked for gaps before sharing with the client.
+*   GSC data by page is available in the following table: lively-welder-457915-j0.search_console_data.michicanautolaw_search_console_data_byPage.
+*   Attribution model explanation for the client:
+    *   Data from GA4, CallRail, and Juvo is being combined to create a unified list of leads.
+    *   Calls are matched with GA4 using call ID and tracking phone number. Chat sessions are connected using email and phone numbers, where form submissions include email and phone details in GA4.
+    *   A lead is defined as a client interaction (call, chat, or form submission). Only the first interaction is considered the lead.
+    *   Marketing source and medium from the first and last interactions are captured. Lead qualification status and "How did you hear about us?" responses are also included.
+*   Issues and requirements for the attribution model:
+    *   Verify if any leads, chats, or calls available on relevant platforms are missing in GA4.
+    *   Determine if non-digital values exist in the "How did you hear about us" column for segregation of digital and non-digital marketing sources.
+    *   The query is creating a view; it should create a table instead.
+    *   Output table should contain the following columns: Lead Name, First Click, Last Click, How did you hear about us, Qualified/Non-Qualified. First and Last Name are also required.
+*   Juvo chat data was missing due to the GA4 join on email/phone, which requires a form submission. CallRail will also be checked for missing data.
+*   "How did you hear about us" data will be extracted from the conversation and categorized into digital/non-digital using a case statement.
+*   Table created for marketing attribution: `lively-welder-457915-j0.ML_Views.MAL_Marketing_Attribution`. It will be linked to Looker to create a basic view.
+*   Sample dashboard link shared.
+*   All pipelines are now confirmed to be working.
+*   Internal meeting scheduled.
+*   Lead Docket data is available in BigQuery.
+*   Project status according to SoW:
+    1.  Non-branded Search Term Analysis: Complete.
+    2.  Non-branded Search Term Analysis Focused on Google Map Performance: Data available, page to be added to dashboard. Includes: All Location Trend, All Location Monthly Performance, Single Location Trend (for each location), Single Location Trend Monthly Performance (for each location).
+    3.  Google Business Profile Pages for each location: Data available, page to be added to dashboard.
+    4.  Google Analytics Performance with Filters and Estimations: Complete.
+    5.  Custom Marketing Attribution Model: Complete.
+        *   Data Collection Pipeline from Lead Docket to BigQuery: Complete.
+        *   Advanced Data Modelling for Attribution: Complete.
+        *   Monthly Reporting Template changes: Not Done.
+    *   Automated engineering pipeline for GA4, GSC, GBP, and CRM data: Complete.
+*   Deliverables:
+    *   Data Collection & Pipeline from Lead Docket API/Webhook to BQ: Complete.
+    *   Advanced Modelled Data in BQ: Complete.
+    *   Advance Dashboard as per provided Mockups: In Progress.
+*   Wireframe to Follow: Available.
+*   Google Analytics Insights query and Looker Studio page are complete.
+    *   Query: <https://console.cloud.google.com/bigquery?ws=!1m7!1m6!12m5!1m3!1slively-welder-457915-j0!2sus-central1!3sd24ba2d5-6271-4414-96dc-7fb0e5bdaae0!2e1>
+    *   Looker Studio Page: Google Analytics Insights (2nd last)
+*   Limitation identified: GSC data does not have pages and query (keyword) in a single table, hindering its linkage with GA4 for excluding branded sessions.
+*   Historical GSC data dumped to BigQuery.
+    *   Table: lively-welder-457915-j0.search_console_data.michiganautolaw_search_console_data_byQuery_Page
+    *   Automation to be completed tomorrow.
+*   Client meeting scheduled for Friday 7:30 PM.
+*   Dashboard page additions are required for the following:
+    *   Non-branded Search Term Analysis
+    *   Non-branded Search Term Analysis Focused on Google Map Performance. Includes: All Location Trend, All Location Monthly Performance, Single Location Trend (for each location), Single Location Trend Monthly Performance (for each location).
+    *   Google Business Profile Pages for each location.
+*   Aim to complete dashboard page additions by end of day tomorrow.

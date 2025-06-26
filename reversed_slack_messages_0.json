@@ -120,6 +120,12 @@
     "is_thread_parent": true
   },
   {
+    "ts": "1746785665.287809",
+    "text": "is this validated?\ncan we validate this without having access?",
+    "is_thread_reply": true,
+    "parent_ts": "1746616118.366839"
+  },
+  {
     "ts": "1746790966.480809",
     "text": "Internal call on Monday 2:30 to 3pm\n<@U02V24EQ6R4> <@UUQ5TDAM6> <@U02DFPYBV2N>",
     "is_thread_parent": true
@@ -275,24 +281,6 @@
     "ts": "1747818626.076289",
     "text": "yeah, but there should be another column appended along with that\n`uid` is hashed\n`email` is plain",
     "is_thread_parent": true
-  },
-  {
-    "ts": "1747818706.731409",
-    "text": "yes we have email now thanks",
-    "is_thread_reply": true,
-    "parent_ts": "1747818626.076289"
-  },
-  {
-    "ts": "1747818769.038949",
-    "text": "if there are multiple forms that we will be tracking then you can pass a param named `event_type or event_name`",
-    "is_thread_reply": true,
-    "parent_ts": "1747818626.076289"
-  },
-  {
-    "ts": "1747819014.752949",
-    "text": "ok, technically there is only form i.e free consultation form, BUT\nthere are 2 formats of that.\nSo I'll be passing a paramter `event_type`  that will return values:\n• multi-step \n• one-step",
-    "is_thread_reply": true,
-    "parent_ts": "1747818626.076289"
   },
   {
     "ts": "1747820567.680579",
@@ -501,6 +489,30 @@
     "is_thread_parent": true
   },
   {
+    "ts": "1748940998.121859",
+    "text": "<@U07U3U693L6> can I also get First and Last Name for this please.",
+    "is_thread_reply": true,
+    "parent_ts": "1748262883.970939"
+  },
+  {
+    "ts": "1748942704.287199",
+    "text": "<@U07E444U7J4>\nFor one of the form there is only name field &amp; for the multi step form, there is First and Last Name. Should I just pass a parameter for  name that combines both first name &amp; last name?",
+    "is_thread_reply": true,
+    "parent_ts": "1748262883.970939"
+  },
+  {
+    "ts": "1748942755.461099",
+    "text": "Yeah that works too",
+    "is_thread_reply": true,
+    "parent_ts": "1748262883.970939"
+  },
+  {
+    "ts": "1748943030.593739",
+    "text": "Done\nfull_name - combined first & last name",
+    "is_thread_reply": true,
+    "parent_ts": "1748262883.970939"
+  },
+  {
     "ts": "1748955974.461349",
     "text": "<@U062ZUFKZ40> I have created table: `lively-welder-457915-j0.ML_Views.MAL_Marketing_Attribution`\nWill be linking it up with Looker to create a basic view too\nQuery link remains same",
     "is_thread_parent": true
@@ -514,6 +526,18 @@
     "ts": "1750146945.696739",
     "text": "<@UUQ5TDAM6> looks like GBP data is not automated",
     "is_thread_parent": true
+  },
+  {
+    "ts": "1750147147.168899",
+    "text": "Sure let me check",
+    "is_thread_reply": true,
+    "parent_ts": "1750146945.696739"
+  },
+  {
+    "ts": "1750147834.454479",
+    "text": "<@U062ZUFKZ40> monthly/daily  or both?\n\n<@U06C1RJJG2E> kindly check this ASAP",
+    "is_thread_reply": true,
+    "parent_ts": "1750146945.696739"
   },
   {
     "ts": "1750160095.271569",
@@ -536,6 +560,12 @@
     "is_thread_parent": true
   },
   {
+    "ts": "1750255387.109519",
+    "text": "viewing access shared with <mailto:hello@webprogeeks.com|hello@webprogeeks.com>",
+    "is_thread_reply": true,
+    "parent_ts": "1750255333.472059"
+  },
+  {
     "ts": "1750305600.157879",
     "text": "<!channel> let's do an internal meeting today",
     "is_thread_parent": true
@@ -556,9 +586,33 @@
     "is_thread_parent": true
   },
   {
+    "ts": "1750332675.612229",
+    "text": "Lead docket is being used for Juvo chat data",
+    "is_thread_reply": true,
+    "parent_ts": "1750332597.860869"
+  },
+  {
     "ts": "1750332737.493439",
     "text": "What columns does it have?",
     "is_thread_parent": true
+  },
+  {
+    "ts": "1750333084.316969",
+    "text": "Chat data only, like complete chat conversation, timestamp, user name, email, phone, agent name, source etc\n\nIt does not have any revenue info",
+    "is_thread_reply": true,
+    "parent_ts": "1750332737.493439"
+  },
+  {
+    "ts": "1750333302.619239",
+    "text": "Okay",
+    "is_thread_reply": true,
+    "parent_ts": "1750332737.493439"
+  },
+  {
+    "ts": "1750333313.105199",
+    "text": "Chalo let’s sycn up",
+    "is_thread_reply": true,
+    "parent_ts": "1750332737.493439"
   },
   {
     "ts": "1750335545.663859",
@@ -654,28 +708,5 @@
     "ts": "1750793654.414139",
     "text": "<@U07E444U7J4> Historical GSC data dumped to BigQuery. You can check it out <https://console.cloud.google.com/bigquery?ws=!1m5!1m4!4m3!1slively-welder-457915-j0!2ssearch_console_data!3smichiganautolaw_search_console_data_byQuery_Page|here>\n\nI'll be automating this tomorrow",
     "is_thread_parent": true
-  },
-  {
-    "ts": "1750841138.750829",
-    "text": "This is perfect. Thanks Motabar",
-    "is_thread_reply": true,
-    "parent_ts": "1750793654.414139"
-  },
-  {
-    "ts": "1750862955.164069",
-    "text": "<@U07E444U7J4> client scheduled meeting for Friday 7.30 pm. I have added you to the invite as well.\n\nKindly share update on all of these:\n1. *Non-branded Search Term Analysis*\n    a. _We have data but page need be added in Dashboard as per wirframe below_\n2. *Non-branded Search Term Analysis Focused on Google Map Performance* - (_We have data but page need be added in Dashboard as per wirframe below)_\n    ◦ *All Location Trend*\n    ◦ *All Location Monthly Performance*\n    ◦ *Single Location Trend (for each location)*\n    ◦ *Single Location Trend Monthly Performance (for each location)*\n3. *Google Business Profile Pages for each location*  (_We have data but page need be added in Dashboard as per wirframe below )_\n4. *Google Analytics Performance with Filters and Estimations*\n    a. (_We have data but page need be added in Dashboard as per wirframe (Google Analytics Insights) below )_",
-    "is_thread_parent": true
-  },
-  {
-    "ts": "1750864704.764349",
-    "text": "Branded clicks excluded from 4 (completed)\n1 is completed too",
-    "is_thread_reply": true,
-    "parent_ts": "1750862955.164069"
-  },
-  {
-    "ts": "1750864933.034809",
-    "text": "Okay good, aim to completed by day end tomorrow so we can review wither tomorrow or early on friday",
-    "is_thread_reply": true,
-    "parent_ts": "1750862955.164069"
   }
 ]
