@@ -1,0 +1,141 @@
+*   **Spam Traffic & Form Fill Issues:**
+    *   A spike in spam demo requests and fake calendar bookings is occurring, potentially due to competitor activity.
+    *   Basic protections (IP block, possibly CAPTCHA) implemented have not resolved the issue.
+    *   The source and nature of spam traffic needs diagnosing, and robust bot/spam filtering implemented.
+    *   The tasks initially planned for spam and lead quality control have been completed.
+*   **Audience Targeting Issues:**
+    *   The website is receiving consumer (B2C) traffic (dental implant inquiries), while the product targets dentists (B2B).
+    *   Ad targeting, landing page messaging, or SEO may be attracting the wrong audience.
+*   **Polluted Tracking & Pixel Data:**
+    *   The Facebook Pixel is polluted with bad traffic, making retargeting ineffective.
+    *   A new pixel should be created to track only qualified leads.
+    *   Consider Conversions API (CAPI) implementation to send high-quality signals.
+    *   A potential solution is to send purchase/subscribe events only for qualified leads.
+*   **Conversion Rate Optimization (CRO):**
+    *   An audit of the funnel is needed to suggest improvements.
+    *   Objectives include reducing friction for dentists (real leads), filtering out irrelevant leads early, and improving messaging and targeting for dentists.
+*   **Data Enrichment:** Using email/phone number to lookup occupation to see if they are actually a dentist is being considered. Apolo data source should have this information.
+*   A document exploring potential issues has been created.
+*   Clarity access has been granted.
+*   The client liked the work.
+*   Access to Facebook and LinkedIn confirmed.
+*   Access to Klaviyo, Instagram (InnerView), and Instagram (PeriMetrics) confirmed.
+*   All access has been verified; comments are in the provided sheet.
+*   **InnerView Conversion Tracking Plan:** Document available.
+*   **InnerView Audit (Internal):** Document available.
+*   Meta Pixel is installed via Meta Pixel Code in source code.
+*   **Action Items:**
+    *   Audit ad platform pixels implemented on GTM.
+    *   Audit GA4 aspects.
+    *   Mark key events in GA4.
+    *   Focus on InnerView.
+    *   Audit and provide recommendations on existing events.
+    *   Fix all issues mentioned in the above audits.
+    *   Create a dashboard.
+*   Keep all work in a new separate workspace, named Tayyaba - Analytics Consultant.
+*   Add to the existing dashboard.
+*   **GTM Events - Changes Summary:**
+    *   *Added:* `contact_form_submit`, `ebook_form_submit`, `book_a_demo`, `login`, `sign_up`, `select_study_type`, `view_patent`, `navbar_click`, `footer_click`, `email_click`, `call_click`, `cta_click`, `social_link_click`, `outbound_click`.
+    *   *Modified:*
+        *   `file_download` (added params).
+        *   `scroll` (added scroll percentage).
+        *   `LinkedIn - E-Book Download` (changed trigger condition from click to `ebook_form_submit` trigger).
+        *   `OTT Ads - Lead` (changed trigger condition from TY page visit to `calendar_event_scheduled` trigger).
+    *   *Stopped:* `calendar_page_height` (irrelevant), `thank_you_page_visit` (redundant, page visit not event).
+    *   *To Be Stopped* (coming from Calendly <> GA4 integration): `invitee_event_type_page`, `invitee_select_day`, `invitee_select_time`, `invitee_meeting_scheduled`.
+    *   *Unchanged:* `calendar_event_type_viewed`, `calendar_date_and_time_selected`.
+    *   `calendar_event_scheduled` (working on adding relevant event params). This is the alternate for `invitee_meeting_scheduled`.
+    *   The `invitee_` type events are not available in GTM; alternatives are being picked up from Calendly iframe using custom HTML calendly listener.
+    *   The following GA4 events are planned to be sent to all ad platforms on the same triggers: `calendar_event_scheduled`, `contact_form_submit`, `ebook_form_submit`.
+*   Request Google Ads access for InnerView.
+*   Meta Ads access for InnerView was requested and accepted.
+*   The Google Ads account ID for InnerView could not be found in the website source code, WordPress back-end, Calendly integrations, GA4 integrations, or website network hits.
+*   Working on sending data for LinkedIn Enhanced Matching.
+*   Meta access has been granted. Campaign Manager level access for Meta has been granted. GA4 Editor access has been granted.
+*   Calendly login credentials with access to the Developer Portal are needed to set up webhooks for tracking scheduled events with detailed data. The current Calendly payload lacks email and phone number data.
+*   Hidden fields need to be set in Pipedrive and Calendly for UTM parameters, fbclid, gclid, etc.
+*   Analysis/dashboard needs to be sent to the client.
+*   Event tracking is set up for Reddit and Google Ads.
+*   A guide has been added to the documentation.
+*   A manual report on leads from paid and non-paid channels for key events (call scheduled) is due tomorrow (Tuesday). This is needed because incorrect UTMs are causing inaccurate channel grouping.
+*   Ensure both steps of lead forms are being sent for ad platforms for conversions.
+*   Provide a guide and analysis for OTT/Reddit UTMs.
+*   Provide a Loom recording (or doc with screenshots) on how to see conversion and attribution reports in GA.
+*   UTM and Campaign sources tracking for Calendly and form submits need to be implemented.
+*   Provide a Loom recording for conversions in ad platforms events.
+*   The Looker dashboard should show clear attribution.
+*   The first tab in the provided sheet reflects demo booking and status. The second contains any Lead Form inquiry.
+*   Google Ads campaigns will start next week.
+*   **Deliverables:**
+    *   Manual Attribution Report (using GA historical data) built. Channel grouping has been manually fixed based on source/medium.
+    *   A custom report in GA4 has been created using a defined Custom Channel Group to handle the "unassigned" traffic issue.
+    *   A Loom recording explaining the difference between two tables in Looker has been created.
+    *   A UTM Guide covering Reddit, OTT, and Meta has been created.
+    *   A Loom walkthrough explaining how conversions are being sent to ad platforms has been created.
+    *   A Hidden Fields Guide for implementing required fields on website forms and Calendly has been created.
+*   **Ongoing Tasks/Requests:**
+    *   Request a Loom recording of OTT current setup.
+    *   Request a Loom recording of how validations are being performed.
+    *   Get access to lead data.
+    *   Send lead data to ad platforms.
+    *   Inform client that UTMs are not being missed in Meta.
+    *   Explain to the client the need for two different funnels for organic and paid.
+*   The issue of high volumes of (not set) and Unassigned traffic, potentially related to dynamic parameters for paid channels, needs to be investigated and resolved.
+*   **Client Feedback and Actions:**
+    *   **Custom Channel Grouping:** Client reports discrepancies in the custom channel, with some Paid Social traffic incorrectly categorized as Organic Social. Verify the custom channel configuration and its applicability to historical data. The client has made changes to the custom channel to address CCTV, so this needs to be checked.
+    *   **Offline Conversions:**
+        *   Automated uploading to ad platforms from Google Sheets (replacing SharePoint) is under investigation. Zapier is being considered as a potential solution.
+        *   Offline conversions from CSV was uploaded.
+    *   **Calendar Event Conversion Rate:** Client reports 0% conversion rate for `calendar_event_scheduled`. This requires investigation.
+    *   **Dashboard Data Mismatch:** Data discrepancies exist between Looker Studio and the automation spreadsheet for "Book a demo" and "Calendar scheduled events". Investigate the accuracy of event tracking in Looker Studio versus the spreadsheet. "Book demo" event seems to be duplicating.
+    *   **Lead Qualification:** Implement a method to identify duplicate and unqualified leads based on lead status ("CXL" column) and integrate this data into Looker.
+    *   **Scorecard Request:** Create a scorecard in Looker displaying total lead form fills, booked demos, and qualified leads, broken down by funnel stage and channel (Meta, Google, etc.) for a selected date range.
+    *   Client wants to see pathway to conversion.
+    *   Need to confirm that the sheet is the only sheet the client will be using moving forward.
+*   **Data Requirements for Automation:**
+    *   Request a single Google Sheet containing data for users marked with "SOLD" status. This sheet should include email, phone, first name, last name, state (optional), country, event_time (date and time of sale), value, and currency.
+    *   An alternative is to create the sheet ourselves by transforming to another sheet on the basis of status condition.
+*   **Pending Tasks:**
+    *   User data sending to all ad platforms (waiting for Calendly implementation).
+    *   Basis events (waiting for conversion IDs from Basis team).
+    *   UTM passing (waiting for hidden fields implementation for website forms and Calendly).
+    *   Offline conversions automation.
+*   Need to set baseline. Example, in a 30d period we received X number of unqualified leads.
+*   Ensure all pending items are closed and signed off with the client.
+*   All feedback regarding the dashboard is incorporated and validated.
+*   Internal calls scheduled for Tuesday, Wednesday, and Thursday from 12:30 PM to 1:30 PM PKT.
+*   **Tasks in Progress:**
+    *   Investigating event duplicates.
+    *   Client ID parameter implementation.
+    *   The issue of duplication within sheet and across sheet has been resolved to get unique number of leads. Validation period: June 1st to June 3rd.
+*   **Completed Tasks:**
+    *   Client ID parameter sent as custom parameter.
+    *   Investigating Organic Video channel for misattribution of paid.
+    *   Organic Social channel for stragglers that should be paid has already been fixed.
+*   **GA4 Internal Traffic Filter:** Need a comprehensive list of IP addresses used by all internal team members to filter out internal traffic in GA4.
+*   **Event Duplication Analysis:** No issue with the event trigger in GTM; it fires once per form submission with the correct form ID only. Inflation recorded for previous dates was likely due to internal testing.
+*   A dashboard page has been created.
+*   Coordinate with Grace and Gail before making any changes to Zapier. Do not modify their present Zaps or their sheet; setup our own flows.
+*   A document has been created.
+*   **invitee_scheduled vs meeting_scheduled Events:** Explore report or hidden Looker page showing event counts for `invitee_scheduled` and `meeting_scheduled` events is needed.
+*   Confirm with Grace if cost should be removed from the specified Looker Studio page; then, if confirmed, remove it.
+*   `calendar_event_scheduled` and `invitee_meeting_scheduled` are separate events; therefore, counts do not match. `calendar_event_scheduled` is now the source of truth for scheduled demos. Funnel steps in the Campaign performance page have been replaced accordingly.
+*   Automated sheet and Loom link for explanation are available.
+*   The client liked the Google Sheet.
+*   **Action Items (Prioritized):**
+    *   Get actionable insights.
+    *   Remove team IPs from all reporting (Looker + GA4).
+    *   Coordinate and guide Gail to prevent errors; ensure all leads (Paid, Organic, Direct) are in the Google Sheet.
+    *   Automate everything possible in the Google Sheet for Lisa, including source and lead type.
+    *   Continue focusing on avoiding spam.
+*   An internal meeting is scheduled for Monday at 12:30 PM PKT.
+*   **Project Status (Based on Approved 30-Hour Scope):**
+    *   Audience & Ad Tracking Optimization (GA4, GTM, Meta, Google Ads, LinkedIn, Reddit, Basis): Completed, Zuhaid will connect with Renald.
+    *   Spam & Lead Quality Control: Tasks initially planned are completed.
+    *   Conversion tracking and offline conversions to ad platforms: All leads marked as sold have been uploaded; no new sold leads since then.
+    *   Paid sources and campaigns performance dashboard: Completed for all, Reddit access just received and needs to be incorporated.
+*   **Additional Items Requiring 15-20 More Hours:**
+    *   UTM tracking & traffic source attribution setup: Done for website forms, but not for data coming from Calendly.
+    *   Advanced lead performance dashboard (integrating CRM and funnel stages): Pending alignment on final sheet or CRM to be used by Lisa.
+    *   Marketing analysis: Completed.
+    *   A/B testing support: Not needed.

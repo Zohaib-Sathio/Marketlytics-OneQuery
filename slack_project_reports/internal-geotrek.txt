@@ -1,0 +1,257 @@
+*   **Tasks on Geotrek (as of June):**
+    *   Properly set up tracking from ads to sales.
+    *   Create a dashboard.
+    *   Analyze April and May data (ROAS, conversions, etc.) to inform decisions for June.
+
+*   **Tracking Audit and Plan:** Audit the site setup and create a plan for what needs to be tracked. Tracking to begin the following day.
+
+*   **Conversion Event:** The conversion event is identified as invitee\_meeting\_scheduled.
+
+*   **Tracking Status (Current):**
+    *   A tracking status sheet has been created to show the firing status of events.
+    *   Investigating trigger conditions of events that are visible in GA4 reports but not found on the website.
+    *   Looking for new custom event suggestions/recommendations.
+
+*   **Action Items:**
+    *   Audit and provide recommendations on existing events.
+    *   Perform an audit of all platform pixels.
+    *   Audit GA4 other aspects.
+    *   Fix all issues identified in the audits.
+    *   Create a dashboard.
+
+*   **Workspace:** All work to be kept in a new, separate workspace named "Tayyaba - Analytics Consultant."
+
+*   **GA4 and Meta Events:**
+    *   Document updated with all GA4 configuration audit points, GA4 and META events, their status, and recommended GA4 events.
+    *   Three new GA4 events have been implemented.
+    *   Contact links event was not implemented due to the unavailability of contact clicks (maps, call, and email) on the website.
+    *   Duplication of form submit events (in-person and consultation) is occurring due to tracking via Calendly native integration and GTM custom HTML Tag. One of these tracking methods can be paused to avoid duplication.
+    *   Unable to update the Referral Exclusion List due to view-only access to the GA4 Analytics Account.
+
+*   **Key Events:** Key events have already been marked in GA4.
+
+*   **GA4 Access:** Only view-mode access to GA4 is available, preventing configuration changes.
+
+*   **GA4 Editor Access Needed:**
+    *   To create custom dimensions for new and modified events.
+    *   To update the referral exclusion list.
+
+*   **GTM Container:** Unclear if the container should be published after recent changes.
+
+*   **Pending Tasks:**
+    *   Investigating the Google Ads phone consultation issue.
+    *   Dashboard layout design.
+    *   Documenting all work done in the GTM container.
+
+*   **Google Ads Conversion:** An update was sent to the client regarding Google Ads conversion tracking.
+
+*   **Meta Access:** Meta access has been updated to Campaign Manager level.
+
+*   **LinkedIn Account:** The client does not have a LinkedIn account.
+
+*   **Attribution Issue:** The next issue to be resolved is attribution in Calendly and Pipedrive. Access to both platforms is available.
+
+*   **May Sales Data:** Clarification is needed from the client regarding how Pipedrive is integrated to resolve discrepancies in May sales data. The client reported only 2 sales in May, and confirmation is needed on whether this is accurate or underreported due to missing UTMs in Pipedrive or GA4.
+
+*   **Pipedrive Integration:**
+    *   Investigating the flow of leads into Pipedrive, access to GA4/GTM, Pipedrive, and Calendly is available.
+    *   A custom HTML tag in GTM sends form submissions to a Zapier webhook. Disabling this tag did not stop leads from the "Build Your Van" form appearing in Pipedrive.
+    *   Zapier is listed under integrations in Calendly, but the app is not actively connected.
+    *   Confirm the method of Pipedrive integration (Zapier, WordPress plugin, or other). If Zapier or a plugin is involved, access is needed to trace data flow and resolve missing parameter issues (UTM, gclid, page URL).
+    *   WordPress access is available to check the backend.
+    *   The integration between the form and Pipedrive relies on either a WordPress plugin or Zapier.
+        *   WordPress Plugin: "PixelYourSite" is installed, but not the Pro version required for handling UTM parameters.
+        *   Zapier Integration: A custom HTML tag sends form data to a Zapier webhook. The current tag includes fields like email, name, phone, value, and page URL, but no fields for UTM parameters or click IDs. Zapier is authorized & connected on Pipedrive. If Zapier is used, access is needed to check how webhooks are being received.
+
+*   **Calendly:**
+    *   The provided Calendly account shows no upcoming or past meetings, and the event type is inactive.
+    *   GA4/GTM is connected, but admin panel access is needed to verify setup and confirm if UTM/click ID tracking is enabled.
+    *   Correct Calendly access received.
+
+*   **Recommendations/Solutions:**
+    *   Confirm the exact method used to send form data to Pipedrive.
+        *   If via Zapier, update the payload to include UTM parameters, GCLID, and fbclid.
+        *   If using a plugin, confirm which plugin has been setup to configure & identify the issue.
+    *   Explore solutions for consistent UTM/click ID tracking.
+        *   Enhancing the GTM + Zapier integration (recommended if the current route).
+        *   Using third-party tools like GA Connector or Attributer to send UTM parameters.
+
+*   **Pending Information/Access:**
+    *   Zapier access is needed.
+    *   Share code changes for Lua server.
+
+*   **Reports:** The client requested reports showing users in a time series graph and a table for channel groupings with users and leads/conversions. Custom Channel Report sent.
+
+*   **Luaak Server:** Instructions are available for sending UTM parameters to Pipedrive via Luaak Server.
+
+*   **Dashboard Update:** An attribution page has been added to the dashboard.
+
+*   **Attribution Page:** The first table on the attribution page is based on four key events: three form submissions and one newsletter submission.
+
+*   **Key Events in GA4:** The events on the attribution page are marked as key events in GA4.
+
+*   **Event Trigger Guide:** An event trigger guide has been created to be sent along with the Attribution Dashboard.
+
+*   **MNTN Pixel:** Implement a new MNTN pixel on the website via GTM. Ad ID is 44707. Conversion pixels should fire on all thank you pages after contact form submission, appointment scheduling, and "Build a Van" form submission.
+
+*   **MNTN Tracking & Conversion Pixels:** Implemented. The triggers for conversion pixel are:
+    *   Contact Form Submission
+    *   Newsletter Submission
+    *   Build Your Van submission
+    *   In Person showing Form Submission
+    *   Consultation Form Submission
+
+*   **Hidden Fields Guide:** To be sent for Zapier/Calendly.
+
+*   **Documents Sent:**
+    *   Reports and update sent via email.
+    *   UTM Guide sent.
+    *   Event Tracking Details sent.
+
+*   **Hidden Fields Implementation:** Coordinate implementation of hidden fields.
+
+*   **Client Update:** Update sent to the client.
+
+*   **Zapier Access:** Zapier access needed.
+
+*   **UTM Parameters in Pipedrive:**
+    *   UTM parameters are now being recorded in Pipedrive for Build Your Van form submissions.
+    *   The trigger for the tag storing UTMs in local storage was changed to initialization to ensure parameters are captured even if the form is submitted quickly.
+    *   Monitoring real leads to confirm UTM parameters are consistently recorded.
+
+*   **Dashboard Metrics - To Add:**
+    *   Total leads / website = conversion rate
+    *   By source conversion rate
+    *   Booking page conversion (submit/pageview)
+
+*   **Next Steps (Post-Client Meeting):**
+    *   Add new metrics to dashboard (total leads/website conversion rate, by source conversion rate, booking page conversion (submit/pageview)).
+    *   Automate leads from Pipedrive in Looker.
+    *   Add 3-4 Funnel Stages from CRM to the dashboard.
+    *   Calculate lead conversion time by platform and display on the dashboard.
+    *   Clarify ROAS definition and accuracy.
+    *   GA4 data refresh should occur once a day.
+    *   Install Clarity on the site through GTM.
+
+*   **Microsoft Clarity:** Installed using GTM. Clarity Project ID is needed.
+
+*   **To Do's:**
+    *   Take feedback on marketing analysis document.
+    *   Get UTMs fixed for contact forms.
+    *   Send offline conversions to both ad platforms.
+
+*   **Dashboard Enhancements:**
+    *   Added two scorecards: Leads CR (Leads/Website visitors) and Booking Page CR (Leads/booking page pageviews).
+    *   Added Source wise Leads CR.
+    *   Leads Won scorecard automated to show Pipedrive conversions.
+    *   Funnel diagram added to visualize visitors --> leads --> Deals --> Pending Consult --> Consult --> Van Estimated --> Build Finalization --> Leads Won alongside Revenue.
+    *   Table added to visualize Deal Closing Time.
+
+*   **Data Refresh:** The dashboard is currently configured to use the GA4 API every 12 hours. Using the GA4 API only once a day to read data from Looker Studio Pro feature of "Manage auto refresh settings".
+
+*   **ROAS Definition (Current):**
+    *   Return on Ad Spend = Revenue from Advertising/Ads Cost.
+    *   Ads Cost is the sum of Google Ads and Meta Ads.
+    *   Revenue is the Value associated with the Leads Won. Since UTM parameters are not fully available in the CRM data, the revenue from all leads captured is being used to calculate ROAS.
+    *   Since UTMs are now being recorded correctly, the ROAS definition can be updated in a few days.
+
+*   **Pending Items:** Ensure all pending items are closed and signed off with the client.
+
+*   **Dashboard Feedback:** Incorporate all dashboard feedback and validate with Sameen.
+
+*   **Expansion Pitch:** Prepare a CRO + AB Testing Roadmap.
+
+*   **Dashboard Validation:** Request to confirm dashboard numbers are validated and ready for sending.
+
+*   **Internal Call:** An internal call is scheduled for Tuesday, Wednesday, and Thursday from 12:30 PM to 1:30 PM PKT.
+
+*   **Offline Conversions to Meta:** Offline conversions are being sent to Meta via Zapier, with successful test events. The Zap is being monitored and tested further due to a potential token access issue.
+
+*   **Client Meeting:** A client meeting is scheduled to discuss analytics findings and define action items.
+
+*   **Analysis & Recommendations:**
+    *   **GA4 Funnel Analysis Insights:** Significant drop-offs occur at each stage of the user journey, particularly between the "Vans for Sale" and "Learn More" pages, and between the "Learn More" and "Contact Page" pages.
+    *   **MS Clarity Insights:** Users on mobile devices tend to scroll to the bottom of the "Vans for Sale" page without engaging with the full content. Users also visit the contact page but do not submit the contact form.
+    *   **Recommendations:**
+        *   Surface key information and CTAs higher on the "Vans for Sale" page, especially for mobile users.
+        *   Simplify and optimize forms for mobile responsiveness and ease of completion.
+        *   Enhance transitions between key pages with clearer pathways and micro-conversion options.
+        *   Introduce sticky CTAs and interactive elements to maintain user engagement.
+
+*   **Task-Related Updates:**
+    *   UTMs and click IDs are being captured properly in Pipedrive.
+    *   Form-related information is now included in Pipedrive notes for Calendly forms.
+    *   Offline conversions are being sent to Meta and Google Ads via Zapier, with successful test requests.
+    *   The Zap is set up to send only "won deals" to the ad platforms. Consider sending all lead types with relevant tags/labels.
+
+*   **ROAS Calculation:** ROAS should be calculated based on a 28% margin, not total revenue, and reported at the channel level.
+
+*   **Client Feedback:** The client liked the findings, but double-checking all definitions for metrics in the dashboard is needed.
+
+*   **Action Items:**
+    *   **Analytics Dashboard & Reporting:**
+        *   Adjust ROAS Calculation: Modify the Return on Ad Spend (ROAS) calculation to account for a 28% gross margin instead of total revenue.
+        *   Compare June's ROAS Numbers: By the end of June, compare the ROAS numbers to ensure they are evened out.
+        *   Attribute ROAS Per Channel: Ensure all media channels (Google Ads, Facebook Ads, Google Merchant, YouTube, and other social media accounts) are appropriately attributed to ROAS.
+    *   **Collaboration & Access:**
+        *   Discuss with Joey which lead tags should be sent back to the ad platforms for better data attribution, especially for OTT and Facebook.
+        *   Schedule a call with Kevin to discuss his thoughts on the analytics and get him up to speed for building experiments.
+    *   **COMPLETE:**
+        *   Fix Lead Conversion Rate Formula: Updated the formula for the leads conversion rate to include all form submissions, not just scheduled meetings.
+        *   Provide Analytics Access to Kevin: Sent Kevin access to the analytics dashboard and relevant reports.
+
+*   **Offline Conversions Automation:**
+    *   *Won deals* from Pipedrive are sent as offline conversions to both *Meta* and *Google Ads*.
+    *   For *Google Ads*, a conversion is only recorded if the deal has a *GCLID* associated with it.
+    *   Clarification needed on:
+        *   Should we send *won deals*, *closed deals*, or another status?
+        *   Which leads or deals should be sent to *Google Ads* and which to *Meta*? Like qualified, good..
+        *   Should *all types of leads* be sent to the *same conversion action* in each ad platform, or would you prefer separate conversion actions for different types of leads?
+
+*   **Pipedrive Automation:** Collaborating with Becca & Deepak to:
+    *   Add Calendly event in Activity section of Pipedrive leads for the day for which meeting is scheduled.
+    *   Merge all those leads under one section having same email address.
+    *   Investigate why Pipedrive is not receiving leads for a particular event.
+
+*   **CRO + AB Testing Roadmap:** A one-pager of relevant items for a call with Kevin will be created.
+
+*   **Dashboard Updates:**
+    *   Added scorecards for:
+        *   Total Conversions (All four forms & Newsletter submissions)
+        *   CVR (Conversion Rate)
+        *   Total Conversions via Organic Search
+        *   CVR via Organic Search
+    *   Updated the pivot table to include the total number of users for each conversion event, numbers validated for the last 28 days.
+
+*   **Dashboard Changes:**
+    1.  **Fixed Lead Conversion Rate Formula:** Added all Four Lead Generation Forms.
+    2.  **Added ROAS on Margin:**
+        *   For June:
+            *   Revenue = $165,062
+            *   Ad Spend (Meta and Google) = $15,954
+            *   ROAS on 28% Margin = (0.28 * 165,062) / 15,954 = 2.7
+    3.  **Revenue attributed to Channels as per Pipedrive UTMs of Won Leads:**
+        *   Paid Others (google-ads|pmax-us|ppc) = $117,612
+        *   Unassigned (not set|gmb|not set) = $47,450
+        *   Ad spend is not available for these respective channels, preventing ROAS calculation.
+
+*   **Offline Conversions Automation - Clarification Needed:**
+    *   Current Setup Summary:
+        *   Won deals from Pipedrive are being sent as offline conversions to both Meta and Google Ads.
+        *   For Google Ads, a conversion is only recorded if the deal includes a GCLID.
+        *   If conversions without a GCLID should be sent, Lookalike Audiences could be explored.
+    *   Confirm if lead values should be assigned as follows: Good = 2500, Qualified = 1500.
+    *   Confirm if the setup should be updated to send only Good and Qualified deals under the offline conversion action, overriding the deal value shown in Pipedrive.
+
+*   **GA4 Campaign Mismatch:** There is a campaign called *pmax-us* in GA4, but Google Ads does not have a campaign with the exact same name. There is a campaign named *SDM | Pmax | US | Max Conv* in Google Ads. These two campaigns belong to two different channels in GA4, resulting in revenue being misattributed to the wrong source/channel in GA4 and the dashboard, impacting performance analysis.
+
+*   **A/B Testing Ideas:** A draft document of A/B testing ideas has been created based on insights from GA4, Clarity, and a website UX review.
+
+*   **Current Updates:**
+    *   Dashboard-related items completed and update to be sent.
+    *   Attribution changes requested by Grace in Dashboard are completed and shared.
+    *   Offline conversion setup changes in values are in progress; awaiting response regarding non-GCLID related conversions.
+    *   Scheduling a call with Kevin is pending due to A/B testing ideas being in progress.
+    *   No lead information found in Pipedrive for test submissions. Calendly access requested.
+    *   Callrail question pending response.
+    *   Pipedrive duplicate leads/contact issue: Pipedrive support may need to be contacted.

@@ -83,6 +83,7 @@ def process_email_threads(service, max_results=1):
         # print("✅ LLM Extracted Insights:\n", response.content)
 
         metadata = {
+            "source": "gmail",
             "subject": subject,  # Last message's subject
             "sender": sender,     # Last message's sender
             "email_id": thread_id

@@ -1,0 +1,568 @@
+[
+  {
+    "ts": "1747144275.148939",
+    "text": "<@U02V24EQ6R4> has joined the channel",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747144302.435929",
+    "text": "<@U02DFPYBV2N> has joined the channel",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747144302.526729",
+    "text": "<@U024F9LR6> has joined the channel",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747144308.956049",
+    "text": "*Summary of Steve’s Key Points*\n1. *Staging Site Overwrite:*\n    ◦ Steve *overwrote the staging site* with the *production site* today.\n    ◦ This means the *staging environment now mirrors production*, including the same login credentials.\n2. *Plugins and Licensing:*\n    ◦ Some *WordPress plugins* may not function fully in staging because they *lack additional environment licenses*.\n    ◦ That could result in *limited functionality or error messages*, but it _shouldn't affect your work_.\n3. *API Connections:*\n    ◦ *Staging uses PRODUCTION APIs*, so any testing done there could impact live systems.\n    ◦ Be *mindful of this when testing*—only GA4 and a few others might be excluded.\n4. *Test vs Staging:*\n    ◦ There's a separate \"test\" environment that *isn't being overwritten*.\n    ◦ Steve prefers you to work in *staging*, since he can reset it easily, and wants to keep \"test\" unchanged for now.\n5. *Communication:*\n    ◦ He's happy to chat via *email* or *Microsoft Teams*—whichever is faster for you during setup.\n6. *Access Info:*\n    ◦ The *staging site is now live* and password protected.\n• Access details:\n        ▪︎ Website: <https://trupanionstg.wpenginepowered.com>\n        ▪︎ Gate username: `trupanionstg`\n        ▪︎ Gate password: ********* (lastpass)\n        ▪︎ Admin login: <https://trupanionstg.wpenginepowered.com/wp-admin>\n    ◦ Use the *admin login credentials* previously provided (not included in this email) after passing the gate.",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747145166.663769",
+    "text": "*Access Checklist:*\n• GA4 - received\n• Google Tag Manager - received\n• Google Ads - received but our limit has been reached so need to request from them\n• Wordpress Admin Access \n*Overall Scope:*\n\n*Tracking Audit (Week 1)*\n• Review GA4 setup \n• Audit Google Tag Manager (GTM) configuration and event tracking\n• Evaluate existing event tagging and misattribution issues (e.g., quote form conflation, unassigned traffic)\n• Identify misattribution or gaps in tracking, especially:\n    ◦ Quote journey steps\n    ◦ Activation journey\n    ◦ Call-to-action buttons\n    ◦ Unassigned traffic causes\n*Tracking Fixes and Improvements Implementation (Week 2 to 3)*\n• Configure server-side tagging via *<http://Stape.io|Stape.io>*, including:\n    ◦ Stape container and subdomain setup\n    ◦ Integration with GA4 via server container\n    ◦ Integration with Google Ads (and optionally Meta, if relevant)\n• Implement of Code Changes to push required events to the DataLayer\n• Migrate key events from client-side to server-side GTM where applicable:\n    ◦ Quote form submissions\n    ◦ Activation steps\n    ◦ Conversion events\n• Ensure proper user and session attribution (mitigating \"unassigned\" traffic)\n• \n*Recommendations &amp; Documentation (Week 3)*\n• Document the fixes and GTM/GA4 configurations\n• Recommend future enhancements for server-side tracking and potential A/B testing strategies\n",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747145590.204849",
+    "text": "<@U02V24EQ6R4>",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747149334.392039",
+    "text": "<@U02DFPYBV2N> we have enough to kick off week 1. \n\nWp admin is week 2 so let’s start",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747161050.051029",
+    "text": "All accesses sorted - we are ready to kick off",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747237743.064529",
+    "text": "would need test card details to move forward from the Quote Journey step 3",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747259643.738139",
+    "text": "Forwarded an email to you with the details",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747672764.075439",
+    "text": "<@U02V24EQ6R4>\nI've setup <https://tagmanager.google.com/#/container/accounts/6256383614/containers/220412539/workspaces/2|sGTM container>. Things I need from client is:\n• a separate Google Profile on which I will create <http://Stape.io|Stape.io> account.\n• for setting up custom domain the tasks which require client's action:\n1. *DNS Configuration for Custom Subdomain*\n    ◦ Set up a custom subdomain (e.g., `<http://ss.example.com|ss.example.com>`) to enhance cookie longevity and ensure first-party data collection. This involves creating DNS records and possibly configuring a CDN or load balancer.\n2. *Access to Domain and Hosting Services*\n    ◦ Provide access to domain registrar and hosting environment to facilitate necessary configurations.\nFor more detailed instructions: <https://stape.io/blog/how-to-start-with-server-side-tracking#recommended-set-up-custom-domain>",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747691192.505809",
+    "text": "I don't understand this completely - the second part custom domain tasks is confusing",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747691234.244459",
+    "text": "What am I supposed to ask him exactly? - just to create a subdomain?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747691773.233389",
+    "text": "Okay I get it - sent the email",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747995602.222169",
+    "text": "<@U087DLQ4VMZ> meanwhile client is sorting out the custom domain thing.\nLet's make a code change doc of the events if that's to be implemented for multi step quote submission form from front end and we can loop-in our dev for that.",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747995624.726149",
+    "text": "<@U087DLQ4VMZ> has joined the channel",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1747996079.492209",
+    "text": "Understood - will try to get to it today, else will hand it over max by Monday iA.",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748000801.083939",
+    "text": "How's progress here?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748001164.242969",
+    "text": "Trying to move as quick as possible,\n• Meanwhile custom domain setup is on client's end, we are moving forward with events tracking from wordpress (front-end) side.\n• from there data will go to sGTM and then to GA4, Google Ads, Meta CAPI (and optionally Meta, if relevant)",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748001191.112079",
+    "text": "Yeah I will follow up with them Monday",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748262246.874029",
+    "text": "front-end code changes shared with dev, he'll start the implementation by tonight, meanwhile <@U087DLQ4VMZ> please setup the front end tags in GTM for:\n• GA4\n• Google Ads\n",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748262282.398489",
+    "text": "Can you prep ss payloads doc as well",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748262301.456509",
+    "text": "yes, it's also ready. will share in a while",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748262336.554859",
+    "text": "Front-end code changes: <https://docs.google.com/document/d/1NJsCaoTeJq9pavYLLFiWcXpHUcDPEbF-mB3yj71iml8/edit?usp=sharing>\nServer-side code changes: <https://docs.google.com/document/d/1aw4DpaAXTU2Jx3iGBGfTIFHWf52hnDjXKXnFPF_LcW8/edit?usp=sharing>",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748353696.995179",
+    "text": "<@U02DFPYBV2N> Additional code changes added for the following funnels' steps:\n• Activate Your Coverage\n• Continue Cover\nFront-end code changes: <https://docs.google.com/document/d/1NJsCaoTeJq9pavYLLFiWcXpHUcDPEbF-mB3yj71iml8/edit?usp=sharing>\nServer-side code changes: <https://docs.google.com/document/d/1aw4DpaAXTU2Jx3iGBGfTIFHWf52hnDjXKXnFPF_LcW8/edit?usp=sharing>",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748355217.973169",
+    "text": "<@U02DFPYBV2N> we need to send server side only to dev. Correct?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748355259.562189",
+    "text": "yes, front end Code changes being done internally",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748356034.860569",
+    "text": "Server to server not needed. Do front to server only",
+    "is_thread_reply": true,
+    "parent_ts": "1748355259.562189"
+  },
+  {
+    "ts": "1748357577.831649",
+    "text": "then phr code changes nahi bhejen",
+    "is_thread_reply": true,
+    "parent_ts": "1748355259.562189"
+  },
+  {
+    "ts": "1748357739.642139",
+    "text": "Yup",
+    "is_thread_reply": true,
+    "parent_ts": "1748355259.562189"
+  },
+  {
+    "ts": "1748357836.830439",
+    "text": "then that's easier, just wo stape setup krden, custom domain bna den",
+    "is_thread_reply": true,
+    "parent_ts": "1748355259.562189"
+  },
+  {
+    "ts": "1748357878.494009",
+    "text": "Okay. Yeah told her already. When it’s done will let you know. Let’s aim to wrap up",
+    "is_thread_reply": true,
+    "parent_ts": "1748355259.562189"
+  },
+  {
+    "ts": "1748518581.934859",
+    "text": "<@U02DFPYBV2N> call? trupanion internal?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748518590.989599",
+    "text": "sure",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748518686.461509",
+    "text": "link in calendar",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748603070.532119",
+    "text": "<@U04DMQJ5FSM> has joined the channel",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748609914.822089",
+    "text": "<@U02DFPYBV2N> what's the offer code?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748610872.633689",
+    "text": "",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748610885.290439",
+    "text": "use either",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748886023.299159",
+    "text": "<@U02DFPYBV2N> here are the instructions for setting up custom domain for stape:\n\nTo finish setting up `<https://sgtm.trupanion.com.au>`, please add the following DNS records to your domain (`<http://trupanion.com.au|trupanion.com.au>`):\n\n> Type: A  \n> Host: <http://sgtm.trupanion.com.au|sgtm.trupanion.com.au>  \n> Value: 35.244.120.96\n> \n> Type: AAAA  \n> Host: <http://sgtm.trupanion.com.au|sgtm.trupanion.com.au>  \n> Value: 2600:1901:0:1ef6::",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748897160.086739",
+    "text": "<@U04DMQJ5FSM> let’s connect when you’re available.\n\nClient doesn’t have a developer. We can’t keep requesting technical things from them. \n\nI need to give you full context to make sure we don’t have to keep going in circles",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748940885.364369",
+    "text": "Join here: Internal Trupanion\nTuesday, 3 Jun · 1 – 1:30 PM\nGoogle Meet joining info\nVideo call link: <https://meet.google.com/qtw-xaga-dtw|https://meet.google.com/qtw-xaga-dtw>\nOr dial: <tel:+1929-276-0964PIN:693603052|+1 929-276-0964 PIN: 693603052>",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748943386.430609",
+    "text": "*Tracking Audit (Week 1)*\n• Review GA4 setup - Done\n• Audit Google Tag Manager (GTM) configuration and event tracking - Done\n• Evaluate existing event tagging and misattribution issues (e.g., quote form conflation, unassigned traffic) - Need to follow Standard UTM tracking guide\n• Identify misattribution or gaps in tracking, especially:\n    ◦ Quote journey steps - these were not being tracked at all\n    ◦ Activation journey - these were not being tracked at all\n    ◦ Call-to-action buttons - these were not being tracked at all\n    ◦ Unassigned traffic causes - non standard utm_source and utm_medium in destination URLs of Google Ads\n*Tracking Fixes and Improvements Implementation (Week 2 to 3)*\n• Configure server-side tagging via *<http://Stape.io|Stape.io>*, including:\n    ◦ Stape container - Done\n    ◦ subdomain setup - would need help from your infrastructure team, will share details below\n    ◦ Integration with GA4 via server container - Done\n    ◦ Integration with Google Ads - Done \n• Implement of Code Changes to push required events to the DataLayer - Done\n• Migrate key events from client-side to server-side GTM where applicable:\n    ◦ Quote form submissions - Done\n    ◦ Activation steps - Done\n    ◦ Conversion events - Done\n• Ensure proper user and session attribution (mitigating \"unassigned\" traffic) - Done\n*Recommendations & Documentation (Week 3)*\n• Document the fixes and GTM/GA4 configurations - Not Done\n• Recommend future enhancements for server-side tracking and potential A/B testing strategies - Not Done\n",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1748943529.709979",
+    "text": "What's needed from your infrastructure team for the subdomain setup/\n\nTo finish setting up `<https://sgtm.trupanion.com.au>`, please add the following DNS records to your domain (`<http://trupanion.com.au|trupanion.com.au>`):\n\n&gt; Type: A \n&gt; Host: <http://sgtm.trupanion.com.au|sgtm.trupanion.com.au> \n&gt; Value: 35.244.120.96\n&gt; \n&gt; Type: AAAA \n&gt; Host: <http://sgtm.trupanion.com.au|sgtm.trupanion.com.au> \n&gt; Value: 2600:1901:0:1ef6::\n",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749562329.908089",
+    "text": "<@U04DMQJ5FSM> and <@U087DLQ4VMZ> interna call at 7.30",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749566076.709479",
+    "text": "<@U087DLQ4VMZ> joining?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749566121.497309",
+    "text": "has renamed the channel from \"internal_truponion\" to \"internal_trupanion\"",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749566257.958329",
+    "text": "Where is the link?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749566290.650469",
+    "text": "Nvm, just joined",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749566415.031269",
+    "text": "<@U02V24EQ6R4> I am on this link: <https://meet.google.com/qtw-xaga-dtw>",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749566415.265529",
+    "text": "To do's:\n• Need to send standard utm tracking guide to client\n• Sort out unassigned if it stills exists\n• Send another update to client",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749566914.240939",
+    "text": "<@U04DMQJ5FSM>",
+    "is_thread_reply": true,
+    "parent_ts": "1748610872.633689"
+  },
+  {
+    "ts": "1749628400.445119",
+    "text": "Message from client <@U04DMQJ5FSM> <@U087DLQ4VMZ>\n```Hi Omair,\n\nThat is great news!\n\nWill you provide some explanation how to correctly use events etc to track our goals? E.g. Explaining which events ones to use for what.\n\nMany thanks,\nJosi```\nCan you tell me all the event names in the funnel for each form?\n\nIdeally want to respond to her and recommend what events to mark as conversion",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749634311.781269",
+    "text": "<@U087DLQ4VMZ> I noticed that the `custom_event` we pushed to the dataLayer for each form step is being triggered multiple times, causing the corresponding tag to fire more than once.\nIdeally, this should only fire once per step — was this intentional, or could it be a setup issue?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749636693.806979",
+    "text": "Why would this be intentional?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749636715.071709",
+    "text": "<@U087DLQ4VMZ> can you coordinate with Motabar to sort this out?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749636755.810529",
+    "text": "<@U02V24EQ6R4> Already on it",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749637346.279709",
+    "text": "Yar ye dev se validate krwaya bhi tha phr b multiple pushes jarhy hen. Mubeen ko call py le k dikhao ye. Ideally it should be pushed to dL once.",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749637346.279709",
+    "text": "Yar ye dev se validate krwaya bhi tha phr b multiple pushes jarhy hen. Mubeen ko call py le k dikhao ye. Ideally it should be pushed to dL once.",
+    "is_thread_reply": true,
+    "parent_ts": "1749634311.781269"
+  },
+  {
+    "ts": "1749638033.967949",
+    "text": "<@U02DFPYBV2N>, what if I set the corresponding tags to run once per page, this would not inflate the numbers, right?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749638055.891199",
+    "text": "Cause natural flow mai bhi, any user would fill this up once per page",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749638125.772399",
+    "text": "Krlo lekin permanent solution Wohi hai. Validation lgi honi chahiye",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749641528.399159",
+    "text": "<@U02V24EQ6R4>\nFor unassigned issue, have made some improvements and changes to the setup & published them. I'm hopeful this would fix the issue. Will keep an eye on the numbers",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749657614.859709",
+    "text": "<@U02V24EQ6R4> <https://docs.google.com/spreadsheets/d/1bAPItDqurdRaDbMuqE7euthYGHAEYckS-51V6-9P9cI/edit?gid=0#gid=0|Here’s> the breakdown of all the steps in the funnel for all three forms.\nIn response to her follow-up question — I think it makes sense to initially mark the *final step* in each multi-step form as a key event. That said, this can change ofcourse based on how much *granularity* we want in tracking and visibility.",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749697474.055379",
+    "text": "```Hi Omair,\n\nThanks so much. Can you confirm as well if click to call tracking is working? Also, are you still working on the unassigned traffic issue?\n\nI had a look at our actual enrolment report. My assumption would be that if the conversion is counted for purchase and step_4_policy_coverage_confirmed those numbers should match our enrolment report for the same time period for online enrols. However, if I check they don't match.\n\nIn GA4 I see the following for June 2-8:\n\n29 for purchase quote journey\n75 for signing up to offer\n30 for continue policy journey\n\nIn our report I see the below for the same time period:\n45 people enrolled / purchased a policy online (can come from quote journey or continue journey) - not calling\n111 activated their offer from breeder online (sign up offer journey)\n60 activated offer from vet channel online (sign up offer journey)\n\nAre we sure all I working as it should?\n\nMany thanks,\nJosi```",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749697512.873179",
+    "text": "^ <@U04DMQJ5FSM> <@U087DLQ4VMZ> since what date should she start validating?\n\nAlso any progress with the unassigned issue?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749717683.041959",
+    "text": "<@U04DMQJ5FSM> <@U087DLQ4VMZ> since what date should she start validating?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749717700.298499",
+    "text": "I am scheduling an internal call after strategy lead comms <@U087DLQ4VMZ> <@U04DMQJ5FSM>",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749719167.186059",
+    "text": "We got the code changes implemented properly and validated on 6th.\nShe should be starting from 7th onwards.",
+    "is_thread_reply": true,
+    "parent_ts": "1749717683.041959"
+  },
+  {
+    "ts": "1749719297.468439",
+    "text": "Okay got it",
+    "is_thread_reply": true,
+    "parent_ts": "1749717683.041959"
+  },
+  {
+    "ts": "1749815199.330629",
+    "text": "<@U02V24EQ6R4> Significant drop in unassigned traffic after the changes. Will get even better from here.",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749815859.255739",
+    "text": "Sharing this just for the comparison",
+    "is_thread_reply": true,
+    "parent_ts": "1749815199.330629"
+  },
+  {
+    "ts": "1749824227.853799",
+    "text": "<@U02V24EQ6R4> <@U087DLQ4VMZ> Trupanion Internal?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749824293.716849",
+    "text": "Coming",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749825524.567169",
+    "text": "Internal Meeting Notes:\n• We are not in the position to sign off currently, GA4 is still a mess\n<@U087DLQ4VMZ> and <@U04DMQJ5FSM> please review GA4 and Google Ads properly to make sure everything in scope is completed.\n\n*Tracking Fixes and Improvements Implementation*\n• Configure server-side tagging via *<http://Stape.io|Stape.io>*, including:\n    ◦ Stape container - Done\n    ◦ subdomain setup - would need help from your infrastructure team, will share details below\n    ◦ Integration with GA4 via server container - Done\n    ◦ Integration with Google Ads - Done\n• Implement of Code Changes to push required events to the DataLayer - Done\n• Migrate key events from client-side to server-side GTM where applicable:\n    ◦ Quote form submissions - Done\n    ◦ Activation steps - Done\n    ◦ Conversion events - Done\n• Ensure proper user and session attribution (mitigating \"unassigned\" traffic) - Done\n• GTM, GA4 and Google Ads cleanup to make sure the old redundant events are no longer being tracked\n    ◦ *Partially done -* some events are paused but some are still coming through. This would make it difficult for the end user from a usability perspective\n*Recommendations & Documentation* \n• Document the fixes and GTM/GA4 configurations - Not Done\n• Recommend future enhancements for server-side tracking and potential A/B testing strategies - Not Done",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749825557.933529",
+    "text": "<@U02DFPYBV2N>, could you please share the updated credentials for Trupanion Backend? I remember you updated the password and added Authenticator. Would need both\n\nHave tried calling you. Please connect with me as early as possible",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749826389.276269",
+    "text": "<@U04DMQJ5FSM> on a second though, I think also go ahead and make the explore report for the main events. It would help in comparing it with the source of truth",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749843007.293989",
+    "text": "<@U02V24EQ6R4>\n Here’s a much clearer picture of the current setup and what I recommend:\n\n*Google Analytics 4:*\n*TL;DR:* The events we’re seeing in GA4 are _not_ just coming from the Google Tag Manager container we have access to.\n• There are *custom events* set up _directly_ within GA4 (see screenshot #1 for reference).\n• I’ve identified *two GTM containers* on the site (screenshot #2):\n    ◦ `GTM-NLZTZRKF` – this is the one *we’re actively using* for tracking.\n    ◦ `GTM-5P79ND2` – this one *we don’t have access to* and *aren’t using*.\nWe’re already tracking everything we need using `GTM-NLZTZRKF`.\n\n*Google Ads:*\nI made the final GTM updates on *June 11, 2025*.\nThe discrepancy between Google Ads and GA4 conversions is gradually decreasing. I’ll continue to monitor and share more data, but here are the current numbers:\n• *June 12*\n    ◦ Google Ads: 69\n    ◦ GA4: 48\n• *June 13*\n    ◦ Google Ads: 25\n    ◦ GA4: 26\n*Recommendation:*\nSince the client is unsure about what to track and has given us the freedom to decide, I suggest the following:\n• *Remove* all existing _custom event setups_ within GA4 that aren’t linked to our GTM implementation.\n• *Disable or remove* the second GTM container (`GTM-5P79ND2`) from the site.\nThat way, the only events flowing into GA4 will be the ones we explicitly track via `GTM-NLZTZRKF`, ensuring full control and consistency. Let me know what you think.",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749843022.807209",
+    "text": "",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749843035.498529",
+    "text": "",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749844060.681259",
+    "text": "Okay got it",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749844061.867319",
+    "text": "Thanks",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749845385.415879",
+    "text": "Should I go ahead with the recommendations?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1749845845.353059",
+    "text": "Yes",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1750057228.437139",
+    "text": "<@U02V24EQ6R4>\n*Updated Report:*\n\n*June 13-14, 2025:*\n• *Google Analytics 4:*\n    ◦ 5 conversions:\n        ▪︎ purchase - 4\n        ▪︎ step_4_offer_confirmed - 1\n• *Google Ads:*\n    ◦ 9 conversions:\n        ▪︎ Quotation Purchase - 6\n        ▪︎ Offer Confirmed  - 2\n        ▪︎ Policy Confirmed - 1 \n_Note: These numbers will get better post maturation_",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1750063663.228419",
+    "text": "Message from client. <@U02DFPYBV2N> let me know when you’re available for an internal. \n\n```\nHi Omair,\n\nOk great. I have compared numbers in GA4 with our reporting for week 9-15 June and we still don't match up. See below:\n\n9-15 June\n \nGA4:\n115 quote purchase (quote)\n118 offer confirmed (EDO or GHDO)\n26 policy confirmed (Continue cover activation)\n \n \nReporting:\n23 enrolled outside of EDO and GHDO (of those 15 via form, rest phone)\n100 enrolments for GHDO trial (of those 88 via form, others via phone)\n45 enrolments for EDO trial\n27 enrolments from people on trial - those might have used continue cover option or called in (17 have come through web form fill)\n\n```",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1750063837.617199",
+    "text": "sure. lets connect in 10 mins, or once you're in office",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1750069808.493229",
+    "text": "Sorry missed your reply here",
+    "is_thread_reply": true,
+    "parent_ts": "1750063837.617199"
+  },
+  {
+    "ts": "1750069816.724679",
+    "text": "Will be in office in 5",
+    "is_thread_reply": true,
+    "parent_ts": "1750063837.617199"
+  },
+  {
+    "ts": "1750069834.380929",
+    "text": "sure, will connect then",
+    "is_thread_reply": true,
+    "parent_ts": "1750063837.617199"
+  },
+  {
+    "ts": "1750230504.467259",
+    "text": "<@U02DFPYBV2N> are there any changes required in this sheet:\n<https://docs.google.com/spreadsheets/d/1bAPItDqurdRaDbMuqE7euthYGHAEYckS-51V6-9P9cI/edit?gid=0#gid=0>",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1750230544.790369",
+    "text": "Can you share the policy ids along with each submission",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1750230873.278929",
+    "text": "Meeting recording incase needed: <https://grain.com/share/recording/c3cbe29d-52f7-42bb-97d2-9b0bd5a49c23/yDXsduY0HrvjDv1EFVGWnblPP7TkcfgQLb5ZJg9I?tab=summary>",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1750244032.487619",
+    "text": "Added in the same sheet,\ncreated separate tabs for Purchase Event &amp; final steps of the other 2 forms",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1750244032.487619",
+    "text": "Added in the same sheet,\ncreated separate tabs for Purchase Event &amp; final steps of the other 2 forms",
+    "is_thread_reply": true,
+    "parent_ts": "1750230544.790369"
+  },
+  {
+    "ts": "1751019815.820799",
+    "text": "<@U02DFPYBV2N> <@U04DMQJ5FSM> let me know when's a good time to connect today",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751019851.166359",
+    "text": "already working on it and waiting on call with dev",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751019874.578759",
+    "text": "<https://meet.google.com/wwk-eiqx-imp?authuser=0>",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751019875.845369",
+    "text": "loop in Motabar as well to make sure dev doesn't make a blunder again",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751019881.759339",
+    "text": "sure",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751019897.885039",
+    "text": "Have you added notes in the gsheet?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751019897.885039",
+    "text": "Have you added notes in the gsheet?",
+    "is_thread_reply": true,
+    "parent_ts": "1751019851.166359"
+  },
+  {
+    "ts": "1751019907.857779",
+    "text": "on it.",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751019960.493649",
+    "text": "<@U090YBSPNF8> has joined the channel",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751023024.901739",
+    "text": "Okay once notes have been added let me know, we can then connect for an internal",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751023033.154389",
+    "text": "no use connecting with the same clarity we had yesterday",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751023207.699979",
+    "text": "<@U092K2X1XSM> has joined the channel",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751033487.879179",
+    "text": "<@U02DFPYBV2N> Have some other priority work to do, Can we connect on Monday for this?\n\nI missed the call",
+    "is_thread_reply": true,
+    "parent_ts": "1751019881.759339"
+  },
+  {
+    "ts": "1751269951.343529",
+    "text": "<@U02DFPYBV2N>?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751273026.774099",
+    "text": "Let me ask dev.",
+    "is_thread_parent": true
+  }
+]

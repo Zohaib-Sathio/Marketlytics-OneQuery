@@ -40,7 +40,9 @@ def fetch_all_messages(channel_id, oldest_ts):
 
                 # 🚨 Check for threaded replies
                 if msg.get("reply_count", 0) > 0 and "thread_ts" in msg:
+                    print("count: ", {msg.get("reply_count", 0)})
                     thread_ts = msg["ts"]
+                    time.sleep(2)
                     try:
                         thread_res = client.conversations_replies(
                             channel=channel_id,
@@ -67,43 +69,44 @@ def fetch_all_messages(channel_id, oldest_ts):
             break
 
         print(f"✅ Updated {count} messages so far.")
-        time.sleep(30)  # avoid rate-limiting
+        time.sleep(60)  # avoid rate-limiting
 
     return sorted(all_messages, key=lambda x: float(x["ts"])), str(max_ts_seen)
 
 
 import json
 
-def save_messages_to_json(new_messages, filename="reversed_slack_messages.json"):
-    # Load existing messages
+def save_messages_to_json(new_messages, filepath):
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+
     existing_messages = []
-    if os.path.exists(filename):
-        with open(filename, "r", encoding="utf-8") as f:
+    if os.path.exists(filepath):
+        with open(filepath, "r", encoding="utf-8") as f:
             try:
                 existing_messages = json.load(f)
             except json.JSONDecodeError:
-                print("⚠️ Existing file is empty or corrupted, starting fresh.")
+                print(f"⚠️ {filepath} is corrupted or empty, starting fresh.")
 
-    # Append new messages (no deduplication or sorting)
     existing_messages.extend(new_messages)
 
-    # Save back to file
-    with open(filename, "w", encoding="utf-8") as f:
+    with open(filepath, "w", encoding="utf-8") as f:
         json.dump(existing_messages, f, indent=2, ensure_ascii=False)
-    print(f"💾 Appended {len(new_messages)} messages to {filename} (Total: {len(existing_messages)})")
 
-# Run it
-# messages = fetch_all_messages(CHANNEL_ID)
-# save_messages_to_json(messages)
+    print(f"💾 Saved {len(new_messages)} messages to {filepath} (Total: {len(existing_messages)})")
 
-# Sync one Slack channel
-def sync_channel(channel_name, channel_id):
+
+
+def sync_channel(channel_id, channel_meta):
+    channel_name = channel_meta["name"]
     tracker = load_tracker()
-    
     last_ts = get_last_ts(channel_id, tracker)
-    print(f"Syncing {channel_name} from ts > {last_ts}")
+    print(f"🔄 Syncing /{channel_name} from ts > {last_ts}")
+
     reversed_messages, max_ts_seen = fetch_all_messages(channel_id, oldest_ts=last_ts)
-    save_messages_to_json(reversed_messages)
+
+    output_path = f"slack_data/{channel_name}.json"
+    save_messages_to_json(reversed_messages, output_path)
+
     update_last_ts(channel_id, max_ts_seen, tracker)
     print(f"✅ Updated tracker for {channel_name} to {max_ts_seen}")
 
@@ -111,8 +114,8 @@ def sync_channel(channel_name, channel_id):
 def sync_all_channels():
     tracker = load_tracker()
     for channel_id, meta in tracker.items():
-        print(meta['name'])
-        sync_channel(channel_name=meta["name"], channel_id=channel_id)
+        sync_channel(channel_id, meta)
+        time.sleep(180)
 
 if __name__ == "__main__":
     print("🚀 Starting Slack channel sync...")

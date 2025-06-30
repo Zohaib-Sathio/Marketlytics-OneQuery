@@ -100,6 +100,7 @@ if query:
     citations = ""
 
     ## Fix this to include gmail & slack meta as well.
+        ## Update the logic separately for all three source to handle metadata according to them
     for doc in docs:
         meta = doc.metadata
         slack_channel_project = meta.get("project", "unknown")
@@ -107,9 +108,23 @@ if query:
         chunk_index = meta.get("chunk_index", "N/A")
         source = meta.get("source", "unknown")
 
-        context += f"[{file_name} | Chunk {chunk_index} | {source}]\n{doc.page_content}\n\n"
+        if source.lower() == "slack":
+            continue
+        elif source.lower() == "gmail":
+        #     "source": "gmail",
+        #     "subject": subject,  # Last message's subject
+        #     "sender": sender,     # Last message's sender
+        #     "email_id": thread_id
+            continue
+        elif source.lower() == "google_drive":
+            # "source": "google_drive",
+            # "file_name": file["name"],
+            # "file_id": file["id"]
+            continue
 
-    context += f" here is also Project Progess Report (if any): {full_report}"
+        context += f"[{slack_channel_project}{file_name} | Chunk {chunk_index} | {source}]\n{doc.page_content}\n\n"
+
+    context += f" here is also Project Progess Report (if there is any): {full_report}"
 
     print(context)
     print(len(context))
