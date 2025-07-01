@@ -1,3 +1,5 @@
+This is the project progress report for michigan auto law:
+
 *   **Project Initiation:** Project started for the Michigan Auto Law Site. Project details to follow.
 *   **BigQuery Access:** Access to BigQuery is available.
 *   **Documentation:**

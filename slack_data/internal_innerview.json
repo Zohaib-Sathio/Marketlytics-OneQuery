@@ -708,5 +708,15 @@
     "ts": "1751045933.434419",
     "text": "<@U087DLQ4VMZ> keep tabs on this thread: <https://innerviewtalk.slack.com/archives/C08JQJ2JA00>",
     "is_thread_parent": true
+  },
+  {
+    "ts": "1751355066.668129",
+    "text": "<@U087DLQ4VMZ> \nAsync updates",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751355364.511289",
+    "text": "• HubSpot setup and access received\n• HubSpot forms are embedded with no accurate way of tracking, have discussed with Deepak (dev) to make them inline so book_a_demo could be tracked\n• Will send in payload on thank-you page for final tracking of calender_event_scheduled\n• Need discussion with Lisa to understand their lead qualification methodology in HubSpot, for Offline Conversions Automation, Grace has no clue\n• Basis is still pending, haven't heard back from Renold",
+    "is_thread_parent": true
   }
 ]

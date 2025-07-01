@@ -1,4 +1,6 @@
-*   **Tasks on Geotrek (as of June):**
+This is the project progress report for geotrek:
+
+*   **Tasks:**
     *   Properly set up tracking from ads to sales.
     *   Create a dashboard.
     *   Analyze April and May data (ROAS, conversions, etc.) to inform decisions for June.
@@ -79,6 +81,8 @@
 *   **Pending Information/Access:**
     *   Zapier access is needed.
     *   Share code changes for Lua server.
+    *   Calendly access requested.
+    *   Callrail question pending response.
 
 *   **Reports:** The client requested reports showing users in a time series graph and a table for channel groupings with users and leads/conversions. Custom Channel Report sent.
 
@@ -112,8 +116,6 @@
 
 *   **Client Update:** Update sent to the client.
 
-*   **Zapier Access:** Zapier access needed.
-
 *   **UTM Parameters in Pipedrive:**
     *   UTM parameters are now being recorded in Pipedrive for Build Your Van form submissions.
     *   The trigger for the tag storing UTMs in local storage was changed to initialization to ensure parameters are captured even if the form is submitted quickly.
@@ -139,6 +141,7 @@
     *   Take feedback on marketing analysis document.
     *   Get UTMs fixed for contact forms.
     *   Send offline conversions to both ad platforms.
+    *   Pipedrive duplicate leads/contact issue: Pipedrive support may need to be contacted.
 
 *   **Dashboard Enhancements:**
     *   Added two scorecards: Leads CR (Leads/Website visitors) and Booking Page CR (Leads/booking page pageviews).
@@ -249,9 +252,18 @@
 
 *   **Current Updates:**
     *   Dashboard-related items completed and update to be sent.
-    *   Attribution changes requested by Grace in Dashboard are completed and shared.
+    *   Attribution changes requested in Dashboard are completed and shared.
     *   Offline conversion setup changes in values are in progress; awaiting response regarding non-GCLID related conversions.
     *   Scheduling a call with Kevin is pending due to A/B testing ideas being in progress.
-    *   No lead information found in Pipedrive for test submissions. Calendly access requested.
-    *   Callrail question pending response.
+    *   No lead information found in Pipedrive for test submissions.
     *   Pipedrive duplicate leads/contact issue: Pipedrive support may need to be contacted.
+
+*   **Offline Conversions (Meta & Google Ads):**
+    *   Zapier has been updated with lead values as discussed.
+    *   Offline conversions are correctly received in Meta.
+    *   Troubleshooting Google Ads offline conversion issues.
+    *   Lookalike audiences need to be created for non-GCLID conversions.
+
+*   **A/B Testing Roadmap:** A review of the A/B testing document is needed.
+
+*   **Call with Kevin:** The call with Kevin is pending.

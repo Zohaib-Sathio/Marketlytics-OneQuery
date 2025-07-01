@@ -543,5 +543,16 @@
     "ts": "1751025337.451369",
     "text": "<@U092K2X1XSM> has joined the channel",
     "is_thread_parent": true
+  },
+  {
+    "ts": "1751356122.966959",
+    "text": "<@U07U3U693L6> async update",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751358660.342199",
+    "text": "Office Wi-Fi was no working so wasn't able to join internal sync call:\n• The zaps have been updated to have values as discussed with Joey &amp; updated Joey as well.\n• Joey inquired about non-GLCID conversions, so need to make lookalike audience for that. \n• Meta is correctly receiving the offline conversions but Google Ads is not receiving conversions so trying to troubleshoot that.\n• Need you to share review on A/B testing document. \n• Call with kevin is left",
+    "is_thread_reply": true,
+    "parent_ts": "1751356122.966959"
   }
 ]

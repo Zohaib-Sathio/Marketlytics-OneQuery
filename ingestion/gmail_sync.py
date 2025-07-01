@@ -95,4 +95,4 @@ def process_email_threads(service, max_results=1):
 
 if __name__ == '__main__':
     service = authenticate_gmail()
-    process_email_threads(service, max_results=3)
+    process_email_threads(service, max_results=10)

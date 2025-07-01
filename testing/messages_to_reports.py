@@ -69,7 +69,7 @@ def generate_updated_report(previous_report: str, new_messages: list) -> str:
 
 def process_channel(channel_name, messages, tracker):
     report_path = os.path.join(REPORT_FOLDER, f"{channel_name}.txt")
-    previous_report = ""
+    previous_report = f"This is the project progress report for {channel_name}: "
     last_ts = 0.0
 
     if channel_name in tracker:

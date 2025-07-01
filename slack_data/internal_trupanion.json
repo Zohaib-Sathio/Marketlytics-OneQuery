@@ -564,5 +564,48 @@
     "ts": "1751273026.774099",
     "text": "Let me ask dev.",
     "is_thread_parent": true
+  },
+  {
+    "ts": "1751296812.336509",
+    "text": "*Trupanion Email Draft:*\n\nHi Josephine,\n\nThank you for bringing this to our attention.\n\nI checked with our developer, and we did make a small update to a file related to API handling on Friday, June 27th. The change involved pushing tracking information to the *dataLayer* during the final step of the quote process. This was solely intended to enhance analytics tracking and did not touch the breed dropdown or any other input fields. Everything was tested after deployment and appeared to be functioning as expected.\n\nThat said, we understand the issue you encountered occurred around the same time. While we don’t believe our update directly caused it, we recognize that something may have inadvertently slipped through.\n\nSince we don’t have access to server logs, it’s challenging to confirm the root cause from our side. That said, we’re more than happy to assist in your investigation however we can. Please let us know if there’s anything specific you’d like us to look into.\n\n<@U02DFPYBV2N> for visibility",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751310193.426979",
+    "text": "<@U02DFPYBV2N> can you share gsheet with the updates numbers?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751310758.043019",
+    "text": "Sure I'll add 28-29 numbers to the same sheet.",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751311269.158089",
+    "text": "Added,",
+    "is_thread_reply": true,
+    "parent_ts": "1751310193.426979"
+  },
+  {
+    "ts": "1751315055.691469",
+    "text": "Share gsheet link as well",
+    "is_thread_reply": true,
+    "parent_ts": "1751310193.426979"
+  },
+  {
+    "ts": "1751331283.801709",
+    "text": "Gsheet link?",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751357939.276929",
+    "text": "<https://docs.google.com/spreadsheets/d/1-EAEtLHqJi-hnkmkENVKqHEMxYSkzJp0/edit?gid=1811594064#gid=1811594064>",
+    "is_thread_parent": true
+  },
+  {
+    "ts": "1751357939.276929",
+    "text": "<https://docs.google.com/spreadsheets/d/1-EAEtLHqJi-hnkmkENVKqHEMxYSkzJp0/edit?gid=1811594064#gid=1811594064>",
+    "is_thread_reply": true,
+    "parent_ts": "1751331283.801709"
   }
 ]

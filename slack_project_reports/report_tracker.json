@@ -1,7 +1,7 @@
 {
   "internal-geotrek": {
     "report_path": "slack_project_reports\\internal-geotrek.txt",
-    "last_ts": "1751025337.451369"
+    "last_ts": "1751358660.342199"
   },
   "internal-michigan-autolaw": {
     "report_path": "slack_project_reports\\internal-michigan-autolaw.txt",
@@ -9,10 +9,10 @@
   },
   "internal_innerview": {
     "report_path": "slack_project_reports\\internal_innerview.txt",
-    "last_ts": "1751045933.434419"
+    "last_ts": "1751355364.511289"
   },
   "internal_trupanion": {
     "report_path": "slack_project_reports\\internal_trupanion.txt",
-    "last_ts": "1751273026.774099"
+    "last_ts": "1751357939.276929"
   }
 }

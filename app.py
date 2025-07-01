@@ -14,7 +14,9 @@ Use only the given context to answer. If unsure, say "I don't know."
                                                    
 At the end, include citations for the sources you have used from given context to generate the response. Also mention the source as well with them.       
 
-Note: Do not add unknown or N/A to the citations.                                                                               
+Note: Do not add unknown or N/A to the citations.  
+
+Use all the given context, do not get stuck on one point mentioned.                                                                                                                            
 
 Context:
 {context}
@@ -47,47 +49,43 @@ if query:
     
     import json
 
-    def load_project_catalog():
-        with open("slack_project_reports/project_catalog.json", "r") as f:
+    def load_report_tracker():
+        with open("slack_project_reports/report_tracker.json", "r") as f:
             return json.load(f)
 
-    project_catalog = load_project_catalog()
+    report_tracker = load_report_tracker()
 
-    def detect_project_from_query(llm, query, project_catalog):
-        project_names = [v["name"] for v in project_catalog.values()]
+    def detect_project_from_query(llm, query, tracker):
+        project_names = list(tracker.keys())
         project_list = "\n".join(f"- {name}" for name in project_names)
 
         prompt = f"""
-    You are an assistant that determines which project a user is referring to in their question.
+You are an assistant that determines which project a user is referring to in their question.
 
-    Here is the user query:
-    "{query}"
+User query:
+"{query}"
 
-    Here are the available projects:
-    {project_list}
+Available projects:
+{project_list}
 
-    Return only the most relevant project name from the list. If none match, say "unknown".
-    """
-
+Return only the most relevant project name from the list. If none match, say "unknown".
+"""
         response = llm.invoke(prompt)
         project_name = response.content.strip().lower()
 
-        # Normalize and find matching key
-        for key, data in project_catalog.items():
-            if project_name == data["name"].lower():
+        # Normalize
+        for key in tracker:
+            if project_name == key.lower():
                 return key
         return "unknown"
     
-    project_key = detect_project_from_query(llm, query, project_catalog)
-    print(f"product key: {project_key}")
-    project_data = project_catalog.get(project_key)
-    report_path = ''
+    import os
+    
+    project_key = detect_project_from_query(llm, query, report_tracker)
+    report_path = report_tracker.get(project_key, {}).get("report_path", "")
 
-    if project_key != "unknown":
-        report_path = project_data["report_path"]
-
-    full_report = ''
-    if report_path:
+    full_report = ""
+    if report_path and os.path.exists(report_path):
         with open(report_path, "r", encoding="utf-8") as f:
             full_report = f.read()
 
@@ -124,7 +122,7 @@ if query:
 
         context += f"[{slack_channel_project}{file_name} | Chunk {chunk_index} | {source}]\n{doc.page_content}\n\n"
 
-    context += f" here is also Project Progess Report (if there is any): {full_report}"
+    context += f" here is also Project Progess Report (The report is generated for the queried project, all mentioned info is about the queried project so use that to answer the query.): {full_report}"
 
     print(context)
     print(len(context))

@@ -1,3 +1,5 @@
+This is the project progress report for innerview:
+
 *   **Spam Traffic & Form Fill Issues:**
     *   A spike in spam demo requests and fake calendar bookings is occurring, potentially due to competitor activity.
     *   Basic protections (IP block, possibly CAPTCHA) implemented have not resolved the issue.
@@ -139,3 +141,9 @@
     *   Advanced lead performance dashboard (integrating CRM and funnel stages): Pending alignment on final sheet or CRM to be used by Lisa.
     *   Marketing analysis: Completed.
     *   A/B testing support: Not needed.
+*   **HubSpot:**
+    *   HubSpot setup and access received.
+    *   HubSpot forms are embedded and not accurately tracked. Discussed with development team to make them inline so `book_a_demo` can be tracked.
+    *   Will send in payload on thank-you page for final tracking of `calender_event_scheduled`.
+    *   Need discussion with Lisa to understand their lead qualification methodology in HubSpot, for Offline Conversions Automation.
+*   **Basis:** Still pending.
