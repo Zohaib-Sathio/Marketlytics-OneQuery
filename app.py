@@ -6,17 +6,17 @@ llm = get_gemini_llm()
 
 
 from langchain.prompts import PromptTemplate
-
 rag_prompt_template = PromptTemplate.from_template("""
-You are an assistant answering questions using the following information from documents.
+You are an expert assistant helping answer questions based on multiple sources: Slack messages, Gmail threads, Google Drive files, and an up-to-date project progress report.
 
-Use only the given context to answer. If unsure, say "I don't know."
-                                                   
-At the end, include citations for the sources you have used from given context to generate the response. Also mention the source as well with them.       
-
-Note: Do not add unknown or N/A to the citations.  
-
-Use all the given context, do not get stuck on one point mentioned.                                                                                                                            
+Instructions:
+- Use only the provided context.
+- If you don’t know the answer, say "I don't know."
+- Favor the most recent updates or clarifications.
+- Prefer Slack for real-time status, Gmail for approvals/discussions, and Drive for formal docs.
+- Use the **Project Progress Report** as the most reliable summary of overall status.
+- If available, mention the **date** of an update or event from the context.
+- At the end, list citations from the context you used (with source and any metadata like file name, date, or sender).
 
 Context:
 {context}
@@ -24,6 +24,7 @@ Context:
 Question:
 {question}
 """)
+
 
 # Streamlit App UI
 st.set_page_config(page_title="Multi-Source RAG Assistant", layout="wide")
@@ -105,6 +106,7 @@ Return only the most relevant project name from the list. If none match, say "un
         file_name = meta.get("file_name", "unknown")
         chunk_index = meta.get("chunk_index", "N/A")
         source = meta.get("source", "unknown")
+        context += f"[{slack_channel_project}{file_name} | Chunk {chunk_index} | {source}]\n{doc.page_content}\n\n"
 
         if source.lower() == "slack":
             continue
@@ -120,7 +122,7 @@ Return only the most relevant project name from the list. If none match, say "un
             # "file_id": file["id"]
             continue
 
-        context += f"[{slack_channel_project}{file_name} | Chunk {chunk_index} | {source}]\n{doc.page_content}\n\n"
+        
 
     context += f" here is also Project Progess Report (The report is generated for the queried project, all mentioned info is about the queried project so use that to answer the query.): {full_report}"
 

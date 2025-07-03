@@ -4,21 +4,23 @@ import json
 from utils.gemini_llm import get_gemini_llm
 
 BASE_PROMPT = """
-You are a senior project analyst reviewing a Slack conversation thread to extract accurate and detailed progress over time.
+You are a senior project analyst reviewing a Slack conversation thread to generate a living project report. Your job is to continuously refine and update the report to reflect the most accurate and current state of the project.
 
-Your job is to:
-1. Identify and summarize each meaningful project update or decision.
-2. Capture deadlines, milestones, blockers, and next steps.
-3. Update or correct previously mentioned info if the newer message provides clarification.
-4. Structure the report in chronological order, building one section at a time.
-5. Do NOT repeat earlier points unless they were modified or clarified.
-6. Remove the unnecessary points.
-7. Keep updating the previous report with new updates.
-8. If something was not ready or not working and now it is working, then remove the not working part and just add the confirmation of its working.
-9. Do not include userids, usernames or links to the report.
+Instructions:
 
-Use bullet points, structure by date or topic, and keep it formal, clear, and neutral in tone. This is meant to be read by stakeholders and decision-makers.
+1. Identify and summarize **each meaningful update**, decision, blocker, milestone, or deadline from the conversation.
+2. Structure the report **by date**, ensuring that each update is tagged with the date of the message for traceability.
+3. If a **previously mentioned item is resolved or contradicted**, modify or remove it accordingly. The report must reflect the **latest truth**, not historical confusion.
+4. If a message confirms that something previously marked as pending or broken is now resolved, **remove the old status** and **only keep the updated confirmation**.
+5. Do **not repeat** previously captured information unless it has been changed or clarified.
+6. Recognize and include **names of clients, external stakeholders, or organizations** mentioned in the messages even if they are not Slack users.
+7. Only include meaningful information — omit off-topic, casual, or redundant messages.
+8. Ensure the final report reads like a **chronological project brief** with dated bullet points, clear subtopics, and professional tone.
+9. Do not include user IDs.
+
+Your output will be used by LLMs for reasoning, so clarity, chronological structure, and factual updates are essential.
 """
+
 
 DATA_FOLDER = "slack_data"
 REPORT_FOLDER = "slack_project_reports"
@@ -44,9 +46,15 @@ def chunk_messages(messages, chunk_size=20):
     for i in range(0, len(messages), chunk_size):
         yield messages[i:i + chunk_size]
 
+from datetime import datetime
+
+def format_ts(ts):
+    """Convert Slack ts to readable datetime string."""
+    return datetime.fromtimestamp(float(ts)).strftime("%Y-%m-%d %H:%M:%S")
+
 def build_prompt(previous_report: str, chunk: list):
     message_block = "\n".join(
-        f"{m['ts']} - {m['text']}" for m in chunk
+        f"{format_ts(m['ts'])} - {m['text']}" for m in chunk
     )
     return f"""{BASE_PROMPT}
 
@@ -56,15 +64,27 @@ Here is the existing project summary (if any):
 Now, continue the report using the new Slack messages:
 {message_block}
 
-Return ONLY the updated project report so far. Do not include timestamps in the report. No extra response.
+Your job is to:
+- Integrate all relevant new updates into the correct date-based sections.
+- Ensure the report reflects only the most accurate and current state.
+- Preserve chronological order by date.
+- Do NOT repeat old content unless it was changed.
+- Include date headings, but NOT exact timestamps.
+- Do NOT add commentary or explanations. Just return the updated project report.
 """
+
+import time
 
 def generate_updated_report(previous_report: str, new_messages: list) -> str:
     report = previous_report
+    messages_count = 0
     for chunk in chunk_messages(new_messages):
         prompt = build_prompt(report, chunk)
         result = llm.invoke(prompt)
         report = result.content
+        messages_count += 20
+        print(f'{messages_count} processed.')
+        time.sleep(10)
     return report
 
 def process_channel(channel_name, messages, tracker):
