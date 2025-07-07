@@ -1,55 +1,53 @@
 import streamlit as st
 from utils.gemini_llm import get_gemini_llm
 from vector_dbs.dbs_retriever import db_retriever
-
-llm = get_gemini_llm()
-
-
 from langchain.prompts import PromptTemplate
-rag_prompt_template = PromptTemplate.from_template("""
-You are an expert assistant helping answer questions based on multiple sources: Slack messages, Gmail threads, Google Drive files, and an up-to-date project progress report.
+import os
+import json
 
-Instructions:
-- Use only the provided context.
-- If you don’t know the answer, say "I don't know."
-- Favor the most recent updates or clarifications.
-- Prefer Slack for real-time status, Gmail for approvals/discussions, and Drive for formal docs.
-- Use the **Project Progress Report** as the most reliable summary of overall status.
-- If available, mention the **date** of an update or event from the context.
-- At the end, list citations from the context you used (with source and any metadata like file name, date, or sender).
+# ----------------- CONFIG ------------------
+st.set_page_config(page_title="Multi-Source RAG Assistant", layout="wide", initial_sidebar_state="expanded")
 
-Context:
-{context}
-
-Question:
-{question}
-""")
+# ----------------- HEADER ------------------
+st.markdown("<h1 style='color:#f63366'>🧠 Multi-Source RAG Assistant</h1>", unsafe_allow_html=True)
+st.markdown("Ask questions about your projects using insights from Slack, Gmail and Drive.")
 
 
-# Streamlit App UI
-st.set_page_config(page_title="Multi-Source RAG Assistant", layout="wide")
-st.title("🧠 Multi-Source RAG Assistant")
+# ----------------- INFO DISCLAIMER ------------------
+st.info(
+    "The assistant’s responses may not be 100% accurate. "
+    "For important decisions, please cross-check with official documents or your team.",
+    icon="⚠️"
+)
 
+# ----------------- SIDEBAR ------------------
+with st.sidebar:
+    st.header("⚙️ Settings")
+    st.markdown("- Source: Slack, Gmail, Drive, Reports")
+    st.markdown("- Powered by Gemini Pro + LangChain")
+    st.markdown("---")
+    st.caption("ℹ️ Your chat history is saved only during the session.")
+
+# ----------------- INIT ------------------
+llm = get_gemini_llm()
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-# Query box
-query = st.chat_input("Ask your question...")
+query = st.chat_input("Type your question here...")
 
-# Display history
+# ----------------- CHAT HISTORY DISPLAY ------------------
 for user_input, bot_response in st.session_state.chat_history:
     with st.chat_message("user"):
-        st.markdown(user_input)
+        st.markdown(f"💬 **You:** {user_input}")
     with st.chat_message("assistant"):
-        st.markdown(bot_response)
+        st.markdown(f"🧠 **Assistant:** {bot_response}")
 
+# ----------------- MAIN RAG LOGIC ------------------
 if query:
     with st.chat_message("user"):
         st.markdown(query)
 
-    
-    import json
-
+    # ----------------- LOAD PROJECT CONTEXT ------------------
     def load_report_tracker():
         with open("slack_project_reports/report_tracker.json", "r") as f:
             return json.load(f)
@@ -59,10 +57,7 @@ if query:
     def detect_project_from_query(llm, query, tracker):
         project_names = list(tracker.keys())
         project_list = "\n".join(f"- {name}" for name in project_names)
-
         prompt = f"""
-You are an assistant that determines which project a user is referring to in their question.
-
 User query:
 "{query}"
 
@@ -73,69 +68,94 @@ Return only the most relevant project name from the list. If none match, say "un
 """
         response = llm.invoke(prompt)
         project_name = response.content.strip().lower()
-
-        # Normalize
         for key in tracker:
             if project_name == key.lower():
                 return key
         return "unknown"
-    
-    import os
-    
+
     project_key = detect_project_from_query(llm, query, report_tracker)
     report_path = report_tracker.get(project_key, {}).get("report_path", "")
-
     full_report = ""
+
     if report_path and os.path.exists(report_path):
         with open(report_path, "r", encoding="utf-8") as f:
             full_report = f.read()
 
-    # 1. Retrieve documents
+    # ----------------- RETRIEVE CONTEXT ------------------
     ensemble_retriever = db_retriever()
     docs = ensemble_retriever.get_relevant_documents(query)
 
-    # 2. Format context and citations from metadata
     context = ""
-    citations = ""
+    citations = []
+    from datetime import datetime 
+    today = datetime.now().strftime("%B %d, %Y")
 
-    ## Fix this to include gmail & slack meta as well.
-        ## Update the logic separately for all three source to handle metadata according to them
     for doc in docs:
         meta = doc.metadata
-        slack_channel_project = meta.get("project", "unknown")
-        file_name = meta.get("file_name", "unknown")
-        chunk_index = meta.get("chunk_index", "N/A")
         source = meta.get("source", "unknown")
-        context += f"[{slack_channel_project}{file_name} | Chunk {chunk_index} | {source}]\n{doc.page_content}\n\n"
+        
+        
+        # project = meta.get("project", "unknown")
+
+        # Add readable metadata block
+        # context += f"📄 **Source:** {source} | **File:** {file_name} | **Project:** {project} | **Chunk:** {chunk_index}\n"
+        context += doc.page_content + "\n\n"
+
+        # Collect citation format
+        # if source is not "unknown":
+        #     citations.append(f"- {source}: {file_name} (Chunk {chunk_index})")
 
         if source.lower() == "slack":
             continue
         elif source.lower() == "gmail":
-        #     "source": "gmail",
-        #     "subject": subject,  # Last message's subject
-        #     "sender": sender,     # Last message's sender
-        #     "email_id": thread_id
-            continue
+            subject = meta.get("subject", "unknown")
+            sender = meta.get("sender", "unknown")
+            citations.append(f"- Gmail: {sender} | subject: {subject}")
+            context += f"📄 **Source:** {source} | **sender:** {sender} | **subject:** {subject}\n"
+
         elif source.lower() == "google_drive":
-            # "source": "google_drive",
-            # "file_name": file["name"],
-            # "file_id": file["id"]
-            continue
+            file_name = meta.get("file_name", "unknown")
+            chunk_index = meta.get("chunk_index", "N/A")
+            citations.append(f"- {source}: {file_name} (Chunk {chunk_index})")
+            context += f"📄 **Source:** {source} | **File:** {file_name} |**Chunk:** {chunk_index}\n"
 
-        
+    context += f"\n\n📘 **Project Report:**\n{full_report}"
 
-    context += f" here is also Project Progess Report (The report is generated for the queried project, all mentioned info is about the queried project so use that to answer the query.): {full_report}"
+    # ----------------- PROMPT GENERATION ------------------
+    rag_prompt_template = PromptTemplate.from_template("""
+You are an expert assistant helping answer questions based on multiple sources: Slack messages, Gmail threads, Google Drive files, and an up-to-date project progress report.
 
-    print(context)
-    print(len(context))
-    prompt = rag_prompt_template.format(context=context, question=query)
+Instructions:
+- Use only the provided context.
+- If you don’t know the answer, say "I don't know."
+- Favor the most recent updates or clarifications.
+- Prefer Slack for real-time status, Gmail for approvals/discussions, and Drive for formal docs.
+- Use the **Project Progress Report** as the most reliable summary of overall status.
+- Mention the **date** of updates if possible.
+- **Today’s date is {today_date}. Use this to evaluate how recent updates are.**
+- End with a short citation list of the sources you used.
 
-    # 4. Run LLM
+Context:
+{context}
+
+Question:
+{question}
+""")
+
+    prompt = rag_prompt_template.format(context=context, question=query, today_date=today)
+
+    # ----------------- CALL LLM ------------------
     response = llm.invoke(prompt)
     answer = response.content.strip()
 
-    # Store in session
-    st.session_state.chat_history.append((query, answer))
-
+    # ----------------- DISPLAY RESPONSE ------------------
     with st.chat_message("assistant"):
         st.markdown(answer)
+
+        with st.expander("📎 Citations"):
+            for cite in citations:
+                st.markdown(f"- {cite}")
+
+    st.session_state.chat_history.append((query, answer))
+
+

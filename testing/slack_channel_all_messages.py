@@ -115,7 +115,7 @@ def sync_all_channels():
     tracker = load_tracker()
     for channel_id, meta in tracker.items():
         sync_channel(channel_id, meta)
-        time.sleep(180)
+        time.sleep(60)
 
 if __name__ == "__main__":
     print("🚀 Starting Slack channel sync...")
