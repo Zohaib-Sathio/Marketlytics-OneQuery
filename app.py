@@ -4,6 +4,8 @@ from vector_dbs.dbs_retriever import db_retriever
 from langchain.prompts import PromptTemplate
 import os
 import json
+from utils.query_transformation import rewrite_query
+
 
 # ----------------- CONFIG ------------------
 st.set_page_config(page_title="Multi-Source RAG Assistant", layout="wide", initial_sidebar_state="expanded")
@@ -36,11 +38,14 @@ if "chat_history" not in st.session_state:
 query = st.chat_input("Type your question here...")
 
 # ----------------- CHAT HISTORY DISPLAY ------------------
-for user_input, bot_response in st.session_state.chat_history:
+for exchange in st.session_state.chat_history:
     with st.chat_message("user"):
-        st.markdown(f"💬 **You:** {user_input}")
+        st.markdown(f"💬 **You:** {exchange['original_query']}")
+        if exchange.get("rewritten_query"):
+            st.markdown(f"🔁 **Rewritten:** `{exchange['rewritten_query']}`")
     with st.chat_message("assistant"):
-        st.markdown(f"🧠 **Assistant:** {bot_response}")
+        st.markdown(f"🧠 **Assistant:** {exchange['answer']}")
+
 
 # ----------------- MAIN RAG LOGIC ------------------
 if query:
@@ -82,13 +87,15 @@ Return only the most relevant project name from the list. If none match, say "un
             full_report = f.read()
 
     # ----------------- RETRIEVE CONTEXT ------------------
+    
+    from datetime import datetime 
+    today = datetime.now().strftime("%B %d, %Y")
     ensemble_retriever = db_retriever()
-    docs = ensemble_retriever.get_relevant_documents(query)
+    rewritten_query = rewrite_query(query, today)
+    docs = ensemble_retriever.get_relevant_documents(rewritten_query)
 
     context = ""
     citations = []
-    from datetime import datetime 
-    today = datetime.now().strftime("%B %d, %Y")
 
     for doc in docs:
         meta = doc.metadata
@@ -150,12 +157,18 @@ Question:
 
     # ----------------- DISPLAY RESPONSE ------------------
     with st.chat_message("assistant"):
+        st.markdown(f"🔁 **Rewritten Query for Better Retrieval:** `{rewritten_query}`")
         st.markdown(answer)
 
         with st.expander("📎 Citations"):
             for cite in citations:
                 st.markdown(f"- {cite}")
 
-    st.session_state.chat_history.append((query, answer))
+    st.session_state.chat_history.append({
+    "original_query": query,
+    "rewritten_query": rewritten_query,
+    "answer": answer
+})
+
 
 
