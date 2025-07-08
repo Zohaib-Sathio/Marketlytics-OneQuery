@@ -142,6 +142,8 @@ def run_all():
     save_json(tracker, TRACKER_PATH)
     print("🚀 All reports updated.")
 
+from testing.slack_channel_all_messages import sync_all_channels
 
 if __name__ == "__main__":
+    sync_all_channels()
     run_all()

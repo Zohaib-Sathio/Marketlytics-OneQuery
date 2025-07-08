@@ -3,6 +3,7 @@ config/credentials.json
 token.json
 token.pickle
 config/channel_tracker.json
+config/clickup_projects.json
 
 ## folders
 slack_data/

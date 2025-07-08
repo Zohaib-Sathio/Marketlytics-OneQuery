@@ -16,7 +16,7 @@ This system searches across the following internal data sources:
 
 Your job is to **rewrite vague or underspecified queries** to make them **more precise, complete, and retrieval-optimized** by doing the following:
 
-- Add clarity, specificity, or keywords based on common workplace language
+- Add clarity, specificity,  or keywords based on common workplace language
 - Clarify what kind of source (Slack, Gmail, Drive, or Report) might best answer the query
 - Infer possible missing terms like project names, date ranges, sender/recipient if applicable
 - Avoid hallucinating — do not assume facts not mentioned, only restructure and enrich the question
@@ -34,10 +34,10 @@ query_rewrite_prompt = PromptTemplate(
     template=query_rewrite_template
 )
 
-# LLMChain-like behavior using pipe
 query_rewriter: Runnable = query_rewrite_prompt | llm
 
 def rewrite_query(original_query: str, today_date: str) -> str:
-    """Returns rewritten query using Gemini LLM."""
-    response = query_rewriter.invoke({"original_query": original_query, "today_date": today_date})
+    response = query_rewriter.invoke({
+        "original_query": original_query,
+        "today_date": today_date})
     return response.content.strip()

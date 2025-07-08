@@ -79,12 +79,31 @@ Return only the most relevant project name from the list. If none match, say "un
         return "unknown"
 
     project_key = detect_project_from_query(llm, query, report_tracker)
+
+    with open("config/tracker_to_clickup_map.json", "r", encoding="utf-8") as f:
+        tracker_to_clickup = json.load(f)
+
+    clickup_key = tracker_to_clickup.get(project_key)
+
+    def load_clickup_projects():
+        with open("config/clickup_projects.json", "r", encoding="utf-8") as f:
+            return json.load(f)
+
+    clickup_data = load_clickup_projects()
+
+
     report_path = report_tracker.get(project_key, {}).get("report_path", "")
     full_report = ""
 
     if report_path and os.path.exists(report_path):
         with open(report_path, "r", encoding="utf-8") as f:
             full_report = f.read()
+
+    
+    clickup_context = ""
+    if clickup_key and clickup_key in clickup_data:
+        for t in clickup_data[clickup_key]:
+            clickup_context += f"- {t['name']} | Status: {t['status']}\n"
 
     # ----------------- RETRIEVE CONTEXT ------------------
     
@@ -126,7 +145,10 @@ Return only the most relevant project name from the list. If none match, say "un
             citations.append(f"- {source}: {file_name} (Chunk {chunk_index})")
             context += f"📄 **Source:** {source} | **File:** {file_name} |**Chunk:** {chunk_index}\n"
 
-    context += f"\n\n📘 **Project Report:**\n{full_report}"
+    context += f"\n\n **Project Report:**\n{full_report}"
+    context += f"\n\n **ClickUp Tasks Overview:**\n{clickup_context}"
+
+    print(clickup_context)
 
     # ----------------- PROMPT GENERATION ------------------
     rag_prompt_template = PromptTemplate.from_template("""
@@ -136,8 +158,9 @@ Instructions:
 - Use only the provided context.
 - If you don’t know the answer, say "I don't know."
 - Favor the most recent updates or clarifications.
-- Prefer Slack for real-time status, Gmail for approvals/discussions, and Drive for formal docs.
-- Use the **Project Progress Report** as the most reliable summary of overall status.
+- Prefer Slack for real-time status, Gmail for approvals/discussions, Drive for formal docs and ClickUp for tasks update.
+- Use the **Project Progress Report** as the reliable summary of overall status.
+- Use ClickUp tasks data to just know the progress on tasks.                                                       
 - Mention the **date** of updates if possible.
 - **Today’s date is {today_date}. Use this to evaluate how recent updates are.**
 - End with a short citation list of the sources you used.
