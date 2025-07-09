@@ -16,6 +16,8 @@ Built for internal teams, this system uses **query rewriting**, **vector-based r
 - ✅ **Vector Database** – Stores embeddings in ChromaDB for fast and accurate retrieval.
 - ✅ **LLM-Powered Answers** – Uses LangChain + Gemini to synthesize insights from retrieved data.
 - ✅ **FastAPI (to be used) + Streamlit Interface** – Use via API or intuitive frontend for non-technical users.
+- **Grain Integration** (to be added)
+- **Query from Multiple Projects** - Use one query to retrieve info about multiple projects (to be added)
 
 ---
 
@@ -33,7 +35,7 @@ flowchart TD
     C2 --> D
     C3 --> D
     C4 --> D
-    D --> E[LLM via LangChain with Context]
+    D --> E[LLM via LangChain]
     E --> F[Response]
 ```
 
