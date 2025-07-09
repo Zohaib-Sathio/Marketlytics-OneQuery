@@ -1,19 +1,21 @@
+# 🔍 Org-Wide RAG System with Slack, Gmail, Google Drive & ClickUp Integration
 
-# 🔍 RAG System with Google Drive, Gmail, and Slack Integration
+This project is an advanced **Retrieval-Augmented Generation (RAG)** system that allows users to query organizational knowledge across various tools; **Slack**, **Gmail**, **Google Drive**, and **ClickUp** and receive intelligent, context-aware answers.
 
-This project is a **Retrieval-Augmented Generation (RAG)** system that allows users to query and generate intelligent answers from their personal or organizational data sources: **Google Drive**, **Gmail**, and **Slack**. The system integrates document retrieval from multiple platforms, performs chunking, embeddings, vector storage, and uses LLMs to generate responses with strong context awareness.
+Built for internal teams, this system uses **query rewriting**, **vector-based retrieval**, and **LLMs** to deliver accurate and relevant responses from both structured and unstructured data.
 
 ---
 
-## 🚀 Features
+## 🚀 Key Features
 
-- ✅ **Google Drive Integration** – Fetch documents, PDFs, Google Docs and extract content for semantic search.
-- ✅ **Gmail Integration** – Parse and retrieve relevant email content to power context-aware responses.
-- ✅ **Slack Integration** – Extract messages from specific channels and threads for use in semantic memory.
-- ✅ **ChromaDB + LangChain** – Store embeddings and enable fast vector search.
-- ✅ **Multi-modal Input Sources** – Combine unstructured text from multiple sources into one RAG pipeline.
-- ✅ **LLM-Powered Answers** – Query over your documents using Large Language Models (LLMs) via LangChain.
-- ✅ **FastAPI + Streamlit Interface ** – Interact with the system via API or web UI.
+- ✅ **Query Transformation** – Reformulates vague or overly-specific queries to maximize retrieval accuracy.
+- ✅ **Google Drive Integration** – Extracts content from PDFs and Google Docs for semantic search.
+- ✅ **Gmail Integration** – Parses and stores relevant email content in vector DBs for long-term memory.
+- ✅ **Slack Integration** – Ingests messages and auto-generated reports from dedicated summary channels.
+- ✅ **ClickUp Integration** – Ingests task and project data from ClickUp; project names are intelligently mapped to other sources.
+- ✅ **Vector Database** – Stores embeddings in ChromaDB for fast and accurate retrieval.
+- ✅ **LLM-Powered Answers** – Uses LangChain + Gemini to synthesize insights from retrieved data.
+- ✅ **FastAPI (to be used) + Streamlit Interface** – Use via API or intuitive frontend for non-technical users.
 
 ---
 
@@ -21,16 +23,20 @@ This project is a **Retrieval-Augmented Generation (RAG)** system that allows us
 
 ```mermaid
 flowchart TD
-    A[User Query] --> B[Retriever]
+    A[User Query] --> A1[Query Transformation]
+    A1 --> B[Retriever]
     B --> C1[Google Drive Vector DB]
     B --> C2[Gmail Vector DB]
     B --> C3[Slack Vector DB]
-    C1 --> D[Relevant Docs]
+    B --> C4[ClickUp JSON Projects]
+    C1 --> D[Relevant Chunks]
     C2 --> D
     C3 --> D
+    C4 --> D
     D --> E[LLM via LangChain]
     E --> F[Response]
 ```
+
 
 ---
 
@@ -39,24 +45,24 @@ flowchart TD
 ```
 📁 RAG-System
 │
+|
+├── config/
+|
 ├── ingestion/
-│   ├── google_drive_ingestor.py
-│   ├── slack_summary_and_sync.py
-│   ├── slack_ingestion.py
-│   ├── vector_store.py
+|
+├── slack_data/
+|
+├── slack_data_projects/
+|
 ├── testing/
-│   ├── slack.py
-│   ├── slack_with_gemini.py
-│   ├── gmail.py
-│   ├── bot_test.py
-│   ├── gd.py
+|
+├── vector_dbs/
+|
 ├── vector_store/
-│   ├── chroma
-│   ├── emails
-│   ├── slack_vector_db
+|
+├── utils/
 │
-├── frontend/
-│   ├── ui.py  # Streamlit app
+├── app.py
 │
 ├── .env
 ├── requirements.txt
@@ -84,13 +90,15 @@ flowchart TD
    pip install -r requirements.txt
    ```
 
-4. **Authenticate Google & Slack APIs**
+4. **Authenticate integrations**
    - Follow OAuth setup for Google Drive and Gmail.
-   - Add the bot to Slack channels manually or via API.
+   - Slack Bot: Add to relevant channels.
+   - ClickUp: use API to fetch project details.
+
 
 5. **Run the streamlit UI**
    ```bash
-   streamlit run frontend/ui.py
+   streamlit run app.py
    ```
 
 ---
@@ -100,7 +108,9 @@ flowchart TD
 1. **Ingestion Pipelines**:
    - Google Drive: Extracts text from docs and PDFs.
    - Gmail: Parses emails with filters like sender, date, etc.
-   - Slack: Pulls conversations from selected channels.
+   - Slack: Pulls conversations from selected channels and generate repotrs.
+   - ClickUp: Project/task data is parsed and stored as structured JSON.
+   - Query Transformer: Reformulates queries before vector search begins to improve accuracy.
 
 2. **Chunking & Embeddings**:
    - Uses LangChain text splitters and Google Embeddings.
@@ -108,6 +118,7 @@ flowchart TD
 
 3. **RAG Retrieval**:
    - Query is embedded and matched against vector stores.
+   - Project names from Slack/Email/ClickUp are mapped to match with queried project.
    - Top relevant chunks are passed to the LLM for response generation.
 
 ---
@@ -122,6 +133,7 @@ flowchart TD
 - FastAPI (to be used)
 - Streamlit 
 - Gemini
+- ClickUp API
 
 ---
 
