@@ -27,13 +27,13 @@ flowchart TD
     A1 --> B[Retriever]
     B --> C1[Google Drive Vector DB]
     B --> C2[Gmail Vector DB]
-    B --> C3[Slack Vector DB]
-    B --> C4[ClickUp JSON Projects]
+    B --> C3[Slack Project Reports]
+    B --> C4[ClickUp Projects]
     C1 --> D[Relevant Chunks]
     C2 --> D
     C3 --> D
     C4 --> D
-    D --> E[LLM via LangChain]
+    D --> E[LLM via LangChain with Context]
     E --> F[Response]
 ```
 
@@ -43,7 +43,7 @@ flowchart TD
 ## 📂 Folder Structure
 
 ```
-📁 RAG-System
+📁 RAG-System (file paths are omitted here)
 │
 |
 ├── config/
