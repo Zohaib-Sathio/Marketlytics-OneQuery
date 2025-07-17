@@ -76,8 +76,6 @@ def fetch_messages(channel_id, limit=1000):
                 if raw_meeting_text:
                     cleaned_summary = extract_clean_meeting_summary(raw_meeting_text)
                     print(cleaned_summary.content)
-                # if "text" in msg:
-                #     messages.append(msg["text"])
 
             next_cursor = response.get("response_metadata", {}).get("next_cursor")
             if not next_cursor:
@@ -92,6 +90,4 @@ def fetch_messages(channel_id, limit=1000):
 
 
 if __name__ == "__main__":
-
-
     msgs = fetch_messages(CHANNEL_ID)

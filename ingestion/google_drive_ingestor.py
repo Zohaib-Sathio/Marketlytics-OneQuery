@@ -1,6 +1,6 @@
 from utils.gemini_llm import get_gemini_llm
 from utils.google_embeddings import get_embeddings
-from vector_dbs.google_drive_db import chunk_and_store_gd
+from vector_dbs_pinecone.google_drive import chunk_and_store_gd
 from utils.drive_authentication import authenticate_drive
 from utils.gd_files_tracking import load_gd_processed_ids, save_gd_processed_id
 from utils.files_processing import extracted_text
@@ -34,7 +34,7 @@ def process_drive():
             try:
                 text, local_file  = extracted_text(file, service)
                 print("Content extracted!")
-
+    
                 if not text.strip(): 
                     continue
 

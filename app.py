@@ -17,7 +17,7 @@ st.markdown("Ask questions about your projects using insights from Slack, Gmail 
 
 # ----------------- INFO DISCLAIMER ------------------
 st.info(
-    "The assistant’s responses may not be 100% accurate. "
+    "The assistant’s responses may include old pending tasks due to lack of completion update. "
     "For important decisions, please cross-check with official documents or your team.",
     icon="⚠️"
 )
@@ -45,6 +45,7 @@ for exchange in st.session_state.chat_history:
             st.markdown(f"🔁 **Rewritten:** `{exchange['rewritten_query']}`")
     with st.chat_message("assistant"):
         st.markdown(f"🧠 **Assistant:** {exchange['answer']}")
+        st.markdown(f"**Assistant:** {exchange['improved_answer']}")
 
 
 # ----------------- MAIN RAG LOGIC ------------------
@@ -79,6 +80,7 @@ Return only the most relevant project name from the list. If none match, say "un
         return "unknown"
 
     project_key = detect_project_from_query(llm, query, report_tracker)
+    print(f"project name: {project_key}")
 
     with open("config/tracker_to_clickup_map.json", "r", encoding="utf-8") as f:
         tracker_to_clickup = json.load(f)
@@ -109,9 +111,10 @@ Return only the most relevant project name from the list. If none match, say "un
     
     from datetime import datetime 
     today = datetime.now().strftime("%B %d, %Y")
-    ensemble_retriever = db_retriever()
-    rewritten_query = rewrite_query(query, today)
-    docs = ensemble_retriever.get_relevant_documents(rewritten_query)
+    ensemble_retriever = db_retriever(project_key)
+    # rewritten_query = rewrite_query(query, today)
+    docs = ensemble_retriever.get_relevant_documents(query)
+    print("Length of the docs: ", len(docs))
 
     context = ""
     citations = []
@@ -144,11 +147,14 @@ Return only the most relevant project name from the list. If none match, say "un
             chunk_index = meta.get("chunk_index", "N/A")
             citations.append(f"- {source}: {file_name} (Chunk {chunk_index})")
             context += f"📄 **Source:** {source} | **File:** {file_name} |**Chunk:** {chunk_index}\n"
+        elif source.lower() == "grain":
+            project_name = meta.get("project_name")
+            citations.append(f"- {source}: {project_name}")
+            context += f"📄 **Source:** {source} | **Project name:** {project_name}\n"
 
     context += f"\n\n **Project Report:**\n{full_report}"
     context += f"\n\n **ClickUp Tasks Overview:**\n{clickup_context}"
 
-    print(clickup_context)
 
     # ----------------- PROMPT GENERATION ------------------
     rag_prompt_template = PromptTemplate.from_template("""
@@ -171,6 +177,26 @@ Context:
 Question:
 {question}
 """)
+    reasoning_prompt_template = PromptTemplate.from_template("""
+You are a reasoning agent that re-evaluates the assistant's response using the provided context and user question.
+
+Inputs:
+- Original Question: {question}
+- Provided Context: {context}
+- Assistant's Answer: {answer}
+
+Instructions:
+- Assess if the assistant's answer fully and accurately addresses the question using the context.
+- If the answer is incomplete, incorrect, or lacks relevance, revise it.
+- If the answer is already strong and accurate, return it as-is.
+- If the answer includes some extra info relevant to the query then let it be.                                                             
+- Do not include reasoning, analysis, or explanation.
+- Only return the final answer that should be shown to the user.
+
+Today’s date: {today_date}
+""")
+
+
 
     prompt = rag_prompt_template.format(context=context, question=query, today_date=today)
 
@@ -178,10 +204,24 @@ Question:
     response = llm.invoke(prompt)
     answer = response.content.strip()
 
+    reasoning_prompt = reasoning_prompt_template.format(
+    question=query,
+    context=context,
+    answer=answer,
+    today_date=today 
+    )
+
+    reasoning_response = llm.invoke(reasoning_prompt)
+    improved_answer = reasoning_response.content.strip()
+
+
     # ----------------- DISPLAY RESPONSE ------------------
     with st.chat_message("assistant"):
-        st.markdown(f"🔁 **Rewritten Query for Better Retrieval:** `{rewritten_query}`")
+        st.markdown("🧠 **Initial Answer:**")
         st.markdown(answer)
+        st.markdown("---")
+        st.markdown("**After Reasoning:**")
+        st.markdown(improved_answer)
 
         with st.expander("📎 Citations"):
             for cite in citations:
@@ -189,8 +229,9 @@ Question:
 
     st.session_state.chat_history.append({
     "original_query": query,
-    "rewritten_query": rewritten_query,
-    "answer": answer
+    # "rewritten_query": rewritten_query,
+    "answer": answer,
+    "improved_answer": improved_answer
 })
 
 

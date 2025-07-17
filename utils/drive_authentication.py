@@ -22,8 +22,11 @@ def authenticate_drive():
 
     # 3. Do full browser login if no creds or can't refresh
     if not creds or not creds.valid:
-        flow = InstalledAppFlow.from_client_secrets_file(USER_CREDENTIALS_FILE, SCOPES)
-        creds = flow.run_local_server(port=0)
+        flow = InstalledAppFlow.from_client_secrets_file(
+        USER_CREDENTIALS_FILE,
+        SCOPES
+    )
+        creds = flow.run_local_server(port=0, prompt='consent')
 
         # Save token for future use
         with open(TOKEN_PATH, 'w') as token:

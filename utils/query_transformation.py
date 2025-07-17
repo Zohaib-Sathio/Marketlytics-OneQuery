@@ -23,6 +23,7 @@ Your job is to **rewrite vague or underspecified queries** to make them **more p
 
 🕒 Today’s date is {today_date}. Use this to improve temporal cues in queries (e.g., "last week", "recent", "yesterday").
 
+ONLY RESPOND BACK THE REWRITTEN QUERY.
 Original query:
 {original_query}
 
