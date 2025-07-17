@@ -4,7 +4,7 @@ from langchain.schema import Document
 from langchain_pinecone import Pinecone as LangchainPinecone  # ✅ NEW PACKAGE
 from pinecone import Pinecone, ServerlessSpec
 from dotenv import load_dotenv
-from uuid import uuid4
+
 import os
 
 load_dotenv()

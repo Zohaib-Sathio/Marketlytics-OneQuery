@@ -1,6 +1,6 @@
 import streamlit as st
 from utils.gemini_llm import get_gemini_llm
-from vector_dbs.dbs_retriever import db_retriever
+from vector_dbs_pinecone.dbs_retriever import db_retriever
 from langchain.prompts import PromptTemplate
 import os
 import json
@@ -120,6 +120,8 @@ Return only the most relevant project name from the list. If none match, say "un
     citations = []
 
     for doc in docs:
+        print(doc)
+        print("\n", "*"*30)
         meta = doc.metadata
         source = meta.get("source", "unknown")
         
@@ -168,7 +170,7 @@ Instructions:
 - Use the **Project Progress Report** as the reliable summary of overall status.
 - Use ClickUp tasks data to just know the progress on tasks.                                                       
 - Mention the **date** of updates if possible.
-- **Today’s date is {today_date}. Use this to evaluate how recent updates are.**
+- **Today’s date is {today_date}. Use this to evaluate how recent updates are.**                                                        
 - End with a short citation list of the sources you used.
 
 Context:
@@ -192,6 +194,7 @@ Instructions:
 - If the answer includes some extra info relevant to the query then let it be.                                                             
 - Do not include reasoning, analysis, or explanation.
 - Only return the final answer that should be shown to the user.
+- Respond back with bullet point output or any other structure which is easy to read and delivers the information.
 
 Today’s date: {today_date}
 """)

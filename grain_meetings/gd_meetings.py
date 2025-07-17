@@ -1,5 +1,5 @@
 from utils.google_embeddings import get_embeddings
-from vector_dbs.meetings_db import chunk_and_store_meeting
+from vector_dbs_pinecone.grain_meetings import chunk_and_store_meeting
 from utils.drive_authentication import authenticate_drive
 from utils.gd_files_tracking import load_gd_processed_ids, save_gd_processed_id
 from utils.files_processing import extracted_text
