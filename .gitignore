@@ -4,7 +4,9 @@ token.json
 token.pickle
 config/channel_tracker.json
 config/clickup_projects.json
+config/gcs_account_key.json
 
 ## folders
 slack_data/
 slack_project_reports/
+config/
