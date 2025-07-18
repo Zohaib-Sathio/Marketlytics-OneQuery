@@ -162,12 +162,25 @@ if __name__ == "__main__":
 
     # Convert defaultdict to normal dict
     serializable_project_map = {k: v for k, v in project_map.items()}
+    from utils.storage_manager import GCSStorageManager
 
-    # Write to JSON file
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(serializable_project_map, f, ensure_ascii=False, indent=4)
+    gcs = GCSStorageManager("marketlytics-onequery", "config/gcs_account_key.json")
+    gcs.upload_json(serializable_project_map, "clickup_data/clickup_projects.json")
 
-    print(f"[✓] Project task map saved to: {output_path.resolve()}")
+    # # Write to JSON file
+    # with open(output_path, "w", encoding="utf-8") as f:
+    #     json.dump(serializable_project_map, f, ensure_ascii=False, indent=4)
+
+    # print(f"[✓] Project task map saved to: {output_path.resolve()}")
+
+    # from utils.storage_manager import GCSStorageManager
+
+    # # Initialize GCS manager
+    # gcs = GCSStorageManager("marketlytics-onequery", "config/gcs_account_key.json")
+
+    # # Upload the JSON file
+    # gcs.upload_file(str(output_path), "clickup_data/clickup_projects.json")
+    print("[✓] Uploaded ClickUp data to GCS.")
 
 
 

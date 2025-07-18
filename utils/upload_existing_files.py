@@ -17,5 +17,9 @@ def upload_folder(local_folder, remote_prefix):
 
 # upload_folder("slack_data", "slack_data")
 # upload_folder("slack_project_reports", "slack_project_reports")
-gcs.upload_file("slack_project_reports/report_tracker.json", "slack_project_reports/report_tracker.json")
+# gcs.upload_file("slack_project_reports/report_tracker.json", "slack_project_reports/report_tracker.json")
 # gcs.upload_file("config/channel_tracker.json", "slack_channel_tracker.json")
+gcs.upload_file(
+    local_path="config/tracker_to_clickup_map.json",
+    remote_path="config/tracker_to_clickup_map.json"
+)

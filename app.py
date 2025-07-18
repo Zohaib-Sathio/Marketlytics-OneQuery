@@ -52,11 +52,18 @@ for exchange in st.session_state.chat_history:
 if query:
     with st.chat_message("user"):
         st.markdown(query)
+    from utils.storage_manager import GCSStorageManager
+
+    gcs = GCSStorageManager("marketlytics-onequery", "config/gcs_account_key.json")
+
 
     # ----------------- LOAD PROJECT CONTEXT ------------------
     def load_report_tracker():
-        with open("slack_project_reports/report_tracker.json", "r") as f:
-            return json.load(f)
+        try:
+            return gcs.load_json("slack_project_reports/report_tracker.json")
+        except Exception as e:
+            print(f"⚠️ Failed to load tracker from GCS: {e}")
+            return {}
 
     report_tracker = load_report_tracker()
 
@@ -82,14 +89,18 @@ Return only the most relevant project name from the list. If none match, say "un
     project_key = detect_project_from_query(llm, query, report_tracker)
     print(f"project name: {project_key}")
 
-    with open("config/tracker_to_clickup_map.json", "r", encoding="utf-8") as f:
-        tracker_to_clickup = json.load(f)
+    try:
+        tracker_to_clickup = gcs.load_json("config/tracker_to_clickup_map.json")
+    except Exception as e:
+        print("❌ Could not load tracker_to_clickup_map.json:", e)
+        tracker_to_clickup = {}
 
     clickup_key = tracker_to_clickup.get(project_key)
 
     def load_clickup_projects():
-        with open("config/clickup_projects.json", "r", encoding="utf-8") as f:
-            return json.load(f)
+        from utils.storage_manager import GCSStorageManager
+        gcs = GCSStorageManager("marketlytics-onequery", "config/gcs_account_key.json")
+        return gcs.load_json("clickup_data/clickup_projects.json")
 
     clickup_data = load_clickup_projects()
 
@@ -97,9 +108,14 @@ Return only the most relevant project name from the list. If none match, say "un
     report_path = report_tracker.get(project_key, {}).get("report_path", "")
     full_report = ""
 
-    if report_path and os.path.exists(report_path):
-        with open(report_path, "r", encoding="utf-8") as f:
-            full_report = f.read()
+    
+    if report_path:
+        try:
+            full_report = gcs.load_text(report_path)
+            print("Report path: ", report_path)
+            print(full_report)
+        except Exception as e:
+            print(f"⚠️ Failed to load report from GCS: {e}")
 
     
     clickup_context = ""
@@ -213,6 +229,7 @@ Today’s date: {today_date}
     answer=answer,
     today_date=today 
     )
+    print("Context: ", context)
 
     reasoning_response = llm.invoke(reasoning_prompt)
     improved_answer = reasoning_response.content.strip()

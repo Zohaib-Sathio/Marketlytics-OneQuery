@@ -17,6 +17,12 @@ class GCSStorageManager:
         blob = self.bucket.blob(remote_path)
         os.makedirs(os.path.dirname(local_path), exist_ok=True)
         blob.download_to_filename(local_path)
+    
+    def download_text_file(self, remote_path: str, local_path: str):
+        blob = self.bucket.blob(remote_path)
+        blob.download_to_filename(local_path)
+        print(f"✅ Downloaded {remote_path} → {local_path}")
+
 
     def upload_file(self, local_path, remote_path):
         blob = self.bucket.blob(remote_path)
@@ -36,4 +42,9 @@ class GCSStorageManager:
 
     def load_text(self, remote_path):
         return self.bucket.blob(remote_path).download_as_text()
+    
+    def upload_json(self, data: dict, remote_path: str):
+        blob = self.bucket.blob(remote_path)
+        blob.upload_from_string(json.dumps(data), content_type="application/json")
+
 
