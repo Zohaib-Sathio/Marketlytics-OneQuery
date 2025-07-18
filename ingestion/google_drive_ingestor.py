@@ -1,4 +1,3 @@
-from utils.gemini_llm import get_gemini_llm
 from utils.google_embeddings import get_embeddings
 from vector_dbs_pinecone.google_drive import chunk_and_store_gd
 from utils.drive_authentication import authenticate_drive
@@ -50,7 +49,6 @@ def process_drive():
             continue
         
 
-        print('success')
         try:
             text, local_file  = extracted_text(file, service)
             print("Content extracted!")
@@ -74,10 +72,6 @@ def process_drive():
                 
         except Exception as e:
                 print(f"[!] Failed on {file['name']}: {e}")
-
-
-llm = get_gemini_llm()
-
 
 if __name__ == "__main__":
     process_drive()

@@ -1,20 +1,28 @@
-import json
-import os
+# utils/slack_channel_tracker.py
 
-TRACKER_FILE = "config/channel_tracker.json"
+import json
+from utils.storage_manager import GCSStorageManager
+
+BUCKET_NAME = "marketlytics-onequery"
+TRACKER_FILE = "slack_channel_tracker.json"
+
+gcs = GCSStorageManager(BUCKET_NAME, credentials_path="config/gcs_account_key.json")
 
 def load_tracker():
-    if not os.path.exists(TRACKER_FILE):
+    try:
+        return gcs.load_json(TRACKER_FILE)
+    except Exception as e:
+        print(f"⚠️ Could not load tracker: {e}")
         return {}
-    with open(TRACKER_FILE, "r") as f:
-        return json.load(f)
 
 def save_tracker(tracker):
-    with open(TRACKER_FILE, "w") as f:
-        json.dump(tracker, f, indent=4)
+    try:
+        gcs.save_json(tracker, TRACKER_FILE)
+    except Exception as e:
+        print(f"❌ Failed to save tracker: {e}")
+        raise e
 
 def get_last_ts(channel_id, tracker):
-    # Return 0 if not found
     return tracker.get(channel_id, {}).get("last_ts", "0")
 
 def update_last_ts(channel_id, new_ts, tracker):

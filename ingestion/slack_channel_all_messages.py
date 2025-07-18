@@ -4,6 +4,9 @@ from slack_sdk import WebClient
 
 
 from utils.slack_channel_tracker import load_tracker, get_last_ts, update_last_ts
+from utils.storage_manager import GCSStorageManager
+
+gcs = GCSStorageManager("marketlytics-onequery", "config/gcs_account_key.json")
 
 from slack_sdk.errors import SlackApiError
 
@@ -74,41 +77,37 @@ def fetch_all_messages(channel_id, oldest_ts):
     return sorted(all_messages, key=lambda x: float(x["ts"])), str(max_ts_seen)
 
 
-import json
-
-def save_messages_to_json(new_messages, filepath):
-    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+def save_messages_to_json(new_messages, channel_name, gcs):
+    remote_path = f"slack_data/{channel_name}.json"
 
     existing_messages = []
-    if os.path.exists(filepath):
-        with open(filepath, "r", encoding="utf-8") as f:
-            try:
-                existing_messages = json.load(f)
-            except json.JSONDecodeError:
-                print(f"⚠️ {filepath} is corrupted or empty, starting fresh.")
+    try:
+        existing_messages = gcs.load_json(remote_path)
+    except Exception:
+        print(f"⚠️ Couldn't load existing messages for {channel_name}. Starting fresh.")
 
     existing_messages.extend(new_messages)
+    gcs.save_json(existing_messages, remote_path)
 
-    with open(filepath, "w", encoding="utf-8") as f:
-        json.dump(existing_messages, f, indent=2, ensure_ascii=False)
+    print(f"💾 Saved {len(new_messages)} messages to {remote_path} (Total: {len(existing_messages)})")
 
-    print(f"💾 Saved {len(new_messages)} messages to {filepath} (Total: {len(existing_messages)})")
 
 
 
 def sync_channel(channel_id, channel_meta):
-    channel_name = channel_meta["name"]
+    
     tracker = load_tracker()
+
     last_ts = get_last_ts(channel_id, tracker)
+    channel_name = channel_meta["name"]
     print(f"🔄 Syncing /{channel_name} from ts > {last_ts}")
 
-    reversed_messages, max_ts_seen = fetch_all_messages(channel_id, oldest_ts=last_ts)
+    messages, max_ts_seen = fetch_all_messages(channel_id, oldest_ts=last_ts)
 
-    output_path = f"slack_data/{channel_name}.json"
-    save_messages_to_json(reversed_messages, output_path)
-
+    save_messages_to_json(messages, channel_name, gcs)
     update_last_ts(channel_id, max_ts_seen, tracker)
     print(f"✅ Updated tracker for {channel_name} to {max_ts_seen}")
+
 
 
 def sync_all_channels():
