@@ -20,11 +20,11 @@ Your output will be used by LLMs for reasoning, so clarity, chronological struct
 """
 
 
-DATA_FOLDER = "slack_data"
-REPORT_FOLDER = "slack_project_reports"
-TRACKER_PATH = "slack_project_reports/report_tracker.json"
+# DATA_FOLDER = "slack_data"
+# REPORT_FOLDER = "slack_project_reports"
+# TRACKER_PATH = "slack_project_reports/report_tracker.json"
 
-os.makedirs(REPORT_FOLDER, exist_ok=True)
+# os.makedirs(REPORT_FOLDER, exist_ok=True)
 llm = get_gemini_llm()
 
 from utils.storage_manager import GCSStorageManager

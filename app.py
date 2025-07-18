@@ -2,9 +2,7 @@ import streamlit as st
 from utils.gemini_llm import get_gemini_llm
 from vector_dbs_pinecone.dbs_retriever import db_retriever
 from langchain.prompts import PromptTemplate
-import os
-import json
-from utils.query_transformation import rewrite_query
+# from utils.query_transformation import rewrite_query
 
 
 # ----------------- CONFIG ------------------
