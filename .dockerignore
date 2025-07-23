@@ -1,0 +1,30 @@
+# Ignore Python venv
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Git
+.git/
+.gitignore
+
+# IDE & OS
+.vscode/
+*.DS_Store
+*.swp
+
+# Data & secrets
+*.json
+*.txt
+*.csv
+*.zip
+*.tar.gz
+*.ipynb
+config/
+data/
+logs/
+
+# Node/npm cruft
+node_modules/

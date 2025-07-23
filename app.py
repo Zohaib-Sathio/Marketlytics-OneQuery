@@ -1,8 +1,27 @@
+import logging
+import sys
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(message)s",
+    handlers=[logging.StreamHandler(sys.stdout)]
+)
+
+logger = logging.getLogger(__name__)
+
+
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
+
 import streamlit as st
 from utils.gemini_llm import get_gemini_llm
 from vector_dbs_pinecone.dbs_retriever import db_retriever
 from langchain.prompts import PromptTemplate
+from utils.storage_manager import GCSStorageManager
 # from utils.query_transformation import rewrite_query
+
+
 
 
 # ----------------- CONFIG ------------------
@@ -42,7 +61,7 @@ for exchange in st.session_state.chat_history:
         if exchange.get("rewritten_query"):
             st.markdown(f"🔁 **Rewritten:** `{exchange['rewritten_query']}`")
     with st.chat_message("assistant"):
-        st.markdown(f"🧠 **Assistant:** {exchange['answer']}")
+        # st.markdown(f"🧠 **Assistant:** {exchange['answer']}")
         st.markdown(f"**Assistant:** {exchange['improved_answer']}")
 
 
@@ -50,9 +69,15 @@ for exchange in st.session_state.chat_history:
 if query:
     with st.chat_message("user"):
         st.markdown(query)
-    from utils.storage_manager import GCSStorageManager
+    
 
-    gcs = GCSStorageManager("marketlytics-onequery", "config/gcs_account_key.json")
+    import os
+
+    gcs_key_path = os.getenv("GCS_KEY_PATH")
+    if not gcs_key_path:
+        raise ValueError("Missing GCS_KEY_PATH environment variable")
+
+    gcs = GCSStorageManager("marketlytics-onequery", gcs_key_path)
 
 
     # ----------------- LOAD PROJECT CONTEXT ------------------
@@ -60,7 +85,7 @@ if query:
         try:
             return gcs.load_json("slack_project_reports/report_tracker.json")
         except Exception as e:
-            print(f"⚠️ Failed to load tracker from GCS: {e}")
+            logger.warning(f"Failed to load tracker from GCS: {e}")
             return {}
 
     report_tracker = load_report_tracker()
@@ -85,19 +110,18 @@ Return only the most relevant project name from the list. If none match, say "un
         return "unknown"
 
     project_key = detect_project_from_query(llm, query, report_tracker)
-    print(f"project name: {project_key}")
+    # print(f"project name: {project_key}")
 
     try:
         tracker_to_clickup = gcs.load_json("config/tracker_to_clickup_map.json")
     except Exception as e:
-        print("❌ Could not load tracker_to_clickup_map.json:", e)
+        logger.error(f"Could not load tracker_to_clickup_map.json: {e}")
         tracker_to_clickup = {}
 
     clickup_key = tracker_to_clickup.get(project_key)
 
     def load_clickup_projects():
-        from utils.storage_manager import GCSStorageManager
-        gcs = GCSStorageManager("marketlytics-onequery", "config/gcs_account_key.json")
+        gcs = GCSStorageManager("marketlytics-onequery", gcs_key_path)
         return gcs.load_json("clickup_data/clickup_projects.json")
 
     clickup_data = load_clickup_projects()
@@ -110,10 +134,9 @@ Return only the most relevant project name from the list. If none match, say "un
     if report_path:
         try:
             full_report = gcs.load_text(report_path)
-            print("Report path: ", report_path)
-            print(full_report)
         except Exception as e:
-            print(f"⚠️ Failed to load report from GCS: {e}")
+            logger.warning(f"Failed to load report from GCS: {e}")
+
 
     
     clickup_context = ""
@@ -128,14 +151,14 @@ Return only the most relevant project name from the list. If none match, say "un
     ensemble_retriever = db_retriever(project_key)
     # rewritten_query = rewrite_query(query, today)
     docs = ensemble_retriever.get_relevant_documents(query)
-    print("Length of the docs: ", len(docs))
+    # print("Length of the docs: ", len(docs))
 
     context = ""
     citations = []
 
     for doc in docs:
-        print(doc)
-        print("\n", "*"*30)
+        # print(doc)
+        # print("\n", "*"*30)
         meta = doc.metadata
         source = meta.get("source", "unknown")
         
@@ -227,18 +250,33 @@ Today’s date: {today_date}
     answer=answer,
     today_date=today 
     )
-    print("Context: ", context)
+    logger.info(f"New user query: {query} | Detected project: {project_key}")
+
 
     reasoning_response = llm.invoke(reasoning_prompt)
     improved_answer = reasoning_response.content.strip()
 
+    logger.debug(f"Gemini response (pre-reasoning): {answer}")
+    logger.debug(f"Gemini response (post-reasoning): {improved_answer}")
+
+
+    logger.info({
+    "event": "query_handled",
+    "query": query,
+    "project_key": project_key,
+    "docs_retrieved": len(docs),
+    "context_size": len(context)
+})
+
+
+
 
     # ----------------- DISPLAY RESPONSE ------------------
     with st.chat_message("assistant"):
-        st.markdown("🧠 **Initial Answer:**")
-        st.markdown(answer)
-        st.markdown("---")
-        st.markdown("**After Reasoning:**")
+        # st.markdown("🧠 **Initial Answer:**")
+        # st.markdown(answer)
+        # st.markdown("---")
+        # st.markdown("**After Reasoning:**")
         st.markdown(improved_answer)
 
         with st.expander("📎 Citations"):
@@ -248,7 +286,7 @@ Today’s date: {today_date}
     st.session_state.chat_history.append({
     "original_query": query,
     # "rewritten_query": rewritten_query,
-    "answer": answer,
+    # "answer": answer,
     "improved_answer": improved_answer
 })
 
