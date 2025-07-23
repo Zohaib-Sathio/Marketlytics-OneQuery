@@ -5,12 +5,16 @@ from google.oauth2 import service_account
 import os, json
 
 class GCSStorageManager:
-    def __init__(self, bucket_name, credentials_path=None):
-        if credentials_path:
+    def __init__(self, bucket_name, credentials_path=None, credentials_dict=None):
+        if credentials_dict:
+            creds = service_account.Credentials.from_service_account_info(credentials_dict)
+            self.client = storage.Client(credentials=creds)
+        elif credentials_path:
             creds = service_account.Credentials.from_service_account_file(credentials_path)
             self.client = storage.Client(credentials=creds)
         else:
-            self.client = storage.Client()  # fallback to Application Default Credentials
+            self.client = storage.Client()  # fallback to ADC (won’t work on Streamlit Cloud)
+
         self.bucket = self.client.bucket(bucket_name)
 
     def download_file(self, remote_path, local_path):

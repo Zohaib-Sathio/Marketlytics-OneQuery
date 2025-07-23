@@ -71,13 +71,17 @@ if query:
         st.markdown(query)
     
 
-    import os
+    import os, json
 
-    gcs_key_path = os.getenv("GCS_KEY_PATH")
-    if not gcs_key_path:
-        raise ValueError("Missing GCS_KEY_PATH environment variable")
+    # Read JSON credentials from Streamlit secrets
+    gcs_credentials_dict = st.secrets["gcp_service_account"]
 
-    gcs = GCSStorageManager("marketlytics-onequery", gcs_key_path)
+    # Convert dict to JSON string then to a temporary file-like object (if needed)
+    gcs_credentials_json = json.dumps(gcs_credentials_dict)
+
+    # Now pass this JSON string to your GCS client or save it to a temp file
+    gcs = GCSStorageManager("marketlytics-onequery", credentials_dict=gcs_credentials_json)
+    # gcs = GCSStorageManager("marketlytics-onequery", gcs_key_path)
 
 
     # ----------------- LOAD PROJECT CONTEXT ------------------
@@ -121,7 +125,7 @@ Return only the most relevant project name from the list. If none match, say "un
     clickup_key = tracker_to_clickup.get(project_key)
 
     def load_clickup_projects():
-        gcs = GCSStorageManager("marketlytics-onequery", gcs_key_path)
+        gcs = GCSStorageManager("marketlytics-onequery", credentials_dict=gcs_credentials_json)
         return gcs.load_json("clickup_data/clickup_projects.json")
 
     clickup_data = load_clickup_projects()
